@@ -1,17 +1,17 @@
 ---
+import Page from '../layouts/Page.astro'
 import { getString } from '../libs/test'
 
 const t = getString()
 ---
 
-<html lang="en">
-  <body>
-    <h1>Hello, World!</h1>
-    <div>{t}</div>
-    <style>
-      h1 {
-        color: orange;
-      }
-    </style>
-  </body>
-</html>
+<Page>
+  <style>
+    h1 {
+      color: orange;
+    }
+  </style>
+
+  <h1>Hello, World!</h1>
+  <div>{t}</div>
+</Page>
