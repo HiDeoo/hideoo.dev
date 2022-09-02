@@ -1,16 +1,18 @@
+---
+import Head from '../components/Head.astro'
+import Sidebar from '../components/Sidebar.astro'
+---
+
 <html lang="en">
   <head>
-    <meta charset="utf8" />
-    <title>HiDeoo</title>
-    <meta name="color-scheme" content="dark light" />
-    <meta name="description" content="// TODO" />
-    <meta name="theme-color" media="(prefers-color-scheme: dark)" content="// TODO" />
-    <meta name="theme-color" media="(prefers-color-scheme: light)" content="// TODO" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" href="/images/icons/favicon.ico" sizes="any" />
-    <link rel="icon" href="/images/icons/favicon.svg" type="image/svg+xml" />
+    <Head />
   </head>
-  <body>
-    <slot />
+  <body class="bg-zinc-100 dark:bg-zinc-800">
+    <div class="max-w-7xl mx-auto p-4 sm:p-6 md:p-8 bg-yellow-200">
+      <Sidebar />
+      <main class="md:pl-[19.5rem]">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>

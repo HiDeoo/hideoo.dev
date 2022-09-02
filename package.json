@@ -13,7 +13,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@hideoo/eslint-config": "0.7.0",
+    "@astrojs/tailwind": "1.0.0",
+    "@hideoo/eslint-config": "0.7.1",
     "@hideoo/prettier-config": "0.1.1",
     "@hideoo/tsconfig": "0.1.0",
     "@types/prettier": "2.7.0",
@@ -24,6 +25,7 @@
     "lint-staged": "13.0.3",
     "prettier": "2.7.1",
     "prettier-plugin-astro": "0.5.4",
+    "tailwindcss": "3.1.8",
     "typescript": "4.8.2"
   },
   "engines": {
