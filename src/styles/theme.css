@@ -1,0 +1,27 @@
+:root {
+  --max-page-width: 80rem;
+  --sidebar-width: var(--size-14);
+
+  --spacing: var(--size-3);
+  --sm-spacing: var(--size-5);
+  --md-spacing: var(--size-7);
+  --lg-spacing: var(--size-8);
+}
+
+:root {
+  color-scheme: light;
+
+  --bg-color: var(--gray-2);
+  --card-bg-color: white;
+  --card-border-color: var(--gray-9);
+  --card-color: var(--gray-9);
+}
+
+:root.dark {
+  color-scheme: dark;
+
+  --bg-color: var(--gray-9);
+  --card-bg-color: #16161a;
+  --card-border-color: var(--gray-5);
+  --card-color: var(--gray-3);
+}

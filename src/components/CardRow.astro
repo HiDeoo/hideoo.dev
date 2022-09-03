@@ -1,3 +1,14 @@
-<div class="border-b border-zinc-900 dark:border-zinc-400 last:border-b-0 p-4">
+<div>
   <slot />
 </div>
+
+<style>
+  div {
+    border-bottom: var(--border-size-1) solid var(--card-border-color);
+    padding: var(--size-3);
+  }
+
+  div:last-child {
+    border-bottom: 0;
+  }
+</style>

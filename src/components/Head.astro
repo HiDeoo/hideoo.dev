@@ -1,3 +1,8 @@
+---
+import '../styles/theme.css'
+import '../styles/global.css'
+---
+
 <title>HiDeoo</title>
 
 <meta charset="utf8" />
@@ -11,15 +16,33 @@
 <link rel="icon" href="/images/icons/favicon.svg" type="image/svg+xml" />
 
 <script>
+  function setDarkTheme() {
+    document.documentElement.classList.add('dark')
+  }
+
+  function unsetDarkTheme() {
+    document.documentElement.classList.remove('dark')
+  }
+
+  const preferDarkTheme = window.matchMedia('(prefers-color-scheme: dark)')
+
   try {
     const theme = localStorage.getItem('theme')
 
-    if (theme === 'dark' || (!theme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-      document.documentElement.classList.add('dark')
+    if (theme === 'dark' || (!theme && preferDarkTheme.matches)) {
+      setDarkTheme()
     } else {
-      document.documentElement.classList.remove('dark')
+      unsetDarkTheme()
     }
   } catch {
-    document.documentElement.classList.remove('dark')
+    unsetDarkTheme()
   }
+
+  preferDarkTheme.addEventListener('change', (event) => {
+    if (event.matches) {
+      setDarkTheme()
+    } else {
+      unsetDarkTheme()
+    }
+  })
 </script>

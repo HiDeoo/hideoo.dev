@@ -2,12 +2,18 @@
 import ProfileCard from './ProfileCard.astro'
 ---
 
-<aside
-  class:list={[
-    'static md:fixed inset-0 md:left-8 xl:left-[max(0px,calc(50%-40rem+3rem))]',
-    'md:py-8 md:pr-4 xl:py-12 xl:pr-6 mb-4 sm:mb-6 md:mb-0',
-    'md:w-80 overflow-y-auto',
-  ]}
->
+<aside>
   <ProfileCard />
 </aside>
+
+<style>
+  @import 'open-props/media';
+
+  aside {
+    flex-shrink: 0;
+
+    @media (--md-n-above) {
+      width: var(--sidebar-width);
+    }
+  }
+</style>

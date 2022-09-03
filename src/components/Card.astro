@@ -1,8 +1,12 @@
-<div
-  class:list={[
-    'bg-white rounded border border-zinc-900 text-zinc-900',
-    'dark:bg-zinc-900 dark:border-zinc-400 dark:text-zinc-200',
-  ]}
->
+<div>
   <slot />
 </div>
+
+<style>
+  div {
+    background-color: var(--card-bg-color);
+    border: var(--border-size-1) solid var(--card-border-color);
+    border-radius: var(--radius-2);
+    color: var(--card-color);
+  }
+</style>

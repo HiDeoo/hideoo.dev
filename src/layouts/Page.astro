@@ -1,4 +1,6 @@
 ---
+import 'modern-normalize'
+
 import Head from '../components/Head.astro'
 import Sidebar from '../components/Sidebar.astro'
 ---
@@ -7,10 +9,10 @@ import Sidebar from '../components/Sidebar.astro'
   <head>
     <Head />
   </head>
-  <body class="bg-zinc-100 dark:bg-zinc-800">
-    <div class="max-w-7xl mx-auto p-4 sm:p-6 md:p-8 xl:p-12">
+  <body>
+    <div class="app">
       <Sidebar />
-      <main class="md:pl-[21rem] xl:pl-[21.5rem]">
+      <main>
         <slot />
       </main>
     </div>

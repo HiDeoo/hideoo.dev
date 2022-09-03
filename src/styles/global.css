@@ -1,0 +1,34 @@
+@import 'open-props/media';
+
+html {
+  background-color: var(--bg-color);
+}
+
+div.app {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing);
+  max-width: var(--max-page-width);
+  margin-inline: auto;
+  padding: var(--spacing);
+
+  @media (--sm-n-above) {
+    gap: var(--sm-spacing);
+    padding: var(--sm-spacing);
+  }
+
+  @media (--md-n-above) {
+    flex-direction: row;
+    gap: var(--md-spacing);
+    padding: var(--md-spacing);
+  }
+
+  @media (--lg-n-above) {
+    gap: var(--lg-spacing);
+    padding: var(--lg-spacing);
+  }
+}
+
+main {
+  flex-grow: 1;
+}
