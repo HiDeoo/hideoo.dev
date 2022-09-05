@@ -1,6 +1,7 @@
 lockfileVersion: 5.4
 
 specifiers:
+  '@fontsource/archivo': 4.5.8
   '@hideoo/eslint-config': 0.7.1
   '@hideoo/prettier-config': 0.1.1
   '@hideoo/tsconfig': 0.1.0
@@ -22,6 +23,7 @@ specifiers:
   typescript: 4.8.2
 
 devDependencies:
+  '@fontsource/archivo': 4.5.8
   '@hideoo/eslint-config': 0.7.1_yqf6kl63nyoq5megxukfnom5rm
   '@hideoo/prettier-config': 0.1.1
   '@hideoo/tsconfig': 0.1.0
@@ -584,6 +586,10 @@ packages:
       strip-json-comments: 3.1.1
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /@fontsource/archivo/4.5.8:
+    resolution: {integrity: sha512-FLRuy4ltb7bS8wE/8gyzWJ5FZ4aJpOUZ8Ox1JfTmowz2+dJ43mw5EJZ7D2xMzjMwAyO/+UvwKhtmiC1m6F8KDA==}
     dev: true
 
   /@hideoo/eslint-config-base/0.7.1_ger3qbmbfneqgjwxmc6jzpprnm:

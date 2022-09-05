@@ -2,6 +2,8 @@
   --max-page-width: 80rem;
   --sidebar-width: calc(var(--size-14) - var(--size-8));
 
+  --text-size: var(--size-3);
+
   --spacing: var(--size-3);
   --sm-spacing: var(--size-5);
   --md-spacing: var(--size-7);
@@ -16,7 +18,7 @@
   --color: var(--gray-9);
   --bg-color: var(--gray-2);
   --card-bg-color: white;
-  --card-border-color: var(--gray-9);
+  --card-border-color: var(--color);
   --card-color: var(--color);
 }
 
@@ -24,8 +26,8 @@
   color-scheme: dark;
 
   --color: var(--gray-4);
-  --bg-color: var(--gray-9);
-  --card-bg-color: #16161a;
-  --card-border-color: var(--gray-5);
+  --bg-color: #101214;
+  --card-bg-color: #0a0a0a;
+  --card-border-color: var(--gray-6);
   --card-color: var(--color);
 }

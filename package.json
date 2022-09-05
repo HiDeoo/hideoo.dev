@@ -13,6 +13,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@fontsource/archivo": "4.5.8",
     "@hideoo/eslint-config": "0.7.1",
     "@hideoo/prettier-config": "0.1.1",
     "@hideoo/tsconfig": "0.1.0",

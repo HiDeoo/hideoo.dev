@@ -1,8 +1,22 @@
+@import '@fontsource/archivo';
 @import 'open-props/media';
+
+/* https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Archivo */
+@font-face {
+  font-family: 'Archivo-fallback';
+  size-adjust: 98.44%;
+  src: local('Arial');
+}
 
 html {
   background-color: var(--bg-color);
+}
+
+body {
   color: var(--color);
+  font-family: 'Archivo', 'Archivo-fallback', sans-serif;
+  font-size: var(--text-size);
+  line-height: var(--size-4);
 }
 
 a {
