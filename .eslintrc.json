@@ -1,5 +1,8 @@
 {
   "extends": ["@hideoo", "plugin:astro/recommended"],
+  "globals": {
+    "astroHTML": "readonly"
+  },
   "overrides": [
     {
       "files": ["*.astro"],

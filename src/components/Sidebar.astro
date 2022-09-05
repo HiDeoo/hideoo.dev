@@ -10,10 +10,22 @@ import ProfileCard from './ProfileCard.astro'
   @import 'open-props/media';
 
   aside {
+    display: flex;
+    flex-direction: column;
     flex-shrink: 0;
+    gap: var(--spacing);
+
+    @media (--sm-n-above) {
+      gap: var(--sm-spacing);
+    }
 
     @media (--md-n-above) {
+      gap: var(--md-spacing);
       width: var(--sidebar-width);
+    }
+
+    @media (--lg-n-above) {
+      gap: var(--lg-spacing);
     }
   }
 </style>

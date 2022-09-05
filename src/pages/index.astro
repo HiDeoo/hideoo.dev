@@ -1,8 +1,63 @@
 ---
+import Card from '../components/Card.astro'
+import CardRow from '../components/CardRow.astro'
+import Grid from '../components/Grid.astro'
+import Section from '../components/Section.astro'
 import Page from '../layouts/Page.astro'
 ---
 
 <Page>
-  Lorem ipsum dolor sit amet, consectetur adipisicing elit. Molestiae amet eius quis commodi, cupiditate sit at. Officia
-  ut facilis obcaecati libero asperiores, repellendus eligendi repudiandae in, voluptatum numquam distinctio suscipit.
+  <Section title="Section 1">
+    <Grid>
+      <Card as="article" href="http://google.com">
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+    </Grid>
+  </Section>
+  <Section title="Section 2">
+    <Grid>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+      <Card>
+        <CardRow>plop</CardRow>
+      </Card>
+    </Grid>
+  </Section>
 </Page>

@@ -1,12 +1,61 @@
-<div class="card">
-  <slot />
-</div>
+---
+export interface Props {
+  as?: keyof astroHTML.JSX.IntrinsicElements
+  href?: string
+  target?: astroHTML.JSX.AnchorHTMLAttributes['target']
+  title?: string
+}
+
+const { as, href, target, title } = Astro.props
+
+// https://github.com/withastro/astro/blob/63cd9d89e8b83ce5e39cdae84a8342e28d1940cc/packages/astro/astro-jsx.d.ts#L34-L36
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Element: any = as ?? 'div'
+
+const isLink = typeof href === 'string'
+---
+
+<Element class:list={['card', { cardLink: isLink }]}>
+  {
+    isLink ? (
+      <a href={href} target={target} title={title}>
+        <slot />
+      </a>
+    ) : (
+      <slot />
+    )
+  }
+</Element>
 
 <style>
-  div.card {
+  .card {
     background-color: var(--card-bg-color);
     border: var(--border-size-1) solid var(--card-border-color);
     border-radius: var(--radius-2);
     color: var(--card-color);
+    position: relative;
+
+    & :global(a) {
+      text-decoration: none;
+    }
+  }
+
+  .cardLink::after {
+    --offset: var(--size-1);
+
+    background-color: var(--card-border-color);
+    border-radius: var(--radius-2);
+    content: '';
+    height: 100%;
+    left: var(--offset);
+    opacity: 0;
+    top: var(--offset);
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+  }
+
+  .cardLink:hover::after {
+    animation: var(--animation-fade-in) forwards;
   }
 </style>

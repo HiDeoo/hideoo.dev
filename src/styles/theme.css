@@ -1,27 +1,31 @@
 :root {
   --max-page-width: 80rem;
-  --sidebar-width: var(--size-14);
+  --sidebar-width: calc(var(--size-14) - var(--size-8));
 
   --spacing: var(--size-3);
   --sm-spacing: var(--size-5);
   --md-spacing: var(--size-7);
   --lg-spacing: var(--size-8);
+
+  --grid-spacing: var(--size-3);
 }
 
 :root {
   color-scheme: light;
 
+  --color: var(--gray-9);
   --bg-color: var(--gray-2);
   --card-bg-color: white;
   --card-border-color: var(--gray-9);
-  --card-color: var(--gray-9);
+  --card-color: var(--color);
 }
 
 :root.dark {
   color-scheme: dark;
 
+  --color: var(--gray-4);
   --bg-color: var(--gray-9);
   --card-bg-color: #16161a;
-  --card-border-color: var(--gray-6);
-  --card-color: var(--gray-4);
+  --card-border-color: var(--gray-5);
+  --card-color: var(--color);
 }

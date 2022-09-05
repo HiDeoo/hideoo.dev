@@ -1,0 +1,15 @@
+<div>
+  <slot />
+</div>
+
+<style>
+  div {
+    display: grid;
+    gap: var(--grid-spacing);
+    grid-template-columns: 1fr;
+
+    @media (--lg-n-above) {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+</style>

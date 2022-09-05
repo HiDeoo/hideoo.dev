@@ -1,0 +1,19 @@
+---
+export interface Props {
+  title: string
+}
+const { title } = Astro.props
+---
+
+<section>
+  <h2>{title}</h2>
+  <div>
+    <slot />
+  </div>
+</section>
+
+<style>
+  section:first-child h2 {
+    margin-top: 0;
+  }
+</style>
