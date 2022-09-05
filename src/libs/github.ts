@@ -1,4 +1,11 @@
-import { type User } from '@octokit/graphql-schema'
+import { type User, type Maybe, type Repository } from '@octokit/graphql-schema'
+
+const GithubRepoFragment = `fragment Repo on RepositoryConnection {
+	nodes {
+    id
+    name
+  }
+}`
 
 export async function fetchGitHubProfile() {
   const { viewer } = await fetchGitHubApi<{ viewer: GitHubProfile }>({
@@ -22,13 +29,7 @@ export async function fetchGitHubRepos() {
   while (hasMore) {
     const paginatedRepos = await fetchGitHubPaginatedRepos(cursor)
 
-    if (paginatedRepos.nodes) {
-      for (const node of paginatedRepos.nodes) {
-        if (node) {
-          repos.push(node)
-        }
-      }
-    }
+    repos.push(...getReposFromNodes(paginatedRepos.nodes))
 
     hasMore = paginatedRepos.pageInfo.hasNextPage
 
@@ -40,31 +41,55 @@ export async function fetchGitHubRepos() {
   return repos
 }
 
-async function fetchGitHubPaginatedRepos(after?: string) {
+export async function fetchGitHubRecentRepos(count = 4) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
     query: `
-    query Repos($after: String) {
+    ${GithubRepoFragment}
+    query Repos($count: Int) {
       viewer {
         repositories(
-          after: $after,
-          first: 10,
+          first: $count,
           isFork: false,
-          orderBy: { direction: DESC, field: STARGAZERS },
+          orderBy: { direction: DESC, field: CREATED_AT },
           ownerAffiliations: [OWNER],
-          privacy: PUBLIC) {
-            nodes {
-              id
-              name
-            }
-            pageInfo {
-              hasNextPage
-              endCursor
-            }
+          privacy: PUBLIC
+        ) {
+          ...Repo
         }
       }
     }`,
     variables: {
-      after: after,
+      count,
+    },
+  })
+
+  return getReposFromNodes(json.viewer.repositories.nodes)
+}
+
+async function fetchGitHubPaginatedRepos(after?: string) {
+  const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
+    query: `
+    ${GithubRepoFragment}
+    query Repos($after: String) {
+      viewer {
+        repositories(
+          after: $after,
+          first: 100,
+          isFork: false,
+          orderBy: { direction: DESC, field: STARGAZERS },
+          ownerAffiliations: [OWNER],
+          privacy: PUBLIC
+        ) {
+          ...Repo
+          pageInfo {
+            hasNextPage
+            endCursor
+          }
+        }
+      }
+    }`,
+    variables: {
+      after,
     },
   })
 
@@ -90,9 +115,23 @@ async function fetchGitHubApi<TData>(body: GitHubApiRequestBody) {
   return json.data
 }
 
+function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
+  const repos: GitHubRepo[] = []
+
+  if (nodes) {
+    for (const node of nodes) {
+      if (node) {
+        repos.push(node)
+      }
+    }
+  }
+
+  return repos
+}
+
 interface GitHubApiRequestBody {
   query: string
-  variables?: Record<string, string | undefined>
+  variables?: Record<string, string | number | undefined>
 }
 
 type GitHubProfile = Pick<User, 'login'>

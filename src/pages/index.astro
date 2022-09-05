@@ -2,12 +2,16 @@
 import Repos from '../components/Repos.astro'
 import Section from '../components/Section.astro'
 import Page from '../layouts/Page.astro'
-import { fetchGitHubRepos } from '../libs/github'
+import { fetchGitHubRecentRepos, fetchGitHubRepos } from '../libs/github'
 
 const allRepos = await fetchGitHubRepos()
+const recentRepos = await fetchGitHubRecentRepos()
 ---
 
 <Page>
+  <Section title="Recent Projects">
+    <Repos repos={recentRepos} />
+  </Section>
   <Section title="All Projects">
     <Repos repos={allRepos} />
   </Section>
