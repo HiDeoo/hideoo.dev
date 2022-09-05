@@ -1,14 +1,14 @@
 ---
-import { fetchGitHubInfos } from '../libs/github'
+import { fetchGitHubProfile } from '../libs/github'
 
 import Card from './Card.astro'
 import CardRow from './CardRow.astro'
 
-const gitHubInfos = await fetchGitHubInfos()
+const gitHubProfile = await fetchGitHubProfile()
 ---
 
 <Card>
-  <CardRow>{gitHubInfos.login}</CardRow>
+  <CardRow>{gitHubProfile.login}</CardRow>
   <CardRow>Card block 2</CardRow>
   <CardRow>Card block 3</CardRow>
 </Card>

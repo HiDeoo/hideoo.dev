@@ -1,63 +1,14 @@
 ---
-import Card from '../components/Card.astro'
-import CardRow from '../components/CardRow.astro'
-import Grid from '../components/Grid.astro'
+import Repos from '../components/Repos.astro'
 import Section from '../components/Section.astro'
 import Page from '../layouts/Page.astro'
+import { fetchGitHubRepos } from '../libs/github'
+
+const allRepos = await fetchGitHubRepos()
 ---
 
 <Page>
-  <Section title="Section 1">
-    <Grid>
-      <Card as="article" href="http://google.com">
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-    </Grid>
-  </Section>
-  <Section title="Section 2">
-    <Grid>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-      <Card>
-        <CardRow>plop</CardRow>
-      </Card>
-    </Grid>
+  <Section title="All Projects">
+    <Repos repos={allRepos} />
   </Section>
 </Page>

@@ -1,0 +1,15 @@
+---
+import { type GitHubRepo } from '../libs/github'
+
+import Card from './Card.astro'
+import CardRow from './CardRow.astro'
+
+export interface Props {
+  repo: GitHubRepo
+}
+const { repo } = Astro.props
+---
+
+<Card as="article" href="http://google.com">
+  <CardRow>{repo.name}</CardRow>
+</Card>
