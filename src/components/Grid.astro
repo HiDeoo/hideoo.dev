@@ -8,10 +8,10 @@
   div {
     display: grid;
     gap: var(--grid-spacing);
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
 
     @media (--lg-n-above) {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     }
   }
 </style>

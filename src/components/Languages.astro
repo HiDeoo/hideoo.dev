@@ -1,0 +1,25 @@
+---
+import { type GitHubLanguage } from '../libs/github'
+
+import Language from './Language.astro'
+
+export interface Props {
+  languages: GitHubLanguage[]
+}
+
+const { languages } = Astro.props
+---
+
+<ul>{languages.map((language) => <Language language={language} />)}</ul>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: row;
+    gap: 0.65rem;
+    list-style: none;
+    margin: 0;
+    overflow: auto;
+    padding: var(--size-3);
+  }
+</style>

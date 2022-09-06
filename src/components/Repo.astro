@@ -3,15 +3,21 @@ import { type GitHubRepo } from '../libs/github'
 
 import Card from './Card.astro'
 import CardRow from './CardRow.astro'
+import Languages from './Languages.astro'
 
 export interface Props {
   repo: GitHubRepo
 }
+
 const { repo } = Astro.props
 ---
 
 <Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`}>
-  <CardRow><h3>{repo.name}</h3></CardRow>
+  <CardRow>
+    <h3>{repo.name}</h3>
+  </CardRow>
   <CardRow small grow>{repo.description}</CardRow>
-  <CardRow small>footer</CardRow>
+  <CardRow small raw>
+    <Languages languages={repo.languages} />
+  </CardRow>
 </Card>

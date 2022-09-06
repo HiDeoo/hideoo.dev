@@ -2,6 +2,7 @@
   --max-page-width: 80rem;
   --sidebar-width: calc(var(--size-14) - var(--size-8));
 
+  --text-size-xs: 0.8rem;
   --text-size-sm: 0.925rem;
   --text-size: 0.975rem;
   --text-size-lg: 1.1rem;

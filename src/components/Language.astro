@@ -1,0 +1,21 @@
+---
+import { type GitHubLanguage } from '../libs/github'
+
+export interface Props {
+  language: GitHubLanguage
+}
+
+const { language } = Astro.props
+---
+
+<li>{language.name}</li>
+
+<style>
+  li {
+    border: var(--border-size-1) solid var(--card-border-color);
+    display: block;
+    font-size: var(--text-size-xs);
+    line-height: var(--size-4);
+    padding: var(--size-1) var(--size-2);
+  }
+</style>

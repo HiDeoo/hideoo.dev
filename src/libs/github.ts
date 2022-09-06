@@ -6,6 +6,14 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
     description
     id
+    languages(first: 10, orderBy: { direction: DESC, field: SIZE }) {
+      edges {
+        node {
+          color
+          name
+        }
+      }
+    }
     name
     url
   }
@@ -125,7 +133,30 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
   if (nodes) {
     for (const node of nodes) {
       if (node && !repoBanList.some((regex) => regex.test(node.name))) {
-        repos.push(node)
+        if (typeof node.description !== 'string' || node.description.length === 0) {
+          console.error(`No description found for repository '${node.name}'.`)
+          continue
+        }
+
+        const languages: GitHubRepo['languages'] = []
+
+        if (node.languages?.edges) {
+          for (const languageEdge of node.languages.edges) {
+            if (!languageEdge || !languageEdge.node.color) {
+              continue
+            }
+
+            languages.push({ color: languageEdge.node.color, name: languageEdge.node.name })
+          }
+        }
+
+        repos.push({
+          description: node.description,
+          id: node.id,
+          languages,
+          name: node.name,
+          url: node.url,
+        })
       }
     }
   }
@@ -139,7 +170,16 @@ interface GitHubApiRequestBody {
 }
 
 type GitHubProfile = Pick<User, 'login'>
-export type GitHubRepo = Pick<
-  NonNullable<NonNullable<User['repositories']['nodes']>[number]>,
-  'id' | 'name' | 'description' | 'url'
->
+
+export interface GitHubRepo {
+  description: string | null
+  id: string
+  languages: GitHubLanguage[]
+  name: string
+  url: string
+}
+
+export interface GitHubLanguage {
+  color: string
+  name: string
+}

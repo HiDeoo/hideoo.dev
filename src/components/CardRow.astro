@@ -1,12 +1,14 @@
 ---
 export interface Props {
   grow?: boolean
+  raw?: boolean
   small?: boolean
 }
-const { grow, small } = Astro.props
+
+const { grow, raw, small } = Astro.props
 ---
 
-<div class:list={['cardRow', { grow, small }]}>
+<div class:list={['cardRow', { grow, raw, small }]}>
   <slot />
 </div>
 
@@ -22,6 +24,10 @@ const { grow, small } = Astro.props
 
     &.grow {
       flex-grow: 1;
+    }
+
+    &.raw {
+      padding: 0;
     }
 
     &.small {
