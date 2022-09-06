@@ -10,11 +10,7 @@ export interface Props {
 const { repo } = Astro.props
 ---
 
-<Card as="article" href="http://google.com">
+<Card as="article" href={repo.url} target="_blank">
   <CardRow>{repo.name}</CardRow>
-  <CardRow
-    >Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reiciendis expedita veniam ea. Natus assumenda magni quos
-    repellendus saepe cupiditate molestiae cum autem, deserunt, consectetur porro maiores enim voluptatem temporibus
-    officiis.</CardRow
-  >
+  <CardRow>{repo.description}</CardRow>
 </Card>

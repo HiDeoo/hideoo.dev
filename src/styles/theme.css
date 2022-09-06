@@ -26,8 +26,8 @@
   color-scheme: dark;
 
   --color: var(--gray-4);
-  --bg-color: #101214;
-  --card-bg-color: #0a0a0a;
+  --bg-color: hsl(210 11% 7%);
+  --card-bg-color: hsl(0 0% 4%);
   --card-border-color: var(--gray-6);
   --card-color: var(--color);
 }

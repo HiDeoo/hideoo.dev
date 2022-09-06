@@ -1,9 +1,13 @@
 import { type User, type Maybe, type Repository } from '@octokit/graphql-schema'
 
+const repoBanList: RegExp[] = [/\.github/, /-repro/]
+
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
+    description
     id
     name
+    url
   }
 }`
 
@@ -59,11 +63,11 @@ export async function fetchGitHubRecentRepos(count = 4) {
       }
     }`,
     variables: {
-      count,
+      count: count + 10,
     },
   })
 
-  return getReposFromNodes(json.viewer.repositories.nodes)
+  return getReposFromNodes(json.viewer.repositories.nodes).slice(0, count)
 }
 
 async function fetchGitHubPaginatedRepos(after?: string) {
@@ -120,7 +124,7 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
 
   if (nodes) {
     for (const node of nodes) {
-      if (node) {
+      if (node && !repoBanList.some((regex) => regex.test(node.name))) {
         repos.push(node)
       }
     }
@@ -135,4 +139,7 @@ interface GitHubApiRequestBody {
 }
 
 type GitHubProfile = Pick<User, 'login'>
-export type GitHubRepo = Pick<NonNullable<NonNullable<User['repositories']['nodes']>[number]>, 'id' | 'name'>
+export type GitHubRepo = Pick<
+  NonNullable<NonNullable<User['repositories']['nodes']>[number]>,
+  'id' | 'name' | 'description' | 'url'
+>
