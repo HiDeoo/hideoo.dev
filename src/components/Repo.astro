@@ -10,7 +10,7 @@ export interface Props {
 const { repo } = Astro.props
 ---
 
-<Card as="article" href={repo.url} target="_blank">
+<Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`}>
   <CardRow><h3>{repo.name}</h3></CardRow>
   <CardRow small grow>{repo.description}</CardRow>
   <CardRow small>footer</CardRow>
