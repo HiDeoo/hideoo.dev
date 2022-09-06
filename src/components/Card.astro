@@ -62,6 +62,7 @@ const isLink = typeof href === 'string'
   .cardLink:hover::after {
     @media (--motionOK) {
       animation: var(--animation-fade-in) forwards;
+      animation-timing-function: var(--ease-out-1);
     }
 
     @media (--motionNotOK) {

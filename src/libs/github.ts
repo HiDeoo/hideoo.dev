@@ -15,6 +15,7 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
       }
     }
     name
+    stargazerCount
     url
   }
 }`
@@ -155,6 +156,7 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
           id: node.id,
           languages,
           name: node.name,
+          stars: node.stargazerCount,
           url: node.url,
         })
       }
@@ -176,6 +178,7 @@ export interface GitHubRepo {
   id: string
   languages: GitHubLanguage[]
   name: string
+  stars: number
   url: string
 }
 
