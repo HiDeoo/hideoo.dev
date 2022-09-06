@@ -1,14 +1,36 @@
-<div class="cardRow">
+---
+export interface Props {
+  grow?: boolean
+  small?: boolean
+}
+const { grow, small } = Astro.props
+---
+
+<div class:list={['cardRow', { grow, small }]}>
   <slot />
 </div>
 
 <style>
   div.cardRow {
     border-bottom: var(--border-size-1) solid var(--card-border-color);
-    padding: var(--size-3);
-  }
+    flex-grow: 0;
+    padding: 0.65rem var(--size-3);
 
-  div.cardRow:last-child {
-    border-bottom: 0;
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    &.grow {
+      flex-grow: 1;
+    }
+
+    &.small {
+      font-size: var(--text-size-sm);
+    }
+
+    & :global(h3) {
+      font-size: var(--text-size-lg);
+      margin-block: 0;
+    }
   }
 </style>

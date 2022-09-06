@@ -11,6 +11,7 @@ const { repo } = Astro.props
 ---
 
 <Card as="article" href={repo.url} target="_blank">
-  <CardRow>{repo.name}</CardRow>
-  <CardRow>{repo.description}</CardRow>
+  <CardRow><h3>{repo.name}</h3></CardRow>
+  <CardRow small grow>{repo.description}</CardRow>
+  <CardRow small>footer</CardRow>
 </Card>

@@ -16,7 +16,7 @@ body {
   color: var(--color);
   font-family: 'Archivo', 'Archivo-fallback', sans-serif;
   font-size: var(--text-size);
-  line-height: var(--size-4);
+  line-height: var(--size-6);
 }
 
 a {
@@ -32,19 +32,19 @@ div.app {
   padding: var(--spacing);
 
   @media (--sm-n-above) {
-    gap: var(--sm-spacing);
-    padding: var(--sm-spacing);
+    gap: var(--spacing-sm);
+    padding: var(--spacing-sm);
   }
 
   @media (--md-n-above) {
     flex-direction: row;
-    gap: var(--md-spacing);
-    padding: var(--md-spacing);
+    gap: var(--spacing-md);
+    padding: var(--spacing-md);
   }
 
   @media (--lg-n-above) {
-    gap: var(--lg-spacing);
-    padding: var(--lg-spacing);
+    gap: var(--spacing-lg);
+    padding: var(--spacing-lg);
   }
 }
 

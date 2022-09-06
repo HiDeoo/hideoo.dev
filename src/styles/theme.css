@@ -2,12 +2,15 @@
   --max-page-width: 80rem;
   --sidebar-width: calc(var(--size-14) - var(--size-8));
 
-  --text-size: var(--size-3);
+  --text-size-sm: 0.925rem;
+  --text-size: 0.975rem;
+  --text-size-lg: 1.1rem;
+  --text-size-xl: var(--size-5);
 
   --spacing: var(--size-3);
-  --sm-spacing: var(--size-5);
-  --md-spacing: var(--size-7);
-  --lg-spacing: var(--size-8);
+  --spacing-sm: var(--size-5);
+  --spacing-md: var(--size-7);
+  --spacing-lg: var(--size-8);
 
   --grid-spacing: var(--size-3);
 }
