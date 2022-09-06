@@ -28,6 +28,8 @@ const isLink = typeof href === 'string'
 </Element>
 
 <style>
+  @import 'open-props/media';
+
   .card {
     background-color: var(--card-bg-color);
     border: var(--border-size-1) solid var(--card-border-color);
@@ -58,7 +60,13 @@ const isLink = typeof href === 'string'
   }
 
   .cardLink:hover::after {
-    animation: var(--animation-fade-in) forwards;
+    @media (--motionOK) {
+      animation: var(--animation-fade-in) forwards;
+    }
+
+    @media (--motionNotOK) {
+      opacity: 1;
+    }
   }
 
   .cardLink a {
