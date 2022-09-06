@@ -1,5 +1,7 @@
 import { type User, type Maybe, type Repository } from '@octokit/graphql-schema'
 
+import { getLanguageColors } from './color'
+
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
@@ -147,7 +149,10 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
               continue
             }
 
-            languages.push({ color: languageEdge.node.color, name: languageEdge.node.name })
+            languages.push({
+              colors: getLanguageColors(languageEdge.node.color),
+              name: languageEdge.node.name,
+            })
           }
         }
 
@@ -183,6 +188,9 @@ export interface GitHubRepo {
 }
 
 export interface GitHubLanguage {
-  color: string
+  colors: {
+    dark: string
+    light: string
+  }
   name: string
 }

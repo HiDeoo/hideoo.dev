@@ -8,14 +8,21 @@ export interface Props {
 const { language } = Astro.props
 ---
 
-<li>{language.name}</li>
+<li>
+  {language.name}
+</li>
 
-<style>
+<style define:vars={{ darkColor: language.colors.dark, lightColor: language.colors.light }}>
   li {
+    background-color: var(--lightColor);
     border: var(--border-size-1) solid var(--card-border-color);
     display: block;
     font-size: var(--text-size-xs);
     line-height: var(--size-4);
     padding: var(--size-1) var(--size-2);
+  }
+
+  :root.dark li {
+    background-color: var(--darkColor);
   }
 </style>
