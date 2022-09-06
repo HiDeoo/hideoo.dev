@@ -1,14 +1,15 @@
 ---
 export interface Props {
+  center?: boolean
   grow?: boolean
   raw?: boolean
   small?: boolean
 }
 
-const { grow, raw, small } = Astro.props
+const { center, grow, raw, small } = Astro.props
 ---
 
-<div class:list={['cardRow', { grow, raw, small }]}>
+<div class:list={['cardRow', { center, grow, raw, small }]}>
   <slot />
 </div>
 
@@ -22,6 +23,10 @@ const { grow, raw, small } = Astro.props
 
     &:last-child {
       border-bottom: 0;
+    }
+
+    &.center {
+      justify-content: center;
     }
 
     &.grow {

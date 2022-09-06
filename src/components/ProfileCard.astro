@@ -8,7 +8,19 @@ const gitHubProfile = await fetchGitHubProfile()
 ---
 
 <Card>
+  <CardRow raw center>
+    <img src="images/avatar.webp" alt="HiDeoo's avatar" decoding="async" />
+  </CardRow>
   <CardRow>{gitHubProfile.login}</CardRow>
   <CardRow>Card block 2</CardRow>
   <CardRow>Card block 3</CardRow>
 </Card>
+
+<style>
+  img {
+    aspect-ratio: auto 1 / 1;
+    block-size: auto;
+    max-inline-size: 100%;
+    width: var(--avatar-size);
+  }
+</style>
