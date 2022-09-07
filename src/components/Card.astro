@@ -1,12 +1,15 @@
 ---
+import Link from './Link.astro'
+
 export interface Props {
   as?: keyof astroHTML.JSX.IntrinsicElements
+  class?: string
   href?: string
   target?: astroHTML.JSX.AnchorHTMLAttributes['target']
   title?: string
 }
 
-const { as, href, target, title } = Astro.props
+const { as, class: className, href, target, title } = Astro.props
 
 // https://github.com/withastro/astro/blob/63cd9d89e8b83ce5e39cdae84a8342e28d1940cc/packages/astro/astro-jsx.d.ts#L34-L36
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -15,12 +18,12 @@ const Element: any = as ?? 'div'
 const isLink = typeof href === 'string'
 ---
 
-<Element class:list={['card', { cardLink: isLink }]}>
+<Element class:list={['card', { cardLink: isLink }, className]}>
   {
     isLink ? (
-      <a href={href} target={target} title={title}>
+      <Link href={href} target={target} title={title} class="cardLink">
         <slot />
-      </a>
+      </Link>
     ) : (
       <slot />
     )
@@ -38,10 +41,6 @@ const isLink = typeof href === 'string'
     display: flex;
     flex-direction: column;
     position: relative;
-
-    & :global(a) {
-      text-decoration: none;
-    }
   }
 
   .cardLink::after {
@@ -70,7 +69,7 @@ const isLink = typeof href === 'string'
     }
   }
 
-  .cardLink a {
+  .cardLink {
     display: flex;
     flex-direction: column;
     flex-grow: 1;

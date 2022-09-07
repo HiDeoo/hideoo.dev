@@ -13,13 +13,19 @@ export interface Props {
 const { repo } = Astro.props
 ---
 
-<Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`}>
+<Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`} class="cardRepo">
   <CardRow>
     <h3>{repo.name}</h3>
   </CardRow>
   <CardRow small grow>{repo.description}</CardRow>
-  <CardRow small raw>
+  <CardRow small raw row>
     <Languages languages={repo.languages} />
     {repo.stars > 0 ? <Stars count={repo.stars} /> : null}
   </CardRow>
 </Card>
+
+<style>
+  .cardRepo > :global(a::after) {
+    content: none;
+  }
+</style>

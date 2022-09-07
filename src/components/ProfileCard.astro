@@ -3,17 +3,24 @@ import { fetchGitHubProfile } from '../libs/github'
 
 import Card from './Card.astro'
 import CardRow from './CardRow.astro'
+import Link from './Link.astro'
 
 const gitHubProfile = await fetchGitHubProfile()
 ---
 
 <Card>
-  <CardRow raw center>
+  <CardRow raw row center>
     <img src="images/avatar.webp" alt="HiDeoo's avatar" decoding="async" />
   </CardRow>
-  <CardRow>{gitHubProfile.login}</CardRow>
-  <CardRow>Card block 2</CardRow>
-  <CardRow>Card block 3</CardRow>
+  <CardRow center>
+    <h1>{gitHubProfile.login}</h1>
+    <p>
+      <Link href="https://github.com/HiDeoo" target="_blank">GitHub</Link> - <Link
+        href="https://github.com/HiDeoo/dotfiles"
+        target="_blank">Dotfiles</Link
+      >
+    </p>
+  </CardRow>
 </Card>
 
 <style>
@@ -22,5 +29,17 @@ const gitHubProfile = await fetchGitHubProfile()
     block-size: auto;
     max-inline-size: 100%;
     width: var(--avatar-size);
+  }
+
+  h1 {
+    font-size: var(--text-size-xl);
+    margin-block: 0 var(--size-3);
+  }
+
+  p {
+    display: flex;
+    gap: var(--size-2);
+    line-height: var(--size-5);
+    margin-block: 0;
   }
 </style>
