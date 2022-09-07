@@ -1,9 +1,16 @@
 ---
-import { fetchGitHubProfile } from '../libs/github'
+import { fetchGitHubProfile, type LanguageStats } from '../libs/github'
 
 import Card from './Card.astro'
 import CardRow from './CardRow.astro'
+import LanguagesChart from './LanguagesChart.astro'
 import Link from './Link.astro'
+
+export interface Props {
+  languageStats: LanguageStats
+}
+
+const { languageStats } = Astro.props
 
 const gitHubProfile = await fetchGitHubProfile()
 ---
@@ -21,6 +28,9 @@ const gitHubProfile = await fetchGitHubProfile()
       >
     </p>
   </CardRow>
+  <CardRow>
+    <LanguagesChart languageStats={languageStats} />
+  </CardRow>
 </Card>
 
 <style>
@@ -33,7 +43,7 @@ const gitHubProfile = await fetchGitHubProfile()
 
   h1 {
     font-size: var(--text-size-xl);
-    margin-block: 0 var(--size-3);
+    margin-block: calc(var(--size-1) / 2) var(--size-3);
   }
 
   p {

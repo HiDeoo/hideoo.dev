@@ -1,0 +1,91 @@
+---
+import { type LanguageStats } from '../libs/github'
+
+import LanguageLegend from './LanguageLegend.astro'
+
+export interface Props {
+  languageStats: LanguageStats
+}
+
+const { languageStats } = Astro.props
+---
+
+<script define:vars={{ languageStats }}>
+  globalThis.languageStats = languageStats
+</script>
+
+<script>
+  import { ArcElement, Chart, DoughnutController } from 'chart.js'
+
+  Chart.register(ArcElement, DoughnutController)
+
+  function getCssVar(name: string) {
+    return getComputedStyle(document.documentElement).getPropertyValue(name)
+  }
+
+  function generateLanguageChart() {
+    const backgroundColor: string[] = []
+    const data: number[] = []
+    const labels: string[] = []
+
+    const isDark = document.documentElement.classList.contains('dark')
+
+    for (const languageStats of globalThis.languageStats) {
+      backgroundColor.push(isDark ? languageStats.colors.dark : languageStats.colors.light)
+      data.push(languageStats.size)
+      labels.push(languageStats.name)
+    }
+
+    const chart = new Chart('languageChart', {
+      data: {
+        datasets: [
+          {
+            backgroundColor,
+            borderColor: getCssVar('--card-border-color'),
+            borderWidth: 1,
+            data,
+          },
+        ],
+        labels,
+      },
+      options: {
+        animation: false,
+        events: [],
+        responsive: false,
+      },
+      type: 'doughnut',
+    })
+
+    function onThemeChangeHandler() {
+      chart.destroy()
+      requestAnimationFrame(generateLanguageChart)
+    }
+
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onThemeChangeHandler, { once: true })
+  }
+
+  requestAnimationFrame(generateLanguageChart)
+</script>
+
+<div>
+  <canvas id="languageChart" width="150" height="150"></canvas>
+  <ul>
+    {languageStats.map((languageStat) => <LanguageLegend languageStat={languageStat} />)}
+  </ul>
+</div>
+
+<style>
+  div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--size-2);
+  }
+
+  ul {
+    list-style: none;
+    margin: 0;
+    margin-block: var(--size-3) 0.5rem;
+    padding: 0;
+  }
+</style>

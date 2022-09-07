@@ -1,14 +1,16 @@
 ---
+import ProfileCard from '../components/ProfileCard.astro'
 import Repos from '../components/Repos.astro'
 import Section from '../components/Section.astro'
 import Page from '../layouts/Page.astro'
-import { fetchGitHubRecentRepos, fetchGitHubRepos } from '../libs/github'
+import { fetchGitHubRecentRepos, fetchGitHubReposAndLanguageStats } from '../libs/github'
 
-const allRepos = await fetchGitHubRepos()
+const { repos: allRepos, languageStats } = await fetchGitHubReposAndLanguageStats()
 const recentRepos = await fetchGitHubRecentRepos()
 ---
 
 <Page>
+  <ProfileCard slot="sidebar" languageStats={languageStats} />
   <Section title="Recent Projects">
     <Repos repos={recentRepos} />
   </Section>

@@ -10,6 +10,7 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
     id
     languages(first: 10, orderBy: { direction: DESC, field: SIZE }) {
       edges {
+        size
         node {
           color
           name
@@ -35,7 +36,8 @@ export async function fetchGitHubProfile() {
   return viewer
 }
 
-export async function fetchGitHubRepos() {
+export async function fetchGitHubReposAndLanguageStats() {
+  const rawLanguageStats: RawLanguageStats = {}
   const repos: GitHubRepo[] = []
 
   let hasMore = true
@@ -44,7 +46,7 @@ export async function fetchGitHubRepos() {
   while (hasMore) {
     const paginatedRepos = await fetchGitHubPaginatedRepos(cursor)
 
-    repos.push(...getReposFromNodes(paginatedRepos.nodes))
+    repos.push(...getReposAndLanguageStatsFromNodes(paginatedRepos.nodes, rawLanguageStats))
 
     hasMore = paginatedRepos.pageInfo.hasNextPage
 
@@ -53,7 +55,7 @@ export async function fetchGitHubRepos() {
     }
   }
 
-  return repos
+  return { languageStats: normalizeLanguageStats(rawLanguageStats), repos }
 }
 
 export async function fetchGitHubRecentRepos(count = 4) {
@@ -78,7 +80,7 @@ export async function fetchGitHubRecentRepos(count = 4) {
     },
   })
 
-  return getReposFromNodes(json.viewer.repositories.nodes).slice(0, count)
+  return getReposAndLanguageStatsFromNodes(json.viewer.repositories.nodes).slice(0, count)
 }
 
 async function fetchGitHubPaginatedRepos(after?: string) {
@@ -130,7 +132,10 @@ async function fetchGitHubApi<TData>(body: GitHubApiRequestBody) {
   return json.data
 }
 
-function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
+function getReposAndLanguageStatsFromNodes(
+  nodes: Maybe<Maybe<Repository>[]> | undefined,
+  rawLanguageStats: RawLanguageStats = {}
+) {
   const repos: GitHubRepo[] = []
 
   if (nodes) {
@@ -149,8 +154,16 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
               continue
             }
 
+            const colors = getLanguageColors(languageEdge.node.color)
+
+            rawLanguageStats[languageEdge.node.name] = {
+              colors,
+              name: languageEdge.node.name,
+              size: (rawLanguageStats[languageEdge.node.name]?.size ?? 0) + languageEdge.size,
+            }
+
             languages.push({
-              colors: getLanguageColors(languageEdge.node.color),
+              colors,
               name: languageEdge.node.name,
             })
           }
@@ -169,6 +182,32 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
   }
 
   return repos
+}
+
+function normalizeLanguageStats(rawLanguageStats: RawLanguageStats): LanguageStats {
+  let totalSize = 0
+
+  for (const { size } of Object.values(rawLanguageStats)) {
+    totalSize += size
+  }
+
+  for (const languageName in rawLanguageStats) {
+    const languageStats = rawLanguageStats[languageName]
+
+    if (!languageStats) {
+      continue
+    }
+
+    let newSize = Math.trunc((100 * languageStats.size) / totalSize)
+
+    if (newSize <= 10) {
+      newSize += 2
+    }
+
+    rawLanguageStats[languageName] = { ...languageStats, size: newSize }
+  }
+
+  return Object.values(rawLanguageStats).sort((statA, statB) => statB.size - statA.size)
 }
 
 interface GitHubApiRequestBody {
@@ -194,3 +233,12 @@ export interface GitHubLanguage {
   }
   name: string
 }
+
+export interface LanguageStat {
+  colors: GitHubLanguage['colors']
+  name: string
+  size: number
+}
+
+type RawLanguageStats = Record<LanguageStat['name'], LanguageStat>
+export type LanguageStats = LanguageStat[]

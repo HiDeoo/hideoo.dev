@@ -11,7 +11,9 @@ import Sidebar from '../components/Sidebar.astro'
   </head>
   <body>
     <div class="app">
-      <Sidebar />
+      <Sidebar>
+        <slot name="sidebar" />
+      </Sidebar>
       <main>
         <slot />
       </main>

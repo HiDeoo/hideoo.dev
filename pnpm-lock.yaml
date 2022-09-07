@@ -2,13 +2,14 @@ lockfileVersion: 5.4
 
 specifiers:
   '@fontsource/archivo': 4.5.8
-  '@hideoo/eslint-config': 0.7.1
+  '@hideoo/eslint-config': 0.8.0
   '@hideoo/prettier-config': 0.1.1
   '@hideoo/tsconfig': 0.1.0
   '@octokit/graphql-schema': 12.1.0
   '@types/prettier': 2.7.0
   astro: 1.1.3
   autoprefixer: 10.4.8
+  chart.js: 3.9.1
   colord: 2.9.3
   eslint: 8.23.0
   eslint-plugin-astro: 0.17.1
@@ -25,13 +26,14 @@ specifiers:
 
 devDependencies:
   '@fontsource/archivo': 4.5.8
-  '@hideoo/eslint-config': 0.7.1_yqf6kl63nyoq5megxukfnom5rm
+  '@hideoo/eslint-config': 0.8.0_yqf6kl63nyoq5megxukfnom5rm
   '@hideoo/prettier-config': 0.1.1
   '@hideoo/tsconfig': 0.1.0
   '@octokit/graphql-schema': 12.1.0
   '@types/prettier': 2.7.0
   astro: 1.1.3
   autoprefixer: 10.4.8_postcss@8.4.16
+  chart.js: 3.9.1
   colord: 2.9.3
   eslint: 8.23.0
   eslint-plugin-astro: 0.17.1_eslint@8.23.0
@@ -594,8 +596,8 @@ packages:
     resolution: {integrity: sha512-FLRuy4ltb7bS8wE/8gyzWJ5FZ4aJpOUZ8Ox1JfTmowz2+dJ43mw5EJZ7D2xMzjMwAyO/+UvwKhtmiC1m6F8KDA==}
     dev: true
 
-  /@hideoo/eslint-config-base/0.7.1_ger3qbmbfneqgjwxmc6jzpprnm:
-    resolution: {integrity: sha512-7IwNC0qlhj5wmcmcrONiG7fVFRUiEfiz0vqeWu8osI69ZqzZTLXoNYzZI5uljQo2OfRsr2b07gzQ2mOwSi7YVg==}
+  /@hideoo/eslint-config-base/0.8.0_ger3qbmbfneqgjwxmc6jzpprnm:
+    resolution: {integrity: sha512-VFRoINLGcugaP8UuG0kxaTrivfAYQ3ot0ETU9pKhnrqVOrMDuBa6GiM5w3B9Wz4DjKS5q0tyUaH1FF9skyC1bg==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
@@ -611,12 +613,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hideoo/eslint-config-react/0.7.1_yqf6kl63nyoq5megxukfnom5rm:
-    resolution: {integrity: sha512-AFj/K59wtLmqJr6KRLSjHAT09UYi/IJPpETP1eTOwtj6Z0iYHPjSeAnQKtLFRwpj/S4AURDkaxvAyEGPpxW+HQ==}
+  /@hideoo/eslint-config-react/0.8.0_yqf6kl63nyoq5megxukfnom5rm:
+    resolution: {integrity: sha512-gQ/IZqULLIUtX26utCyaQZh/oYhE4Byl5e3cn+MlEnsvpJWNMzIvwll25QzQU0oIm8SWEB7HF3eoRGfPsPJIaA==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
-      '@hideoo/eslint-config-typescript': 0.7.1_yqf6kl63nyoq5megxukfnom5rm
+      '@hideoo/eslint-config-typescript': 0.8.0_yqf6kl63nyoq5megxukfnom5rm
       eslint: 8.23.0
       eslint-plugin-jsx-a11y: 6.6.0_eslint@8.23.0
       eslint-plugin-react: 7.30.1_eslint@8.23.0
@@ -626,13 +628,13 @@ packages:
       - typescript
     dev: true
 
-  /@hideoo/eslint-config-typescript/0.7.1_yqf6kl63nyoq5megxukfnom5rm:
-    resolution: {integrity: sha512-1NFKLaXd1UDX0Lloqr8SBV5E+LNHtEUZr+y7HsZgNTZHAwfNmfzxSPD+OKpB1KaEATMJumM89YatdfukPtKbrg==}
+  /@hideoo/eslint-config-typescript/0.8.0_yqf6kl63nyoq5megxukfnom5rm:
+    resolution: {integrity: sha512-plgVrgxBbaAf4oQoyAhbn3J28KYwV6SX5Zs6Qju4U2dwGddscsoxtLUs36TSSoXVkk5MBJ23HLzEpw37g0Itgw==}
     peerDependencies:
       eslint: '>=8.0.0'
       typescript: '>=4.0.2'
     dependencies:
-      '@hideoo/eslint-config-base': 0.7.1_ger3qbmbfneqgjwxmc6jzpprnm
+      '@hideoo/eslint-config-base': 0.8.0_ger3qbmbfneqgjwxmc6jzpprnm
       '@typescript-eslint/eslint-plugin': 5.30.0_6qydp22jn4za5dwcncoz2o57kq
       '@typescript-eslint/parser': 5.30.0_yqf6kl63nyoq5megxukfnom5rm
       eslint: 8.23.0
@@ -644,12 +646,12 @@ packages:
       - supports-color
     dev: true
 
-  /@hideoo/eslint-config/0.7.1_yqf6kl63nyoq5megxukfnom5rm:
-    resolution: {integrity: sha512-J9ziZmJoJjT51K96TVg35MJFmCpjFSH0J0KbqNtA+se7rt5+Z1Oaou/7TyKhvFvw0G4MsD6IMd9bxV8IVYjNig==}
+  /@hideoo/eslint-config/0.8.0_yqf6kl63nyoq5megxukfnom5rm:
+    resolution: {integrity: sha512-o7ntUvFG7GKZ8cmVP/RzEnhR9VwktWsCG4krXhzsiX3ZsJFIakpTz1/U0MgAI3M3UWQjOKB4NYo0tJ/IwShuPg==}
     peerDependencies:
       eslint: '>=8.0.0'
     dependencies:
-      '@hideoo/eslint-config-react': 0.7.1_yqf6kl63nyoq5megxukfnom5rm
+      '@hideoo/eslint-config-react': 0.8.0_yqf6kl63nyoq5megxukfnom5rm
       eslint: 8.23.0
     transitivePeerDependencies:
       - eslint-import-resolver-webpack
@@ -1405,6 +1407,10 @@ packages:
 
   /character-reference-invalid/2.0.1:
     resolution: {integrity: sha512-iBZ4F4wRbyORVsu0jPV7gXkOsGYjGHPmAyv+HiHG8gi5PtC9KI2j1+v8/tlibRvjoWX027ypmG/n0HtO5t7unw==}
+    dev: true
+
+  /chart.js/3.9.1:
+    resolution: {integrity: sha512-Ro2JbLmvg83gXF5F4sniaQ+lTbSv18E+TIf2cOeiH1Iqd2PGFOtem+DUufMZsCJwFE7ywPOpfXFBwRTGq7dh6w==}
     dev: true
 
   /ci-info/3.3.2:
