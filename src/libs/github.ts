@@ -207,7 +207,9 @@ function normalizeLanguageStats(rawLanguageStats: RawLanguageStats): LanguageSta
     rawLanguageStats[languageName] = { ...languageStats, size: newSize }
   }
 
-  return Object.values(rawLanguageStats).sort((statA, statB) => statB.size - statA.size)
+  return Object.values(rawLanguageStats)
+    .sort((statA, statB) => statB.size - statA.size)
+    .slice(0, 8)
 }
 
 interface GitHubApiRequestBody {
