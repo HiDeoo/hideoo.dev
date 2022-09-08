@@ -41,8 +41,7 @@ const { class: className, href, target, title } = Astro.props
     }
   }
 
-  a:hover::after,
-  a:focus-visible::after {
+  a:is(:hover, :focus-visible)::after {
     opacity: 1;
     transform: translateX(0);
   }
