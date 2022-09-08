@@ -3,7 +3,7 @@ import { type GitHubRepo } from '../libs/github'
 
 import Card from './Card.astro'
 import CardRow from './CardRow.astro'
-import Languages from './Languages.astro'
+import LanguageTags from './LanguageTags.astro'
 import Stars from './Stars.astro'
 
 export interface Props {
@@ -19,7 +19,7 @@ const { repo } = Astro.props
   </CardRow>
   <CardRow small grow>{repo.description}</CardRow>
   <CardRow small raw row>
-    <Languages languages={repo.languages} />
+    <LanguageTags languages={repo.languages} />
     {repo.stars > 0 ? <Stars count={repo.stars} /> : null}
   </CardRow>
 </Card>

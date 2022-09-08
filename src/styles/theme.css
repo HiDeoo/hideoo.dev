@@ -9,6 +9,10 @@
   --text-size-lg: 1.1rem;
   --text-size-xl: var(--size-5);
 
+  --line-height-xs: var(--size-4);
+  --line-height-sm: var(--size-5);
+  --line-height: var(--size-6);
+
   --spacing: var(--size-3);
   --spacing-sm: var(--size-5);
   --spacing-md: var(--size-7);

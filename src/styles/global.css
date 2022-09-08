@@ -16,7 +16,7 @@ body {
   color: var(--color);
   font-family: 'Archivo', 'Archivo-fallback', sans-serif;
   font-size: var(--text-size);
-  line-height: var(--size-6);
+  line-height: var(--line-height);
 }
 
 div.app {

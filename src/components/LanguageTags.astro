@@ -1,7 +1,7 @@
 ---
 import { type GitHubLanguage } from '../libs/github'
 
-import Language from './Language.astro'
+import LanguageTag from './LanguageTag.astro'
 
 export interface Props {
   languages: GitHubLanguage[]
@@ -10,7 +10,7 @@ export interface Props {
 const { languages } = Astro.props
 ---
 
-<ul>{languages.map((language) => <Language language={language} />)}</ul>
+<ul>{languages.map((language) => <LanguageTag language={language} />)}</ul>
 
 <style>
   ul {

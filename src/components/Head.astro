@@ -15,7 +15,8 @@ import '../styles/global.css'
 <link rel="icon" href="/images/icons/favicon.ico" sizes="any" />
 <link rel="icon" href="/images/icons/favicon.svg" type="image/svg+xml" />
 
-<script>
+<!-- Inline to avoid FOUC -->
+<script is:inline>
   function setDarkTheme() {
     document.documentElement.classList.add('dark')
   }
