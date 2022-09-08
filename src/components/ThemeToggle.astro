@@ -41,13 +41,16 @@
   @import 'open-props/media';
 
   button {
-    aspect-ratio: 1;
     background: none;
     border: none;
     border-radius: 50%;
     cursor: pointer;
+    height: var(--size-6);
     padding: 0;
+    position: absolute;
+    right: 0;
     touch-action: manipulation;
+    top: -2px;
     width: var(--size-6);
   }
 
@@ -59,19 +62,19 @@
     }
 
     & > :is(.moon, .sun) {
-      fill: var(--color);
+      fill: var(--color-dimmed);
 
       @nest button:is(:hover, :focus-visible) > & {
-        fill: blue;
+        fill: var(--color);
       }
     }
 
     & > .sun-beams {
-      stroke: var(--color);
+      stroke: var(--color-dimmed);
       stroke-width: 2px;
 
       @nest button:is(:hover, :focus-visible) & {
-        stroke: blue;
+        stroke: var(--color);
       }
     }
 
