@@ -2,9 +2,7 @@ import { ArcElement, Chart, DoughnutController } from 'chart.js'
 
 Chart.register(ArcElement, DoughnutController)
 
-function getCssVar(name: string) {
-  return getComputedStyle(document.documentElement).getPropertyValue(name)
-}
+let chart: Chart | null = null
 
 function generateLanguageChart() {
   const backgroundColor: string[] = []
@@ -19,12 +17,17 @@ function generateLanguageChart() {
     labels.push(languageStats.name)
   }
 
-  const chart = new Chart('languageChart', {
+  if (chart) {
+    chart.destroy()
+    chart = null
+  }
+
+  chart = new Chart('languageChart', {
     data: {
       datasets: [
         {
           backgroundColor,
-          borderColor: getCssVar('--card-border-color'),
+          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--card-border-color'),
           borderWidth: 1,
           data,
         },
@@ -38,13 +41,22 @@ function generateLanguageChart() {
     },
     type: 'doughnut',
   })
+}
 
-  function onThemeChangeHandler() {
-    chart.destroy()
-    requestAnimationFrame(generateLanguageChart)
-  }
-
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onThemeChangeHandler, { once: true })
+function onThemeChangeHandler() {
+  requestAnimationFrame(generateLanguageChart)
 }
 
 requestAnimationFrame(generateLanguageChart)
+
+const themeObserver = new MutationObserver((mutations) => {
+  for (const mutation of mutations) {
+    if (mutation.type !== 'attributes' && mutation.attributeName !== 'class') {
+      return
+    }
+
+    onThemeChangeHandler()
+  }
+})
+
+themeObserver.observe(document.documentElement, { attributeFilter: ['class'] })

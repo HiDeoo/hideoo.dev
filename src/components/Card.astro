@@ -18,10 +18,10 @@ const Element: any = as ?? 'div'
 const isLink = typeof href === 'string'
 ---
 
-<Element class:list={['card', { cardLink: isLink }, className]}>
+<Element class:list={['card', { 'card-link': isLink }, className]}>
   {
     isLink ? (
-      <Link href={href} target={target} title={title} class="cardLink">
+      <Link href={href} target={target} title={title} class="card-link">
         <slot />
       </Link>
     ) : (
@@ -43,35 +43,35 @@ const isLink = typeof href === 'string'
     position: relative;
   }
 
-  .cardLink::after {
-    --offset: var(--size-1);
-
-    background-color: var(--card-border-color);
-    border-radius: var(--radius-2);
-    content: '';
-    height: 100%;
-    left: var(--offset);
-    opacity: 0;
-    top: var(--offset);
-    position: absolute;
-    width: 100%;
-    z-index: -1;
-  }
-
-  .cardLink:hover::after {
-    @media (--motionOK) {
-      animation: var(--animation-fade-in) forwards;
-      animation-timing-function: var(--ease-out-1);
-    }
-
-    @media (--motionNotOK) {
-      opacity: 1;
-    }
-  }
-
-  .cardLink {
+  .card-link {
     display: flex;
     flex-direction: column;
     flex-grow: 1;
+
+    &::after {
+      --offset: var(--size-1);
+
+      background-color: var(--card-border-color);
+      border-radius: var(--radius-2);
+      content: '';
+      height: 100%;
+      left: var(--offset);
+      opacity: 0;
+      top: var(--offset);
+      position: absolute;
+      width: 100%;
+      z-index: -1;
+    }
+
+    &:hover::after {
+      @media (--motionOK) {
+        animation: var(--animation-fade-in) forwards;
+        animation-timing-function: var(--ease-out-1);
+      }
+
+      @media (--motionNotOK) {
+        opacity: 1;
+      }
+    }
   }
 </style>

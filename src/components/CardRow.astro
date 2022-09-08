@@ -10,12 +10,12 @@ export interface Props {
 const { center, grow, raw, row, small } = Astro.props
 ---
 
-<div class:list={['cardRow', { center, grow, raw, row, small }]}>
+<div class:list={['card-row', { center, grow, raw, row, small }]}>
   <slot />
 </div>
 
 <style>
-  div.cardRow {
+  div.card-row {
     border-bottom: var(--border-size-1) solid var(--card-border-color);
     display: flex;
     flex-direction: column;

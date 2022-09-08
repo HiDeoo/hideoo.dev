@@ -23,26 +23,26 @@ const { class: className, href, target, title } = Astro.props
     position: relative;
     text-decoration: none;
     vertical-align: bottom;
-  }
 
-  a::after {
-    background-color: var(--color);
-    bottom: 0;
-    content: '';
-    height: 1px;
-    left: 0;
-    opacity: 0;
-    position: absolute;
-    transform: translateX(-100%);
-    width: 100%;
+    &::after {
+      background-color: var(--color);
+      bottom: 0;
+      content: '';
+      height: 1px;
+      left: 0;
+      opacity: 0;
+      position: absolute;
+      transform: translateX(-100%);
+      width: 100%;
 
-    @media (--motionOK) {
-      transition: opacity 250ms var(--ease-5), transform 250ms var(--ease-5);
+      @media (--motionOK) {
+        transition: opacity 250ms var(--ease-5), transform 250ms var(--ease-5);
+      }
     }
-  }
 
-  a:is(:hover, :focus-visible)::after {
-    opacity: 1;
-    transform: translateX(0);
+    &:is(:hover, :focus-visible)::after {
+      opacity: 1;
+      transform: translateX(0);
+    }
   }
 </style>

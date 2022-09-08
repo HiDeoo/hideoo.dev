@@ -13,7 +13,7 @@ export interface Props {
 const { repo } = Astro.props
 ---
 
-<Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`} class="cardRepo">
+<Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`} class="card-repo">
   <CardRow>
     <h3>{repo.name}</h3>
   </CardRow>
@@ -25,7 +25,7 @@ const { repo } = Astro.props
 </Card>
 
 <style>
-  .cardRepo > :global(a::after) {
+  .card-repo > :global(a::after) {
     content: none;
   }
 </style>

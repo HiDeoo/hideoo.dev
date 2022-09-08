@@ -1,7 +1,8 @@
 {
   "extends": ["@hideoo", "plugin:astro/recommended"],
   "globals": {
-    "astroHTML": "readonly"
+    "astroHTML": "readonly",
+    "updateTheme": "readonly"
   },
   "overrides": [
     {
@@ -13,7 +14,16 @@
       },
       "rules": {
         "react/jsx-key": "off",
-        "react/no-unknown-property": ["error", { "ignore": ["class"] }]
+        "react/no-unknown-property": ["error", { "ignore": ["class", "onclick"] }]
+      }
+    },
+    {
+      // Configuration for `<script>` tags in Astro components which are assigned a virtual file name with the `.js`
+      // extension.
+      "files": ["**/*.astro/*.js", "*.astro/*.js"],
+      "rules": {
+        "no-empty": ["error", { "allowEmptyCatch": true }],
+        "@typescript-eslint/no-unused-vars": "off"
       }
     }
   ]

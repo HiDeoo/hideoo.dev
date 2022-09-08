@@ -2,6 +2,7 @@
 import ProfileCard from '../components/ProfileCard.astro'
 import Repos from '../components/Repos.astro'
 import Section from '../components/Section.astro'
+import ThemeToggle from '../components/ThemeToggle.astro'
 import Page from '../layouts/Page.astro'
 import { fetchGitHubRecentRepos, fetchGitHubReposAndLanguageStats } from '../libs/github'
 
@@ -10,6 +11,7 @@ const recentRepos = await fetchGitHubRecentRepos()
 ---
 
 <Page>
+  <ThemeToggle />
   <ProfileCard slot="sidebar" languageStats={languageStats} />
   <Section title="Recent Projects">
     <Repos repos={recentRepos} />
