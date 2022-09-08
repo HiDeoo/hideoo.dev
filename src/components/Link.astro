@@ -19,6 +19,7 @@ const { class: className, href, target, title } = Astro.props
   a {
     color: var(--color);
     display: inline-block;
+    outline: none;
     overflow: hidden;
     position: relative;
     text-decoration: none;
@@ -38,6 +39,10 @@ const { class: className, href, target, title } = Astro.props
       @media (--motionOK) {
         transition: opacity 250ms var(--ease-5), transform 250ms var(--ease-5);
       }
+    }
+
+    &:focus-visible::after {
+      height: 2px;
     }
 
     &:is(:hover, :focus-visible)::after {

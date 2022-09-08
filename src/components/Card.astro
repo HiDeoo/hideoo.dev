@@ -73,5 +73,10 @@ const isLink = typeof href === 'string'
         opacity: 1;
       }
     }
+
+    & :global(a:focus-visible) {
+      border-radius: var(--radius-2);
+      outline: 3px solid var(--color);
+    }
   }
 </style>
