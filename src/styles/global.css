@@ -24,9 +24,9 @@ body {
 }
 
 div.app {
-  display: flex;
-  flex-direction: column;
+  display: grid;
   gap: var(--size-7);
+  grid-template-columns: auto;
   max-width: var(--max-page-width);
   margin-inline: auto;
   padding: var(--spacing);
@@ -37,8 +37,8 @@ div.app {
   }
 
   @media (--md-n-above) {
-    flex-direction: row;
     gap: var(--spacing-md);
+    grid-template-columns: auto 1fr;
     padding: var(--spacing-md);
   }
 
