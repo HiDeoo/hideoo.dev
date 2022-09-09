@@ -1,4 +1,5 @@
 <aside>
+  <a href="#main">Skip to content</a>
   <slot />
 </aside>
 
@@ -22,6 +23,24 @@
 
     @media (--lg-n-above) {
       gap: var(--spacing-lg);
+    }
+  }
+
+  a {
+    background-color: var(--bg-color);
+    border-bottom-right-radius: var(--radius-2);
+    color: var(--color);
+    left: -100%;
+    outline: 3px solid var(--color);
+    outline-offset: 0;
+    padding: 0.65rem var(--size-3);
+    position: absolute;
+    text-decoration: none;
+    top: 0;
+    z-index: 10;
+
+    &:focus-visible {
+      left: 0;
     }
   }
 </style>

@@ -75,7 +75,7 @@ const isLink = typeof href === 'string'
     }
 
     & :global(a:focus-visible) {
-      border-radius: var(--radius-2);
+      border-radius: calc(var(--radius-2) - 1px);
       outline: 3px solid var(--color);
     }
   }
