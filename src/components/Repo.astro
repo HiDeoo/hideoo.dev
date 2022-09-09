@@ -5,6 +5,7 @@ import Card from './Card.astro'
 import CardRow from './CardRow.astro'
 import LanguageTags from './LanguageTags.astro'
 import Stars from './Stars.astro'
+import VisuallyHidden from './VisuallyHidden.astro'
 
 export interface Props {
   repo: GitHubRepo
@@ -15,9 +16,13 @@ const { repo } = Astro.props
 
 <Card as="article" href={repo.url} target="_blank" title={`Open ${repo.name} GitHub repository`} class="card-repo">
   <CardRow>
-    <h3>{repo.name}</h3>
+    <strong>{repo.name}</strong>
+    <VisuallyHidden end />
   </CardRow>
-  <CardRow small grow>{repo.description}</CardRow>
+  <CardRow small grow>
+    {repo.description}
+    {repo.description?.at(-1) !== '.' ? <VisuallyHidden end /> : null}
+  </CardRow>
   <CardRow small raw row>
     <LanguageTags languages={repo.languages} />
     {repo.stars > 0 ? <Stars count={repo.stars} /> : null}
@@ -27,5 +32,9 @@ const { repo } = Astro.props
 <style>
   .card-repo > :global(a::after) {
     content: none;
+  }
+
+  strong {
+    font-size: var(--text-size-lg);
   }
 </style>

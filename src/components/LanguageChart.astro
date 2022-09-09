@@ -19,7 +19,7 @@ const { languageStats } = Astro.props
 </script>
 
 <div>
-  <canvas id="languageChart" width="150" height="150"></canvas>
+  <canvas id="languageChart" width="150" height="150" role="img" aria-label="HiDeoo's most used languages"></canvas>
   <ul>
     {languageStats.map((languageStat) => <LanguageLegend languageStat={languageStat} />)}
   </ul>

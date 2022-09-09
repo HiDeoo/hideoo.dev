@@ -12,8 +12,8 @@ const recentRepos = await fetchGitHubRecentRepos()
 
 <Page>
   <ProfileCard slot="sidebar" languageStats={languageStats} />
+  <ThemeToggle />
   <Section title="Recent Projects">
-    <ThemeToggle slot="section-title-item" />
     <Repos repos={recentRepos} />
   </Section>
   <Section title="All Projects">

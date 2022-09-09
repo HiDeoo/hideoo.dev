@@ -2,6 +2,7 @@
 import { type GitHubLanguage } from '../libs/github'
 
 import LanguageTag from './LanguageTag.astro'
+import VisuallyHidden from './VisuallyHidden.astro'
 
 export interface Props {
   languages: GitHubLanguage[]
@@ -10,7 +11,17 @@ export interface Props {
 const { languages } = Astro.props
 ---
 
-<ul>{languages.map((language) => <LanguageTag language={language} />)}</ul>
+<ul>
+  <VisuallyHidden>Built with</VisuallyHidden>
+  {
+    languages.map((language, index) => (
+      <>
+        <LanguageTag language={language} />
+        {index < languages.length - 1 ? <VisuallyHidden separator /> : <VisuallyHidden end />}
+      </>
+    ))
+  }
+</ul>
 
 <style>
   ul {

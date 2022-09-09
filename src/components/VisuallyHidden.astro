@@ -1,9 +1,18 @@
 ---
 // https://github.com/twbs/bootstrap/blob/23e50829f958ea1d741d63e2781716be037e4644/scss/mixins/_visually-hidden.scss
+
+export interface Props {
+  end?: boolean
+  separator?: boolean
+}
+
+const { end, separator } = Astro.props
 ---
 
 <span>
-  <slot />
+  <slot>
+    {end ? '.' : separator ? '-' : ''}
+  </slot>
 </span>
 
 <style>

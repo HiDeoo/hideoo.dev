@@ -51,7 +51,7 @@ import '../styles/global.css'
       document.documentElement.classList.remove(themeName.dark)
     }
 
-    document.querySelector('#theme-toggle')?.setAttribute('aria-label', theme)
+    document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
   }
 
   function updateTheme(newThemeName) {

@@ -1,4 +1,8 @@
 ---
+import { pluralize } from '../libs/string'
+
+import VisuallyHidden from './VisuallyHidden.astro'
+
 export interface Props {
   count: number
 }
@@ -15,6 +19,7 @@ const { count } = Astro.props
     </g>
   </svg>
   {count}
+  <VisuallyHidden>{pluralize(count, 'star', 'stars')}</VisuallyHidden>
 </div>
 
 <style>
