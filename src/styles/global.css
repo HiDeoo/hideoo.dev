@@ -19,6 +19,10 @@ body {
   line-height: var(--line-height);
 }
 
+::selection {
+  background: var(--selection-bg-color);
+}
+
 div.app {
   display: flex;
   flex-direction: column;

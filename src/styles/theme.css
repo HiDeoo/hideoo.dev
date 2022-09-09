@@ -32,6 +32,7 @@
   --card-bg-color: white;
   --card-border-color: var(--color);
   --card-color: var(--color);
+  --selection-bg-color: var(--gray-5);
 }
 
 :root.dark {
@@ -43,4 +44,5 @@
   --card-bg-color: hsl(0 0% 4%);
   --card-border-color: var(--gray-6);
   --card-color: var(--color);
+  --selection-bg-color: var(--gray-7);
 }
