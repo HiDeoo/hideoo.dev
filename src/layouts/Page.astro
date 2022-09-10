@@ -2,23 +2,17 @@
 import 'modern-normalize'
 
 import Footer from '../components/Footer.astro'
-import Head from '../components/Head.astro'
 import Sidebar from '../components/Sidebar.astro'
+
+import App from './App.astro'
 ---
 
-<html lang="en">
-  <head>
-    <Head />
-  </head>
-  <body>
-    <div class="app">
-      <Sidebar>
-        <slot name="sidebar" />
-      </Sidebar>
-      <main id="main">
-        <slot />
-      </main>
-      <Footer />
-    </div>
-  </body>
-</html>
+<App>
+  <Sidebar>
+    <slot name="sidebar" />
+  </Sidebar>
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</App>
