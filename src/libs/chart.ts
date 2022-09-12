@@ -1,6 +1,5 @@
-import fs from 'node:fs/promises'
-
 import QuickChart from 'quickchart-js'
+import sharp from 'sharp'
 
 import { type LanguageStats } from './github'
 
@@ -36,7 +35,7 @@ export async function generateLanguageStatsCharts(languageStats: LanguageStats) 
 
     const chartData = await chart.toBinary()
 
-    await fs.writeFile(`public/images/chart-languages-${prefix}.png`, chartData)
+    await sharp(chartData).webp().toFile(`public/images/chart-languages-${prefix}.webp`)
   }
 }
 
