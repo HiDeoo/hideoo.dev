@@ -25,6 +25,10 @@ const { class: className, href, target, title } = Astro.props
     text-decoration: none;
     vertical-align: bottom;
 
+    &:focus {
+      outline: none;
+    }
+
     &::after {
       background-color: var(--color);
       bottom: 0;

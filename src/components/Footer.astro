@@ -71,10 +71,10 @@ import VisuallyHidden from './VisuallyHidden.astro'
   .github-profile-link {
     border-radius: var(--radius-round);
     display: flex;
+    outline: none;
 
     &:focus-visible {
-      outline: 2px solid var(--color);
-      outline-offset: 4px;
+      box-shadow: 0 0 0 4px var(--bg-color), 0 0 0 6px var(--color);
     }
 
     &:is(:hover, :focus-visible) svg {
