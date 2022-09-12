@@ -1,4 +1,5 @@
 ---
+import { generateLanguageStatsCharts } from '../libs/chart'
 import { type LanguageStats } from '../libs/github'
 
 import LanguageLegend from './LanguageLegend.astro'
@@ -8,19 +9,14 @@ export interface Props {
 }
 
 const { languageStats } = Astro.props
+
+await generateLanguageStatsCharts(languageStats)
+
+const chartDescription = "HiDeoo's most used programming languages"
 ---
 
-<script define:vars={{ languageStats }}>
-  globalThis.languageStats = languageStats
-</script>
-
-<script>
-  import '../libs/chart'
-</script>
-
 <div>
-  <canvas id="languageChart" width="150" height="150" role="img" aria-label="HiDeoo's most used programming languages"
-  ></canvas>
+  <img class="chart" alt={chartDescription} title={chartDescription} decoding="async" />
   <ul>
     {languageStats.map((languageStat) => <LanguageLegend languageStat={languageStat} />)}
   </ul>
@@ -35,6 +31,16 @@ const { languageStats } = Astro.props
     flex-direction: column;
     gap: var(--size-3);
     margin-top: var(--size-2);
+  }
+
+  .chart {
+    aspect-ratio: auto 1 / 1;
+    content: url('/images/chart-languages-light.png');
+    width: var(--chart-size);
+
+    @nest html.dark & {
+      content: url('/images/chart-languages-dark.png');
+    }
   }
 
   ul {

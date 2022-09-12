@@ -1,33 +1,62 @@
-import { ArcElement, Chart, DoughnutController } from 'chart.js'
+import fs from 'node:fs/promises'
 
-Chart.register(ArcElement, DoughnutController)
+import QuickChart from 'quickchart-js'
 
-let chart: Chart | null = null
+import { type LanguageStats } from './github'
 
-function generateLanguageChart() {
+const chartSize = 150 // In pixels.
+const chartBackgroundColor = 'transparent'
+
+const chartDefinitions = [
+  ['dark', '#868e96'],
+  ['light', '#212529'],
+] as const
+
+export async function generateLanguageStatsCharts(languageStats: LanguageStats) {
   const backgroundColor: string[] = []
   const data: number[] = []
   const labels: string[] = []
 
-  const isDark = document.documentElement.classList.contains('dark')
-
-  for (const languageStats of globalThis.languageStats) {
-    backgroundColor.push(isDark ? languageStats.colors.dark : languageStats.colors.light)
-    data.push(languageStats.size)
-    labels.push(languageStats.name)
+  for (const languageStat of languageStats) {
+    backgroundColor.push(languageStat.colors.dark)
+    data.push(languageStat.size)
+    labels.push(languageStat.name)
   }
 
-  if (chart) {
-    chart.destroy()
-    chart = null
-  }
+  for (const [prefix, borderColor] of chartDefinitions) {
+    const chart = await generateChart(
+      chartSize,
+      chartSize,
+      chartBackgroundColor,
+      borderColor,
+      backgroundColor,
+      data,
+      labels
+    )
 
-  chart = new Chart('languageChart', {
+    const chartData = await chart.toBinary()
+
+    await fs.writeFile(`public/images/chart-languages-${prefix}.png`, chartData)
+  }
+}
+
+async function generateChart(
+  width: number,
+  height: number,
+  backgroundColor: string,
+  borderColor: string,
+  backgroundColors: string[],
+  data: number[],
+  labels: string[]
+) {
+  const chart = getNewChart(width, height, backgroundColor)
+
+  chart.setConfig({
     data: {
       datasets: [
         {
-          backgroundColor,
-          borderColor: getComputedStyle(document.documentElement).getPropertyValue('--card-border-color'),
+          backgroundColor: backgroundColors,
+          borderColor,
           borderWidth: 1,
           data,
         },
@@ -35,28 +64,28 @@ function generateLanguageChart() {
       labels,
     },
     options: {
-      animation: false,
-      events: [],
-      responsive: false,
+      plugins: {
+        datalabels: {
+          display: false,
+        },
+        legend: {
+          display: false,
+        },
+      },
     },
     type: 'doughnut',
   })
+
+  return chart
 }
 
-function onThemeChangeHandler() {
-  requestAnimationFrame(generateLanguageChart)
+function getNewChart(width: number, height: number, backgroundColor: string) {
+  const chart = new QuickChart()
+  chart.setBackgroundColor(backgroundColor)
+  chart.setDevicePixelRatio(2)
+  chart.setVersion('3')
+  chart.setWidth(width)
+  chart.setHeight(height)
+
+  return chart
 }
-
-requestAnimationFrame(generateLanguageChart)
-
-const themeObserver = new MutationObserver((mutations) => {
-  for (const mutation of mutations) {
-    if (mutation.type !== 'attributes' && mutation.attributeName !== 'class') {
-      return
-    }
-
-    onThemeChangeHandler()
-  }
-})
-
-themeObserver.observe(document.documentElement, { attributeFilter: ['class'] })
