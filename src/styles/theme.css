@@ -29,7 +29,7 @@
   --color: var(--gray-9);
   --color-dimmed: var(--gray-7);
   --bg-color: var(--gray-2);
-  --card-bg-color: white;
+  --card-bg-color: hsl(0 0% 100%);
   --card-border-color: var(--color);
   --card-color: var(--color);
   --selection-bg-color: var(--gray-5);
