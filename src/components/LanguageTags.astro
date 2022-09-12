@@ -11,16 +11,9 @@ export interface Props {
 const { languages } = Astro.props
 ---
 
+<VisuallyHidden>Built with</VisuallyHidden>
 <ul>
-  <VisuallyHidden>Built with</VisuallyHidden>
-  {
-    languages.map((language, index) => (
-      <>
-        <LanguageTag language={language} />
-        {index < languages.length - 1 ? <VisuallyHidden separator /> : <VisuallyHidden end />}
-      </>
-    ))
-  }
+  {languages.map((language, index) => <LanguageTag language={language} last={index === languages.length - 1} />)}
 </ul>
 
 <style>

@@ -1,15 +1,19 @@
 ---
 import { type GitHubLanguage } from '../libs/github'
 
+import VisuallyHidden from './VisuallyHidden.astro'
+
 export interface Props {
   language: GitHubLanguage
+  last: boolean
 }
 
-const { language } = Astro.props
+const { language, last } = Astro.props
 ---
 
 <li>
   {language.name}
+  {last ? <VisuallyHidden end /> : <VisuallyHidden separator />}
 </li>
 
 <style define:vars={{ darkColor: language.colors.dark, lightColor: language.colors.light }}>
