@@ -174,10 +174,12 @@ function getReposAndLanguageStatsFromNodes(
 
             const colors = getLanguageColors(languageEdge.node.color)
 
-            rawLanguageStats[languageEdge.node.name] = {
-              colors,
-              name: languageEdge.node.name,
-              size: (rawLanguageStats[languageEdge.node.name]?.size ?? 0) + languageEdge.size,
+            if (typeof languageEdge.size === 'number') {
+              rawLanguageStats[languageEdge.node.name] = {
+                colors,
+                name: languageEdge.node.name,
+                size: (rawLanguageStats[languageEdge.node.name]?.size ?? 0) + languageEdge.size,
+              }
             }
 
             languages.push({
