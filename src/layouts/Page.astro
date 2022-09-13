@@ -1,0 +1,18 @@
+---
+import 'modern-normalize'
+
+import Footer from '../components/Footer.astro'
+import Sidebar from '../components/Sidebar.astro'
+
+import App from './App.astro'
+---
+
+<App>
+  <Sidebar>
+    <slot name="sidebar" />
+  </Sidebar>
+  <main id="main">
+    <slot />
+  </main>
+  <Footer />
+</App>

@@ -1,0 +1,67 @@
+---
+import { generateLanguageStatsCharts } from '../libs/chart'
+import { type LanguageStats } from '../libs/github'
+
+import LanguageLegend from './LanguageLegend.astro'
+
+export interface Props {
+  languageStats: LanguageStats
+}
+
+const { languageStats } = Astro.props
+
+await generateLanguageStatsCharts(languageStats)
+
+const chartDescription = "HiDeoo's most used programming languages"
+---
+
+<div>
+  <img class="chart" alt={chartDescription} title={chartDescription} decoding="async" />
+  <ul>
+    {languageStats.map((languageStat) => <LanguageLegend languageStat={languageStat} />)}
+  </ul>
+</div>
+
+<style>
+  @import 'open-props/media';
+
+  div {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+    margin-top: var(--size-2);
+  }
+
+  .chart {
+    aspect-ratio: auto 1 / 1;
+    content: url('/images/chart-languages-light.webp');
+    width: var(--chart-size);
+
+    @nest html.dark & {
+      content: url('/images/chart-languages-dark.webp');
+    }
+  }
+
+  ul {
+    display: grid;
+    column-gap: var(--size-5);
+    grid-template-columns: 1fr;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    row-gap: var(--size-1);
+
+    @media (--xs-n-above) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    @media (--sm-n-above) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (--md-n-above) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+</style>

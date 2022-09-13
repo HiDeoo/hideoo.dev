@@ -1,0 +1,13 @@
+*.tsbuildinfo
+.next
+.vercel
+.vscode-test
+.vscode-test-web
+build
+coverage
+dist
+dist-ssr
+node_modules
+LICENSE
+out
+pnpm-lock.yaml

@@ -1,0 +1,17 @@
+<div>
+  <slot />
+</div>
+
+<style>
+  @import 'open-props/media';
+
+  div {
+    display: grid;
+    gap: var(--grid-spacing);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (--lg-n-above) {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    }
+  }
+</style>

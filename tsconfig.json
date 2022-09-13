@@ -1,0 +1,6 @@
+{
+  "extends": "@hideoo/tsconfig",
+  "compilerOptions": {
+    "types": ["astro/client"]
+  }
+}

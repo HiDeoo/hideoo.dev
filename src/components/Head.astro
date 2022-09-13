@@ -1,0 +1,101 @@
+---
+import '../styles/theme.css'
+import '../styles/global.css'
+
+const author = 'HiDeoo'
+const description = "HiDeoo's Open Source Portfolio"
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+const ogImageAlt = "HiDeoo's avatar"
+const ogImageUrl = new URL('/images/og.png', Astro.site)
+const title = author
+---
+
+<meta charset="utf-8" />
+
+<title>{title}</title>
+
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" href="/images/favicon.ico" sizes="any" />
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+
+<meta name="author" content={author} />
+<meta name="color-scheme" content="dark light" />
+<meta name="description" property="og:description" content={description} />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="hsl(210 11% 7%)" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="hsl(210 16% 93%)" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:alt" content={ogImageAlt} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content={title} />
+<meta property="og:type" content="profile" />
+<meta property="og:url" content={canonicalUrl} />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={ogImageAlt} />
+<meta name="twitter:title" content={title} />
+
+{
+  /**
+   * Inlined to avoid a FOUC.
+   *
+   * - We do not care if localStorage is not available when saving a theme preference.
+   * - When applying the theme during the first evaluation, the toggle theme button is not yet rendered so we cannot
+   *  update its aria-label. We have to wait for the window `load` event to do so.
+   */
+}
+<script is:inline>
+  const themeName = { dark: 'dark', light: 'light' }
+  const themeKey = 'theme'
+  let theme = getTheme()
+
+  function getTheme() {
+    try {
+      const persistedTheme = localStorage.getItem(themeKey)
+      const preferDarkTheme = window.matchMedia('(prefers-color-scheme: dark)')
+
+      if (persistedTheme === themeName.dark || (!persistedTheme && preferDarkTheme.matches)) {
+        return themeName.dark
+      }
+
+      return themeName.light
+    } catch {
+      return themeName.light
+    }
+  }
+
+  function applyTheme() {
+    if (theme === themeName.dark) {
+      document.documentElement.classList.add(themeName.dark)
+    } else {
+      document.documentElement.classList.remove(themeName.dark)
+    }
+
+    document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
+  }
+
+  function updateTheme(newThemeName) {
+    theme = newThemeName
+
+    applyTheme()
+
+    try {
+      localStorage.setItem(themeKey, newThemeName)
+    } catch {}
+  }
+
+  applyTheme()
+
+  window.addEventListener('load', () => {
+    applyTheme()
+  })
+
+  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+    theme = event.matches ? themeName.dark : themeName.light
+
+    applyTheme()
+  })
+</script>

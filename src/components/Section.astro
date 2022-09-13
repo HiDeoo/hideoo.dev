@@ -1,0 +1,33 @@
+---
+export interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<section>
+  <h2>
+    {title}
+    <slot name="section-title-item" />
+  </h2>
+  <div>
+    <slot />
+  </div>
+</section>
+
+<style>
+  @import 'open-props/media';
+
+  h2 {
+    font-size: var(--text-size-xl);
+    line-height: var(--line-height-xs);
+    margin-block: var(--size-7);
+    position: relative;
+  }
+
+  section:first-of-type h2 {
+    margin-top: 0;
+    margin-right: var(--size-8);
+  }
+</style>
