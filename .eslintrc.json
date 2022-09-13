@@ -14,7 +14,8 @@
       },
       "rules": {
         "react/jsx-key": "off",
-        "react/no-unknown-property": ["error", { "ignore": ["class", "onclick"] }]
+        "react/no-unknown-property": ["error", { "ignore": ["class", "onclick"] }],
+        "unicorn/text-encoding-identifier-case": "off"
       }
     },
     {
