@@ -35,7 +35,7 @@ export async function generateLanguageStatsCharts(languageStats: LanguageStats) 
 
     const chartData = await chart.toBinary()
 
-    await sharp(chartData).webp().toFile(`public/images/chart-languages-${prefix}.webp`)
+    await sharp(chartData).webp().toFile(`dist/images/chart-languages-${prefix}.webp`)
   }
 }
 
