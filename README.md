@@ -1,11 +1,6 @@
 <div align="center">
-  <h1>hideoo.dev 🚧</h1>
-  <p>hideoo.dev description</p>
-  <p>
-    <a href="https://dummyimage.com/520x350/121212/cdc8be.png&text=screenshot" title="Screenshot of hideoo.dev">
-      <img alt="Screenshot of hideoo.dev" src="https://dummyimage.com/520x350/121212/cdc8be.png&text=screenshot" width="520" />
-    </a>
-  </p>
+  <h1>hideoo.dev 🪚</h1>
+  <p>HiDeoo's personal website</p>
 </div>
 
 <div align="center">
@@ -16,14 +11,10 @@
     <img alt="License" src="https://badgen.net/github/license/HiDeoo/hideoo.dev" />
   </a>
   <br />
+  <br />
 </div>
 
-## Features
-
-hideoo.dev presentation.
-
-- hideoo.dev feature 1
-- hideoo.dev feature 2
+Built with [Astro](https://astro.build) & [Open Props](https://open-props.style). Hosted on [Vercel](https://vercel.com).
 
 ## License
 
