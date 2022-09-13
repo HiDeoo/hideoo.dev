@@ -17,7 +17,12 @@ const gitHubProfile = await fetchGitHubProfile()
 
 <Card>
   <CardRow raw row center>
-    <img src="images/avatar.webp" alt="HiDeoo's avatar" decoding="async" />
+    <img
+      alt="HiDeoo's avatar"
+      decoding="async"
+      src="images/avatar.webp"
+      srcset="images/avatar.webp 1x, images/avatar.webp 2x"
+    />
   </CardRow>
   <CardRow center>
     <h1>{gitHubProfile.login}</h1>
