@@ -1,8 +1,13 @@
-import { type User, type Maybe, type Repository } from '@octokit/graphql-schema'
+import { type User, type LanguageEdge, type Maybe, type Repository } from '@octokit/graphql-schema'
 
 import { getLanguageColors } from './color'
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
+
+const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
+  'HiDeoo/prettier-config': [{ node: { color: '#267CB9', name: 'JSON' } }],
+  'HiDeoo/tsconfig': [{ node: { color: '#267CB9', name: 'JSON' } }],
+}
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
@@ -18,6 +23,7 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
       }
     }
     name
+    nameWithOwner
     stargazerCount
     url
   }
@@ -142,13 +148,25 @@ function getReposAndLanguageStatsFromNodes(
     for (const node of nodes) {
       if (node && !repoBanList.some((regex) => regex.test(node.name))) {
         if (typeof node.description !== 'string' || node.description.length === 0) {
-          console.error(`No description found for repository '${node.name}'.`)
+          console.error(`No description found for repository '${node.nameWithOwner}'.`)
+          continue
+        }
+
+        const languageOverride = repoLanguageOverrides[node.nameWithOwner]
+
+        if (node.languages?.edges && languageOverride) {
+          // @ts-expect-error The override is only a partial language edge.
+          node.languages.edges = languageOverride
+        }
+
+        if (typeof node.languages?.edges === 'undefined' || node.languages.edges?.length === 0) {
+          console.error(`No languages found for repository '${node.nameWithOwner}'.`)
           continue
         }
 
         const languages: GitHubRepo['languages'] = []
 
-        if (node.languages?.edges) {
+        if (node.languages.edges) {
           for (const languageEdge of node.languages.edges) {
             if (!languageEdge || !languageEdge.node.color) {
               continue
@@ -244,3 +262,7 @@ export interface LanguageStat {
 
 type RawLanguageStats = Record<LanguageStat['name'], LanguageStat>
 export type LanguageStats = LanguageStat[]
+
+type DeepPartial<TType> = {
+  [Tkey in keyof TType]?: TType[Tkey] extends object ? DeepPartial<TType[Tkey]> : TType[Tkey]
+}
