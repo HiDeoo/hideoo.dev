@@ -1,7 +1,6 @@
 :root {
   --max-page-width: 80rem;
   --sidebar-width: calc(var(--size-14) - var(--size-8));
-  --avatar-size: 190px;
   --chart-size: 150px;
 
   --text-size-xs: 0.8rem;
