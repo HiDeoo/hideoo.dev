@@ -15,14 +15,9 @@ const { languageStats } = Astro.props
 const gitHubProfile = await fetchGitHubProfile()
 ---
 
-<Card>
+<Card class="profile">
   <CardRow raw row center>
-    <img
-      alt="HiDeoo's avatar"
-      decoding="async"
-      src="images/avatar.webp"
-      srcset="images/avatar.webp 1x, images/avatar.webp 2x"
-    />
+    <img alt="HiDeoo's avatar" decoding="async" src="images/avatar.webp" srcset="images/avatar@2x.webp 2x" />
   </CardRow>
   <CardRow center>
     <h1>{gitHubProfile.login}</h1>
@@ -38,11 +33,14 @@ const gitHubProfile = await fetchGitHubProfile()
 </Card>
 
 <style>
+  :global(.card).profile {
+    overflow: hidden;
+  }
+
   img {
     aspect-ratio: auto 1 / 1;
     block-size: auto;
-    max-inline-size: 100%;
-    width: var(--avatar-size);
+    inline-size: 100%;
   }
 
   h1 {
