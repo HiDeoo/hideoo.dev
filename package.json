@@ -19,6 +19,7 @@
     "@octokit/graphql-schema": "13.7.0",
     "@types/prettier": "2.7.2",
     "@types/sharp": "0.31.1",
+    "@unocss/reset": "0.50.6",
     "astro": "2.1.8",
     "autoprefixer": "10.4.14",
     "colord": "2.9.3",
@@ -26,16 +27,12 @@
     "eslint-plugin-astro": "0.26.1",
     "husky": "8.0.3",
     "lint-staged": "13.2.0",
-    "modern-normalize": "1.1.0",
-    "open-props": "1.5.6",
-    "postcss": "8.4.21",
-    "postcss-jit-props": "1.0.12",
-    "postcss-preset-env": "8.2.0",
     "prettier": "2.8.7",
     "prettier-plugin-astro": "0.8.0",
     "quickchart-js": "3.1.2",
     "sharp": "0.32.0",
-    "typescript": "5.0.2"
+    "typescript": "5.0.2",
+    "unocss": "0.50.6"
   },
   "engines": {
     "node": ">=18"
