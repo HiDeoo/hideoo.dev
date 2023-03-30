@@ -1,18 +1,17 @@
 ---
-import 'modern-normalize'
+import 'uno.css'
 
-import Footer from '../components/Footer.astro'
-import Sidebar from '../components/Sidebar.astro'
-
-import App from './App.astro'
+import Head from '../components/Head.astro'
 ---
 
-<App>
-  <Sidebar>
-    <slot name="sidebar" />
-  </Sidebar>
-  <main id="main">
-    <slot />
-  </main>
-  <Footer />
-</App>
+<html lang="en">
+  <head>
+    <Head />
+  </head>
+  <body class="bg-grid dark:bg-grid-dark">
+    <!-- // TODO(HiDeoo) needed id? -->
+    <main id="main">
+      <slot />
+    </main>
+  </body>
+</html>
