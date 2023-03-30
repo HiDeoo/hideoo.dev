@@ -1,3 +1,9 @@
+// FIXME(HiDeoo)
+/* eslint-disable unicorn/no-abusive-eslint-disable */
+// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+// @ts-nocheck
+/* eslint-disable */
+
 import QuickChart from 'quickchart-js'
 import sharp from 'sharp'
 

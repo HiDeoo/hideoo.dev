@@ -21,7 +21,7 @@ const { repo } = Astro.props
   </CardRow>
   <CardRow small grow>
     {repo.description}
-    {repo.description?.at(-1) !== '.' ? <VisuallyHidden end /> : null}
+    {repo.description?.at(-1) === '.' ? null : <VisuallyHidden end />}
   </CardRow>
   <CardRow small raw row>
     <LanguageTags languages={repo.languages} />

@@ -159,7 +159,7 @@ function getReposAndLanguageStatsFromNodes(
           node.languages.edges = languageOverride
         }
 
-        if (typeof node.languages?.edges === 'undefined' || node.languages.edges?.length === 0) {
+        if (node.languages?.edges === undefined || node.languages.edges?.length === 0) {
           console.error(`No languages found for repository '${node.nameWithOwner}'.`)
           continue
         }
@@ -168,7 +168,7 @@ function getReposAndLanguageStatsFromNodes(
 
         if (node.languages.edges) {
           for (const languageEdge of node.languages.edges) {
-            if (!languageEdge || !languageEdge.node.color) {
+            if (!languageEdge?.node.color) {
               continue
             }
 
