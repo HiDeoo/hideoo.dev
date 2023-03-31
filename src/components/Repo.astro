@@ -1,0 +1,11 @@
+---
+import { type GitHubRepo } from '../libs/github'
+
+export interface Props {
+  repo: GitHubRepo
+}
+
+const { repo } = Astro.props
+---
+
+<div>{repo.name}</div>

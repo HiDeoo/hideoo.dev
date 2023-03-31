@@ -1,0 +1,12 @@
+---
+import Section from '../components/Section.astro'
+import { fetchGitHubRecentRepos } from '../libs/github'
+
+import Repos from './Repos.astro'
+
+const recentRepos = await fetchGitHubRecentRepos()
+---
+
+<Section title="Recent Projects">
+  <Repos repos={recentRepos} />
+</Section>

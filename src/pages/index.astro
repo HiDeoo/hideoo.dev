@@ -1,26 +1,15 @@
 ---
-// import ProfileCard from '../components/ProfileCard.astro'
-// import Repos from '../components/Repos.astro'
-// import Section from '../components/Section.astro'
-// import ThemeToggle from '../components/ThemeToggle.astro'
+import AllProjects from '../components/AllProjects.astro'
 import MostUsedLanguages from '../components/MostUsedLanguages.astro'
+import RecentProjects from '../components/RecentProjects.astro'
 import Page from '../layouts/Page.astro'
-// import { fetchGitHubRecentRepos, fetchGitHubReposAndLanguageStats } from '../libs/github'
 import { fetchGitHubReposAndLanguageStats } from '../libs/github'
 
-// const { repos: allRepos, languageStats } = await fetchGitHubReposAndLanguageStats()
-const { languageStats } = await fetchGitHubReposAndLanguageStats()
-// const recentRepos = await fetchGitHubRecentRepos()
+const { repos: allRepos, languageStats } = await fetchGitHubReposAndLanguageStats()
 ---
 
 <Page>
-  <MostUsedLanguages languageStats={languageStats} />
-  <!-- <ProfileCard slot="sidebar" languageStats={languageStats} />
-  <ThemeToggle />
-  <Section title="Recent Projects">
-    <Repos repos={recentRepos} />
-  </Section>
-  <Section title="All Projects">
-    <Repos repos={allRepos} />
-  </Section> -->
+  <RecentProjects />
+  <MostUsedLanguages stats={languageStats} />
+  <AllProjects repos={allRepos} />
 </Page>

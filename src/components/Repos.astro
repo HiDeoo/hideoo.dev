@@ -1,7 +1,6 @@
 ---
 import { type GitHubRepo } from '../libs/github'
 
-import Grid from './Grid.astro'
 import Repo from './Repo.astro'
 
 export interface Props {
@@ -11,6 +10,7 @@ export interface Props {
 const { repos } = Astro.props
 ---
 
-<Grid>
+<!-- // TODO(HiDeoo)  -->
+<div>
   {repos.map((repo) => <Repo repo={repo} />)}
-</Grid>
+</div>

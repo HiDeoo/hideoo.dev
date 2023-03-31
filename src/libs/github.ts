@@ -1,4 +1,4 @@
-import { type User, type LanguageEdge, type Maybe, type Repository } from '@octokit/graphql-schema'
+import { type LanguageEdge, type Maybe, type Repository, type User } from '@octokit/graphql-schema'
 
 import { getLanguageColors } from './color'
 
@@ -53,43 +53,30 @@ export async function fetchGitHubReposAndLanguageStats() {
   return { languageStats: normalizeLanguageStats(rawLanguageStats), repos }
 }
 
-// export async function fetchGitHubProfile() {
-//   const { viewer } = await fetchGitHubApi<{ viewer: GitHubProfile }>({
-//     query: `
-//     query Infos {
-//       viewer {
-//         login
-//       }
-//     }`,
-//   })
+export async function fetchGitHubRecentRepos(count = 4) {
+  const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
+    query: `
+    ${GithubRepoFragment}
+    query Repos($count: Int) {
+      viewer {
+        repositories(
+          first: $count,
+          isFork: false,
+          orderBy: { direction: DESC, field: CREATED_AT },
+          ownerAffiliations: [OWNER],
+          privacy: PUBLIC
+        ) {
+          ...Repo
+        }
+      }
+    }`,
+    variables: {
+      count: count + 10,
+    },
+  })
 
-//   return viewer
-// }
-
-// export async function fetchGitHubRecentRepos(count = 4) {
-//   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
-//     query: `
-//     ${GithubRepoFragment}
-//     query Repos($count: Int) {
-//       viewer {
-//         repositories(
-//           first: $count,
-//           isFork: false,
-//           orderBy: { direction: DESC, field: CREATED_AT },
-//           ownerAffiliations: [OWNER],
-//           privacy: PUBLIC
-//         ) {
-//           ...Repo
-//         }
-//       }
-//     }`,
-//     variables: {
-//       count: count + 10,
-//     },
-//   })
-
-//   return getReposAndLanguageStatsFromNodes(json.viewer.repositories.nodes).slice(0, count)
-// }
+  return getReposAndLanguageStatsFromNodes(json.viewer.repositories.nodes).slice(0, count)
+}
 
 async function fetchGitHubPaginatedRepos(after?: string) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
@@ -239,9 +226,7 @@ interface GitHubApiRequestBody {
   variables?: Record<string, string | number | undefined>
 }
 
-// type GitHubProfile = Pick<User, 'login'>
-
-interface GitHubRepo {
+export interface GitHubRepo {
   description: string | null
   id: string
   languages: GitHubLanguage[]

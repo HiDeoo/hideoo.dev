@@ -3,18 +3,18 @@ import Section from '../components/Section.astro'
 import { type LanguageStats } from '../libs/github'
 
 export interface Props {
-  languageStats: LanguageStats
+  stats: LanguageStats
 }
 
-const { languageStats } = Astro.props
+const { stats } = Astro.props
 ---
 
 <Section title="Most used languages">
   <ul>
     {
-      languageStats.map((languageStat) => (
+      stats.map((stat) => (
         <li>
-          {languageStat.name} - {languageStat.size} - {languageStat.colors.dark}
+          {stat.name} - {stat.size} - {stat.colors.dark}
         </li>
       ))
     }
