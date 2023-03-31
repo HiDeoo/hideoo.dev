@@ -3,14 +3,11 @@ import { fetchGitHubProfile, type LanguageStats } from '../libs/github'
 
 import Card from './Card.astro'
 import CardRow from './CardRow.astro'
-import LanguageChart from './LanguageChart.astro'
 import Link from './Link.astro'
 
 export interface Props {
   languageStats: LanguageStats
 }
-
-const { languageStats } = Astro.props
 
 const gitHubProfile = await fetchGitHubProfile()
 ---
@@ -26,9 +23,6 @@ const gitHubProfile = await fetchGitHubProfile()
       <span aria-hidden="true">-</span>
       <Link href="https://github.com/HiDeoo/dotfiles" target="_blank">Dotfiles</Link>
     </p>
-  </CardRow>
-  <CardRow>
-    <LanguageChart languageStats={languageStats} />
   </CardRow>
 </Card>
 

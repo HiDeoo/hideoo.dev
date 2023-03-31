@@ -5,6 +5,7 @@ import { getLanguageColors } from './color'
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
 // TODO(HiDeoo)
+// TODO(HiDeoo) Use css variables?
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
   'HiDeoo/prettier-config': [{ node: { color: '#267CB9', name: 'JSON' } }],
   'HiDeoo/tsconfig': [{ node: { color: '#267CB9', name: 'JSON' } }],
@@ -30,19 +31,6 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
   }
 }`
 
-export async function fetchGitHubProfile() {
-  const { viewer } = await fetchGitHubApi<{ viewer: GitHubProfile }>({
-    query: `
-    query Infos {
-      viewer {
-        login
-      }
-    }`,
-  })
-
-  return viewer
-}
-
 export async function fetchGitHubReposAndLanguageStats() {
   const rawLanguageStats: RawLanguageStats = {}
   const repos: GitHubRepo[] = []
@@ -65,30 +53,43 @@ export async function fetchGitHubReposAndLanguageStats() {
   return { languageStats: normalizeLanguageStats(rawLanguageStats), repos }
 }
 
-export async function fetchGitHubRecentRepos(count = 4) {
-  const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
-    query: `
-    ${GithubRepoFragment}
-    query Repos($count: Int) {
-      viewer {
-        repositories(
-          first: $count,
-          isFork: false,
-          orderBy: { direction: DESC, field: CREATED_AT },
-          ownerAffiliations: [OWNER],
-          privacy: PUBLIC
-        ) {
-          ...Repo
-        }
-      }
-    }`,
-    variables: {
-      count: count + 10,
-    },
-  })
+// export async function fetchGitHubProfile() {
+//   const { viewer } = await fetchGitHubApi<{ viewer: GitHubProfile }>({
+//     query: `
+//     query Infos {
+//       viewer {
+//         login
+//       }
+//     }`,
+//   })
 
-  return getReposAndLanguageStatsFromNodes(json.viewer.repositories.nodes).slice(0, count)
-}
+//   return viewer
+// }
+
+// export async function fetchGitHubRecentRepos(count = 4) {
+//   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
+//     query: `
+//     ${GithubRepoFragment}
+//     query Repos($count: Int) {
+//       viewer {
+//         repositories(
+//           first: $count,
+//           isFork: false,
+//           orderBy: { direction: DESC, field: CREATED_AT },
+//           ownerAffiliations: [OWNER],
+//           privacy: PUBLIC
+//         ) {
+//           ...Repo
+//         }
+//       }
+//     }`,
+//     variables: {
+//       count: count + 10,
+//     },
+//   })
+
+//   return getReposAndLanguageStatsFromNodes(json.viewer.repositories.nodes).slice(0, count)
+// }
 
 async function fetchGitHubPaginatedRepos(after?: string) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
@@ -238,9 +239,9 @@ interface GitHubApiRequestBody {
   variables?: Record<string, string | number | undefined>
 }
 
-type GitHubProfile = Pick<User, 'login'>
+// type GitHubProfile = Pick<User, 'login'>
 
-export interface GitHubRepo {
+interface GitHubRepo {
   description: string | null
   id: string
   languages: GitHubLanguage[]
@@ -249,7 +250,7 @@ export interface GitHubRepo {
   url: string
 }
 
-export interface GitHubLanguage {
+interface GitHubLanguage {
   colors: {
     dark: string
     light: string
@@ -257,7 +258,7 @@ export interface GitHubLanguage {
   name: string
 }
 
-export interface LanguageStat {
+interface LanguageStat {
   colors: GitHubLanguage['colors']
   name: string
   size: number
