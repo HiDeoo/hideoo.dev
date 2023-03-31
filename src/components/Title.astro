@@ -1,0 +1,28 @@
+---
+export interface Props {
+  as?: keyof astroHTML.JSX.IntrinsicElements
+}
+
+const { as } = Astro.props
+
+// https://github.com/withastro/astro/blob/63cd9d89e8b83ce5e39cdae84a8342e28d1940cc/packages/astro/astro-jsx.d.ts#L34-L36
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Element: any = as ?? 'h2'
+---
+
+<Element class="title">
+  <slot />
+</Element>
+
+<style>
+  .title {
+    color: var(--bg-color);
+    font-size: var(--size-5);
+    font-weight: var(--font-extrabold);
+    letter-spacing: 1px;
+    line-height: var(--size-7);
+    text-shadow: 1px -1px 0 var(--color);
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px var(--color);
+  }
+</style>

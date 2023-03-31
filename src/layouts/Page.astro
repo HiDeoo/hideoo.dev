@@ -24,8 +24,14 @@ import Header from '../components/Header.astro'
 
 <style>
   :where(html) {
+    --ease: cubic-bezier(0.25, 0, 0.3, 1);
+    --ease-elastic: cubic-bezier(0.5, 1.25, 0.75, 1.25);
+    --ease-out: cubic-bezier(0, 0, 0, 1);
+
     --font-normal: 400;
     --font-extrabold: 800;
+
+    --rounded-full: 1e5px;
 
     --size-5: 1.5rem;
     --size-6: 1.75rem;
@@ -34,7 +40,7 @@ import Header from '../components/Header.astro'
 
     --zinc-50: hsl(0 0% 98%);
     --zinc-200: hsl(240 6% 90%);
-    --zinc-900: hsl(240 6% 10%);
+    --zinc-850: hsl(240 5% 13%);
     --zinc-950: hsl(240 10% 4%);
   }
 
@@ -51,7 +57,7 @@ import Header from '../components/Header.astro'
 
     --color: var(--zinc-50);
     --bg-color: var(--zinc-950);
-    --grid-color: var(--zinc-900);
+    --grid-color: var(--zinc-850);
   }
 
   /* https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Archivo */

@@ -1,4 +1,25 @@
 ---
+import ThemeToggle from './ThemeToggle.astro'
+import Title from './Title.astro'
 ---
 
-<header>header</header>
+<header>
+  <Title as="h1">HiDeoo</Title>
+  <ul>
+    <li>GitHub</li>
+    <li>Dotfiles</li>
+  </ul>
+  <ThemeToggle />
+</header>
+
+<style>
+  header {
+    align-items: center;
+    display: flex;
+    position: relative;
+  }
+
+  ul {
+    display: flex;
+  }
+</style>
