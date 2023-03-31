@@ -7,16 +7,16 @@ const { title } = Astro.props
 ---
 
 <section>
-  <h2>
+  <h2 class="title">
     {title}
-    <slot name="section-title-item" />
   </h2>
-  <div>
+  <div class="content">
     <slot />
   </div>
 </section>
 
-<style>
+<!-- // TODO(HiDeoo)  -->
+<!-- <style>
   @import 'open-props/media';
 
   h2 {
@@ -29,5 +29,22 @@ const { title } = Astro.props
   section:first-of-type h2 {
     margin-top: 0;
     margin-right: var(--size-8);
+  }
+</style> -->
+
+<style>
+  .title {
+    color: var(--bg-color);
+    font-size: var(--size-5);
+    font-weight: var(--font-extrabold);
+    letter-spacing: 1px;
+    line-height: var(--size-7);
+    text-shadow: 1px -1px 0 var(--color);
+    text-transform: uppercase;
+    -webkit-text-stroke: 1px var(--zinc-50);
+  }
+
+  .content {
+    background-color: var(--bg-color);
   }
 </style>

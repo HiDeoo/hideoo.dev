@@ -1,17 +1,78 @@
 ---
-import 'uno.css'
+import '@unocss/reset/tailwind.css'
+import '@fontsource/archivo/variable.css'
 
 import Head from '../components/Head.astro'
+import Header from '../components/Header.astro'
 ---
 
 <html lang="en">
   <head>
-    <Head />
+    {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
+    {() => <Head />}
   </head>
-  <body class="bg-grid dark:bg-grid-dark">
-    <!-- // TODO(HiDeoo) needed id? -->
-    <main id="main">
-      <slot />
-    </main>
+  <body>
+    <div class="app">
+      <Header />
+      <!-- // TODO(HiDeoo) needed id? -->
+      <main id="main">
+        <slot />
+      </main>
+    </div>
   </body>
 </html>
+
+<style>
+  :where(html) {
+    --font-normal: 400;
+    --font-extrabold: 800;
+
+    --size-5: 1.5rem;
+    --size-6: 1.75rem;
+    --size-7: 2rem;
+    --size-20: 64rem;
+
+    --zinc-50: hsl(0 0% 98%);
+    --zinc-200: hsl(240 6% 90%);
+    --zinc-900: hsl(240 6% 10%);
+    --zinc-950: hsl(240 10% 4%);
+  }
+
+  :where(html) {
+    color-scheme: light;
+
+    --color: var(--zinc-950);
+    --bg-color: var(--zinc-50);
+    --grid-color: var(--zinc-200);
+  }
+
+  :where(html).dark {
+    color-scheme: dark;
+
+    --color: var(--zinc-50);
+    --bg-color: var(--zinc-950);
+    --grid-color: var(--zinc-900);
+  }
+
+  /* https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Archivo */
+  @font-face {
+    font-family: 'Archivo-fallback';
+    size-adjust: 98.44%;
+    src: local('Arial');
+  }
+
+  body {
+    background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
+      linear-gradient(to right, var(--grid-color) 1px, var(--bg-color) 1px);
+    background-size: 21px 21px;
+    color: var(--color);
+    font-family: 'ArchivoVariable', 'Archivo-fallback', sans-serif;
+    font-weight: var(--font-normal);
+    line-height: var(--size-6);
+  }
+
+  .app {
+    margin-inline: auto;
+    max-width: var(--size-20);
+  }
+</style>

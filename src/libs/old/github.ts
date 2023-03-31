@@ -4,6 +4,7 @@ import { getLanguageColors } from './color'
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
+// TODO(HiDeoo)
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
   'HiDeoo/prettier-config': [{ node: { color: '#267CB9', name: 'JSON' } }],
   'HiDeoo/tsconfig': [{ node: { color: '#267CB9', name: 'JSON' } }],

@@ -19,7 +19,6 @@
     "@octokit/graphql-schema": "13.7.0",
     "@types/prettier": "2.7.2",
     "@types/sharp": "0.31.1",
-    "@unocss/astro": "0.50.6",
     "@unocss/reset": "0.50.6",
     "astro": "2.1.8",
     "autoprefixer": "10.4.14",
@@ -32,8 +31,7 @@
     "prettier-plugin-astro": "0.8.0",
     "quickchart-js": "3.1.2",
     "sharp": "0.32.0",
-    "typescript": "5.0.2",
-    "unocss": "0.50.6"
+    "typescript": "5.0.2"
   },
   "engines": {
     "node": ">=18"
