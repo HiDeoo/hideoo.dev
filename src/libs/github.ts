@@ -1,6 +1,6 @@
 import { type LanguageEdge, type Maybe, type Repository, type User } from '@octokit/graphql-schema'
 
-import { getLanguageColors } from './color'
+import { getLanguageColors } from '@libs/color'
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 

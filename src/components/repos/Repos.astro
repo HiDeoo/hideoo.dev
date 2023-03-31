@@ -1,7 +1,6 @@
 ---
-import { type GitHubRepo } from '../libs/github'
-
-import Repo from './Repo.astro'
+import Repo from '@components/repos/Repo.astro'
+import { type GitHubRepo } from '@libs/github'
 
 export interface Props {
   repos: GitHubRepo[]

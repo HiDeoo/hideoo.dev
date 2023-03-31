@@ -1,8 +1,7 @@
 ---
-import Section from '../components/Section.astro'
-import { fetchGitHubRecentRepos } from '../libs/github'
-
-import Repos from './Repos.astro'
+import Repos from '@components/repos/Repos.astro'
+import Section from '@components/ui/Section.astro'
+import { fetchGitHubRecentRepos } from '@libs/github'
 
 const recentRepos = await fetchGitHubRecentRepos()
 ---

@@ -1,6 +1,12 @@
 {
   "extends": "@hideoo/tsconfig",
   "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@components/*": ["src/components/*"],
+      "@layouts/*": ["src/layouts/*"],
+      "@libs/*": ["src/libs/*"]
+    },
     "types": ["astro/client"]
   }
 }
