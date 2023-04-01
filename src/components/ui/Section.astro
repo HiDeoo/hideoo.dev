@@ -34,6 +34,14 @@ const { opaque = true, title } = Astro.props
 </style> -->
 
 <style>
+  section {
+    margin-bottom: var(--size-4);
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+
   div.opaque {
     background-color: var(--bg-color);
     border: 1px solid var(--grid-border-color);
