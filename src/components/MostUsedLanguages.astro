@@ -10,11 +10,12 @@ const { stats } = Astro.props
 ---
 
 <Section title="Most used languages">
+  <!-- // TODO(HiDeoo) ul? -->
   <ul>
     {
       stats.map((stat) => (
         <li>
-          {stat.name} - {stat.size} - {stat.colors.dark}
+          {stat.name} - {stat.size} - {stat.color}
         </li>
       ))
     }

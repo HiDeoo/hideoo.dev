@@ -64,7 +64,7 @@ const isLink = typeof href === 'string'
     }
 
     &:hover::after {
-      @media (--motionOK) {
+      @media (--motionSafe) {
         animation: var(--animation-fade-in) forwards;
         animation-timing-function: var(--ease-out-1);
       }

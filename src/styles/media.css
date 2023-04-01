@@ -1,3 +1,3 @@
-@custom-media --motionOK (prefers-reduced-motion: no-preference);
+@custom-media --motionSafe (prefers-reduced-motion: no-preference);
 
-@custom-media --sm-n-above (width >= 480px);
+@custom-media --md-n-above (width >= 768px);

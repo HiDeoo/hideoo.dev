@@ -2,15 +2,16 @@
 import Title from '@components/ui/Title.astro'
 
 export interface Props {
+  opaque?: boolean
   title: string
 }
 
-const { title } = Astro.props
+const { opaque = true, title } = Astro.props
 ---
 
 <section>
   <Title>{title}</Title>
-  <div>
+  <div class:list={{ opaque }}>
     <slot />
   </div>
 </section>
@@ -22,7 +23,7 @@ const { title } = Astro.props
   h2 {
     font-size: var(--text-size-xl);
     line-height: var(--line-height-xs);
-    margin-block: var(--size-7);
+    margin-block: var(--size-8);
     position: relative;
   }
 
@@ -33,7 +34,9 @@ const { title } = Astro.props
 </style> -->
 
 <style>
-  div {
+  div.opaque {
     background-color: var(--bg-color);
+    border: 1px solid var(--grid-border-color);
+    padding: var(--size-3);
   }
 </style>

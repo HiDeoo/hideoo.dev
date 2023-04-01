@@ -20,7 +20,7 @@ const { center, grow, raw, row, small } = Astro.props
     display: flex;
     flex-direction: column;
     flex-grow: 0;
-    padding: 0.65rem var(--size-3);
+    padding: 0.65rem var(--size-4);
 
     &:last-child {
       border-bottom: 0;

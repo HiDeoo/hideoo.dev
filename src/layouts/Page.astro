@@ -24,23 +24,42 @@ import Header from '@components/ui/Header.astro'
 
 <style>
   :where(html) {
+    --duration-300: 300ms;
+    --duration-400: 400ms;
+    --duration-3000: 3s;
+
     --ease: cubic-bezier(0.25, 0, 0.3, 1);
     --ease-elastic: cubic-bezier(0.5, 1.25, 0.75, 1.25);
     --ease-out: cubic-bezier(0, 0, 0, 1);
 
     --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
     --font-extrabold: 800;
+
+    --line-height-6: 1.625rem;
+    --line-height-7: 1.75rem;
+    --line-height-8: 2rem;
 
     --rounded-full: 1e5px;
 
-    --size-3: 1rem;
-    --size-5: 1.5rem;
-    --size-6: 1.75rem;
-    --size-7: 2rem;
-    --size-20: 64rem;
+    --size-1: 0.25rem;
+    --size-2: 0.5rem;
+    --size-3: 0.825rem;
+    --size-4: 1rem;
+    --size-6: 1.5rem;
+    --size-7: 1.75rem;
+    --size-8: 2rem;
+    --size-21: 64rem;
+
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
 
     --zinc-50: hsl(0 0% 98%);
     --zinc-200: hsl(240 6% 90%);
+    --zinc-300: hsl(240 5% 84%);
+    --zinc-350: hsl(240 5% 75%);
+    --zinc-700: hsl(240 5% 26%);
     --zinc-850: hsl(240 5% 13%);
     --zinc-950: hsl(240 10% 4%);
   }
@@ -49,7 +68,9 @@ import Header from '@components/ui/Header.astro'
     color-scheme: light;
 
     --color: var(--zinc-950);
+    --color-dimmed: var(--zinc-850);
     --bg-color: var(--zinc-50);
+    --grid-border-color: var(--zinc-350);
     --grid-color: var(--zinc-200);
   }
 
@@ -57,7 +78,9 @@ import Header from '@components/ui/Header.astro'
     color-scheme: dark;
 
     --color: var(--zinc-50);
+    --color-dimmed: var(--zinc-300);
     --bg-color: var(--zinc-950);
+    --grid-border-color: var(--zinc-700);
     --grid-color: var(--zinc-850);
   }
 
@@ -75,12 +98,14 @@ import Header from '@components/ui/Header.astro'
     color: var(--color);
     font-family: 'ArchivoVariable', 'Archivo-fallback', sans-serif;
     font-weight: var(--font-normal);
-    line-height: var(--size-6);
+    line-height: var(--line-height-7);
   }
 
   .app {
     margin-inline: auto;
-    max-width: var(--size-20);
-    padding: var(--size-3);
+    max-width: var(--size-21);
+    padding: var(--size-4);
+
+    /* // TODO(HiDeoo) responsive padding */
   }
 </style>

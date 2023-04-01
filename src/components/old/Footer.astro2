@@ -58,7 +58,7 @@ import VisuallyHidden from './VisuallyHidden.astro'
     gap: var(--size-4);
     justify-content: space-between;
     font-size: var(--text-size-sm);
-    padding-top: var(--size-3);
+    padding-top: var(--size-4);
 
     @media (--md-n-above) {
       padding-top: var(--size-4);
@@ -66,7 +66,7 @@ import VisuallyHidden from './VisuallyHidden.astro'
     }
 
     @media (--lg-n-above) {
-      padding-top: var(--size-6);
+      padding-top: var(--size-7);
     }
   }
 

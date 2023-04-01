@@ -8,14 +8,14 @@
     color: var(--color);
     left: -500%;
     outline: none;
-    padding: 0.65rem var(--size-3);
+    padding: 0.65rem var(--size-4);
     position: absolute;
     text-decoration: none;
-    top: var(--size-3);
+    top: var(--size-4);
     z-index: 10;
 
     &:focus-visible {
-      left: var(--size-3);
+      left: var(--size-4);
     }
   }
 </style>

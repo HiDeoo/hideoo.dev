@@ -6,6 +6,6 @@ import { fetchGitHubRecentRepos } from '@libs/github'
 const recentRepos = await fetchGitHubRecentRepos()
 ---
 
-<Section title="Recent Projects">
+<Section opaque={false} title="Recent Projects">
   <Repos repos={recentRepos} />
 </Section>

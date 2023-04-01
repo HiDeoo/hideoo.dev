@@ -40,7 +40,7 @@ const { class: className, href, target, title } = Astro.props
       transform: translateX(-100%);
       width: 100%;
 
-      @media (--motionOK) {
+      @media (--motionSafe) {
         transition: opacity 250ms var(--ease-5), transform 250ms var(--ease-5);
       }
     }

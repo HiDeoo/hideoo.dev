@@ -37,7 +37,7 @@
 
 <style>
   button {
-    --animation-duration: 400ms;
+    --animation-duration: var(--duration-400);
 
     align-items: center;
     background: none;
@@ -106,7 +106,7 @@
       }
     }
 
-    @media (--motionOK) {
+    @media (--motionSafe) {
       & > .sun {
         transition: transform var(--animation-duration) var(--ease-elastic);
       }

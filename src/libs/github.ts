@@ -161,18 +161,23 @@ function getReposAndLanguageStatsFromNodes(
               continue
             }
 
-            const colors = getLanguageColors(languageEdge.node.color)
+            // In most projects, the shell language is only appearing due to pre-commit hooks so we can safely skip it.
+            if (languageEdge.node.name === 'Shell' && languageEdge.size < 2000) {
+              continue
+            }
+
+            const color = getLanguageColors(languageEdge.node.color)
 
             if (typeof languageEdge.size === 'number') {
               rawLanguageStats[languageEdge.node.name] = {
-                colors,
+                color,
                 name: languageEdge.node.name,
                 size: (rawLanguageStats[languageEdge.node.name]?.size ?? 0) + languageEdge.size,
               }
             }
 
             languages.push({
-              colors,
+              color,
               name: languageEdge.node.name,
             })
           }
@@ -236,15 +241,12 @@ export interface GitHubRepo {
 }
 
 interface GitHubLanguage {
-  colors: {
-    dark: string
-    light: string
-  }
+  color: string
   name: string
 }
 
 interface LanguageStat {
-  colors: GitHubLanguage['colors']
+  color: GitHubLanguage['color']
   name: string
   size: number
 }
