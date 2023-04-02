@@ -125,7 +125,8 @@ const hoverAnimationCss = stats.map(
     cursor: default;
 
     @media (--motionSafe) {
-      transition: background-position var(--duration-500) var(--ease), color var(--duration-300) var(--ease);
+      transition: background-position var(--duration-500) var(--ease), border-color var(--duration-300) var(--ease),
+        color var(--duration-300) var(--ease);
 
       &::after {
         transition: transform var(--duration-400) var(--ease);
@@ -133,6 +134,7 @@ const hoverAnimationCss = stats.map(
 
       &:hover {
         background-position: 0;
+        border-color: var(--color);
         color: var(--zinc-50);
 
         &::after {
