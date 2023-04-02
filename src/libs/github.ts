@@ -4,11 +4,17 @@ import { getLanguageColor } from '@libs/color'
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
-// TODO(HiDeoo)
-// TODO(HiDeoo) Use css variables?
+const languageColorOverrides: Record<string, string> = {
+  CSS: 'hsl(265 85% 50%)',
+  JavaScript: 'hsl(45 100% 47%)',
+  JSON: 'hsl(145 65% 45%)',
+  Lua: 'hsl(230 70% 55%)',
+  Shell: 'hsl(145 70% 35%)',
+}
+
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
-  'HiDeoo/prettier-config': [{ node: { color: '#267CB9', name: 'JSON' } }],
-  'HiDeoo/tsconfig': [{ node: { color: '#267CB9', name: 'JSON' } }],
+  'HiDeoo/prettier-config': [{ node: { color: languageColorOverrides['JSON'] ?? '', name: 'JSON' } }],
+  'HiDeoo/tsconfig': [{ node: { color: languageColorOverrides['JSON'] ?? '', name: 'JSON' } }],
 }
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
@@ -166,7 +172,7 @@ function getReposAndLanguageStatsFromNodes(
               continue
             }
 
-            const color = getLanguageColor(languageEdge.node.color)
+            const color = getLanguageColor(languageColorOverrides[languageEdge.node.name] ?? languageEdge.node.color)
 
             if (typeof languageEdge.size === 'number') {
               rawLanguageStats[languageEdge.node.name] = {
