@@ -20,7 +20,6 @@
     "@hideoo/tsconfig": "2.0.0",
     "@octokit/graphql-schema": "13.7.0",
     "@types/prettier": "2.7.2",
-    "@types/sharp": "0.31.1",
     "@unocss/reset": "0.50.6",
     "astro": "2.1.8",
     "autoprefixer": "10.4.14",
