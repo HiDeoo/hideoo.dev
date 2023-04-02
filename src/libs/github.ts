@@ -1,6 +1,6 @@
 import { type LanguageEdge, type Maybe, type Repository, type User } from '@octokit/graphql-schema'
 
-import { getLanguageColors } from '@libs/color'
+import { getLanguageColor } from '@libs/color'
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
@@ -166,7 +166,7 @@ function getReposAndLanguageStatsFromNodes(
               continue
             }
 
-            const color = getLanguageColors(languageEdge.node.color)
+            const color = getLanguageColor(languageEdge.node.color)
 
             if (typeof languageEdge.size === 'number') {
               rawLanguageStats[languageEdge.node.name] = {

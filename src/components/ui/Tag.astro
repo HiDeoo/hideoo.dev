@@ -1,0 +1,45 @@
+---
+export interface Props {
+  // TODO(HiDeoo) still needed?
+  as?: keyof astroHTML.JSX.IntrinsicElements
+  class?: string
+  color: string
+}
+
+const { as, class: className, color, ...others } = Astro.props
+
+// https://github.com/withastro/astro/blob/63cd9d89e8b83ce5e39cdae84a8342e28d1940cc/packages/astro/astro-jsx.d.ts#L34-L36
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const Element: any = as ?? 'div'
+---
+
+<Element class:list={['tag', className]} style={{ '--tag-color': color }} {...others}>
+  <code><slot /></code>
+</Element>
+
+<style>
+  .tag {
+    background-color: var(--bg-color);
+    border: 2px solid var(--color-dimmed);
+    color: var(--color-dimmed);
+    font-size: var(--text-sm);
+    line-height: var(--line-height-7);
+    padding-inline: var(--size-2);
+    position: relative;
+    text-align: center;
+    transform-style: preserve-3d;
+
+    &::after {
+      --offset: 6px;
+
+      background-color: var(--tag-color);
+      content: '';
+      height: 100%;
+      left: var(--offset);
+      position: absolute;
+      top: var(--offset);
+      transform: translateZ(-1px);
+      width: 100%;
+    }
+  }
+</style>
