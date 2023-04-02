@@ -1,7 +1,9 @@
 ---
+import { type HTMLTag } from 'astro/types'
+
 // TODO(HiDeoo) Still needed?
 export interface Props {
-  as?: keyof astroHTML.JSX.IntrinsicElements
+  as?: HTMLTag
 }
 
 const { as } = Astro.props

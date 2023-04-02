@@ -1,7 +1,9 @@
 ---
+import { type HTMLTag } from 'astro/types'
+
 export interface Props {
   // TODO(HiDeoo) still needed?
-  as?: keyof astroHTML.JSX.IntrinsicElements
+  as?: HTMLTag
   class?: string
   color: string
 }
