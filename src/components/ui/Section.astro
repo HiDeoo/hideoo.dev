@@ -4,17 +4,22 @@ import Title from '@components/ui/Title.astro'
 export interface Props {
   opaque?: boolean
   title: string
+  visible?: boolean
 }
 
-const { opaque = true, title } = Astro.props
+const { opaque = true, title, visible = true } = Astro.props
 ---
 
-<section>
-  <Title>{title}</Title>
-  <div class:list={{ opaque }}>
-    <slot />
-  </div>
-</section>
+{
+  visible ? (
+    <section>
+      <Title>{title}</Title>
+      <div class:list={{ opaque }}>
+        <slot />
+      </div>
+    </section>
+  ) : null
+}
 
 <!-- // TODO(HiDeoo)  -->
 <!-- <style>

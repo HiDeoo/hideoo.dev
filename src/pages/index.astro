@@ -1,6 +1,7 @@
 ---
 import AllProjects from '@components/AllProjects.astro'
 import MostUsedLanguages from '@components/MostUsedLanguages.astro'
+import RecentContributions from '@components/RecentContributions.astro'
 import RecentProjects from '@components/RecentProjects.astro'
 import Page from '@layouts/Page.astro'
 import { fetchGitHubReposAndLanguageStats } from '@libs/github'
@@ -11,5 +12,6 @@ const { repos: allRepos, languageStats } = await fetchGitHubReposAndLanguageStat
 <Page>
   <RecentProjects />
   <MostUsedLanguages stats={languageStats} />
+  <RecentContributions />
   <AllProjects repos={allRepos} />
 </Page>

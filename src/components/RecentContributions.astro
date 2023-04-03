@@ -1,0 +1,50 @@
+---
+import RepoLink from '@components/repos/RepoLink.astro'
+import Section from '@components/ui/Section.astro'
+import { fetchGitHubRecentContributions } from '@libs/github'
+
+let contributionsColumns = 4
+
+let recentContributions = await fetchGitHubRecentContributions()
+
+if (recentContributions.length < 8) {
+  recentContributions = recentContributions.splice(0, 4)
+  contributionsColumns = recentContributions.length
+}
+---
+
+<Section opaque={false} title="Recent Contributions" visible={recentContributions.length >= 3}>
+  <ul class="contributions">
+    {
+      recentContributions.map((recentContribution) => {
+        return (
+          <li>
+            <RepoLink href={recentContribution.url} title={`Open ${recentContribution.name} GitHub repository`}>
+              <span>{recentContribution.name}</span>
+            </RepoLink>
+          </li>
+        )
+      })
+    }
+  </ul>
+</Section>
+
+<style define:vars={{ 'contributions-columns': contributionsColumns }}>
+  .contributions {
+    display: grid;
+    font-weight: var(--font-semibold);
+    gap: var(--size-4);
+    grid-template-columns: repeat(var(--contributions-columns), 1fr);
+    justify-content: space-between;
+  }
+
+  li {
+    overflow: hidden;
+  }
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>

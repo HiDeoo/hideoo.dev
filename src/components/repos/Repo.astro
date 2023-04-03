@@ -1,4 +1,5 @@
 ---
+import RepoLink from '@components/repos/RepoLink.astro'
 import Tag from '@components/ui/Tag.astro'
 import VisuallyHidden from '@components/VisuallyHidden.astro'
 import { type GitHubRepo } from '@libs/github'
@@ -15,7 +16,7 @@ const shouldShowStars = repo.stars > 0
 const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' })
 ---
 
-<a href={repo.url} rel="noreferrer" target="_blank" title={`Open ${repo.name} GitHub repository`}>
+<RepoLink class="link" href={repo.url} title={`Open ${repo.name} GitHub repository`}>
   <VisuallyHidden>
     {repo.name} - {shouldShowStars ? `Starred ${repo.stars} ${pluralize(repo.stars, 'time', 'times')} - ` : ''}{
       repo.description
@@ -46,54 +47,16 @@ const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunc
       ))
     }
   </ul>
-</a>
+</RepoLink>
 
 <style>
-  a {
-    background-color: var(--bg-color);
-    border: 1px solid var(--grid-border-color);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  .link {
     padding: var(--size-3);
     padding-bottom: var(--size-4);
-    position: relative;
-    transform-style: preserve-3d;
 
     @media (--motionSafe) {
-      transition: border-color var(--duration-400) var(--ease);
-    }
-
-    &::after {
-      background-color: var(--color-dimmed);
-      content: '';
-      inset: 0;
-      position: absolute;
-      transform: translateZ(-1px);
-
-      @media (--motionSafe) {
-        transition: transform var(--duration-400) var(--ease);
-      }
-    }
-
-    &:focus-visible {
-      border: 1px solid var(--color-dimmed);
-      outline: none;
-    }
-
-    &:is(:hover, :focus-visible) {
-      border-color: var(--color-dimmed);
-
-      &::after {
-        transform: translate3d(5px, 5px, -1px);
-      }
-    }
-
-    @media (--motionSafe) {
-      &:hover {
-        & svg {
-          animation-play-state: running;
-        }
+      &:hover svg {
+        animation-play-state: running;
       }
     }
   }
@@ -105,7 +68,7 @@ const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunc
 
     & strong {
       font-weight: var(--font-semibold);
-      font-size: 1.25rem;
+      font-size: var(--text-xl);
     }
   }
 

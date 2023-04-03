@@ -1,20 +1,22 @@
-import { type LanguageEdge, type Maybe, type Repository, type User } from '@octokit/graphql-schema'
+import {
+  type CreatedPullRequestContribution,
+  type LanguageEdge,
+  type Maybe,
+  type PullRequestContributionsByRepository,
+  type Repository,
+  type User,
+} from '@octokit/graphql-schema'
 
-import { getLanguageColor } from '@libs/color'
+import { LANGUAGE_COLOR_OVERRIDES, getLanguageColor, getLanguageColorOverride } from '@libs/color'
+
+const maxLanguageStats = 8
+const maxContributions = 8
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
-const languageColorOverrides: Record<string, string> = {
-  CSS: 'hsl(265 85% 50%)',
-  JavaScript: 'hsl(45 100% 47%)',
-  JSON: 'hsl(145 65% 45%)',
-  Lua: 'hsl(230 70% 55%)',
-  Shell: 'hsl(145 70% 35%)',
-}
-
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
-  'HiDeoo/prettier-config': [{ node: { color: languageColorOverrides['JSON'] ?? '', name: 'JSON' } }],
-  'HiDeoo/tsconfig': [{ node: { color: languageColorOverrides['JSON'] ?? '', name: 'JSON' } }],
+  'HiDeoo/prettier-config': [{ node: { color: LANGUAGE_COLOR_OVERRIDES['JSON'], name: 'JSON' } }],
+  'HiDeoo/tsconfig': [{ node: { color: LANGUAGE_COLOR_OVERRIDES['JSON'], name: 'JSON' } }],
 }
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
@@ -36,6 +38,43 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
     url
   }
 }`
+
+// TODO(HiDeoo) https://docs.github.com/en/graphql/overview/explorer
+// TODO(HiDeoo) Make a tag list?
+// TODO(HiDeoo) Check max last
+// TODO(HiDeoo) tag link
+// TODO(HiDeoo) last max
+// TODO(HiDeoo)   |=> refactor hover effect
+export async function fetchGitHubRecentContributions() {
+  const json = await fetchGitHubApi<{ viewer: Pick<User, 'contributionsCollection'> }>({
+    query: `
+    query {
+      viewer {
+        contributionsCollection {
+          pullRequestContributionsByRepository(maxRepositories: 100) {
+            repository {
+              isFork
+              nameWithOwner
+              owner {
+                login
+              }
+              url
+            }
+            contributions(last: 1, orderBy:{direction:ASC}) {
+              nodes {
+                pullRequest {
+                  createdAt
+                }
+              }
+            }
+          }
+        }
+      }
+    }`,
+  })
+
+  return normalizeContributions(json.viewer.contributionsCollection.pullRequestContributionsByRepository)
+}
 
 export async function fetchGitHubReposAndLanguageStats() {
   const rawLanguageStats: RawLanguageStats = {}
@@ -172,7 +211,7 @@ function getReposAndLanguageStatsFromNodes(
               continue
             }
 
-            const color = getLanguageColor(languageColorOverrides[languageEdge.node.name] ?? languageEdge.node.color)
+            const color = getLanguageColor(getLanguageColorOverride(languageEdge.node.name) ?? languageEdge.node.color)
 
             if (typeof languageEdge.size === 'number') {
               rawLanguageStats[languageEdge.node.name] = {
@@ -229,7 +268,40 @@ function normalizeLanguageStats(rawLanguageStats: RawLanguageStats): LanguageSta
 
   return Object.values(rawLanguageStats)
     .sort((statA, statB) => statB.size - statA.size)
-    .slice(0, 8)
+    .slice(0, maxLanguageStats)
+}
+
+function normalizeContributions(rawContributions: PullRequestContributionsByRepository[]): GitHubContribution[] {
+  const sanitizedRawContributions: PullRequestContributionsByRepository[] = []
+
+  for (const rawContribution of rawContributions) {
+    if (
+      rawContribution.repository.owner.login === 'HiDeoo' ||
+      rawContribution.repository.isFork ||
+      rawContribution.contributions.nodes?.length === 0
+    ) {
+      continue
+    }
+
+    sanitizedRawContributions.push(rawContribution)
+  }
+
+  sanitizedRawContributions.sort((leftContribution, rightContribution) => {
+    const leftPullRequest = leftContribution.contributions.nodes?.at(0) as CreatedPullRequestContribution
+    const rightPullRequest = rightContribution.contributions.nodes?.at(0) as CreatedPullRequestContribution
+
+    const leftContributionDate = new Date(leftPullRequest.pullRequest.createdAt as string)
+    const rightContributionDate = new Date(rightPullRequest.pullRequest.createdAt as string)
+
+    return rightContributionDate.getTime() - leftContributionDate.getTime()
+  })
+
+  return sanitizedRawContributions
+    .map((rawContribution) => ({
+      name: rawContribution.repository.nameWithOwner,
+      url: rawContribution.repository.url,
+    }))
+    .slice(0, maxContributions)
 }
 
 interface GitHubApiRequestBody {
@@ -243,6 +315,11 @@ export interface GitHubRepo {
   languages: GitHubLanguage[]
   name: string
   stars: number
+  url: string
+}
+
+interface GitHubContribution {
+  name: string
   url: string
 }
 
