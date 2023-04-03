@@ -2,6 +2,7 @@
 import '@unocss/reset/tailwind.css'
 import '@fontsource/archivo/variable.css'
 
+import Footer from '@components/ui/Footer.astro'
 import Head from '@components/ui/Head.astro'
 import Header from '@components/ui/Header.astro'
 ---
@@ -18,6 +19,7 @@ import Header from '@components/ui/Header.astro'
       <main id="main">
         <slot />
       </main>
+      <Footer />
     </div>
   </body>
 </html>
