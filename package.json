@@ -39,7 +39,11 @@
   "packageManager": "pnpm@8.1.0",
   "private": true,
   "sideEffects": false,
-  "keywords": [],
+  "keywords": [
+    "website",
+    "astro",
+    "vercel"
+  ],
   "homepage": "https://github.com/HiDeoo/hideoo.dev",
   "repository": {
     "type": "git",
