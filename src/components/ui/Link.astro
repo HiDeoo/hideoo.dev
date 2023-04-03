@@ -1,17 +1,21 @@
 ---
+import { type HTMLAttributes } from 'astro/types'
+
 export interface Props {
   class?: string
   href: string
+  target?: HTMLAttributes<'a'>['target']
 }
 
-const { class: className, href } = Astro.props
+const { class: className, href, target = '_blank' } = Astro.props
 ---
 
-<a class={className} href={href} rel="noreferrer" target="_blank"><slot /></a>
+<a class={className} href={href} rel="noreferrer" target={target}><slot /></a>
 
 <style>
   a {
-    display: block;
+    display: inline-flex;
+    font-weight: var(--font-semibold);
     overflow: hidden;
     position: relative;
 

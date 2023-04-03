@@ -4,7 +4,7 @@ import Link from '@components/ui/Link.astro'
 
 <footer>
   <div>
-    Brewed with <Link class="link" href="https://astro.build">Astro</Link> &amp; <svg
+    Brewed with <Link href="https://astro.build">Astro</Link> &amp; <svg
       aria-label="coffee"
       class="coffee-icon"
       width="22"
@@ -26,7 +26,7 @@ import Link from '@components/ui/Link.astro'
           d="M 11.085938 6.648438 C 11.085938 7.007812 11.375 7.296875 11.734375 7.296875 C 12.09375 7.296875 12.382812 7.007812 12.382812 6.648438 C 12.382812 6.449219 12.417969 6.378906 12.484375 6.234375 C 12.578125 6.035156 12.707031 5.761719 12.707031 5.269531 C 12.707031 4.78125 12.578125 4.503906 12.484375 4.304688 C 12.417969 4.164062 12.382812 4.089844 12.382812 3.890625 C 12.382812 3.691406 12.417969 3.621094 12.484375 3.480469 C 12.578125 3.277344 12.707031 3.003906 12.707031 2.511719 C 12.707031 2.15625 12.417969 1.863281 12.058594 1.863281 C 11.699219 1.863281 11.410156 2.15625 11.410156 2.511719 C 11.410156 2.714844 11.375 2.785156 11.308594 2.925781 C 11.214844 3.128906 11.085938 3.402344 11.085938 3.890625 C 11.085938 4.382812 11.214844 4.65625 11.308594 4.855469 C 11.375 5 11.410156 5.070312 11.410156 5.269531 C 11.410156 5.46875 11.375 5.542969 11.308594 5.683594 C 11.214844 5.882812 11.085938 6.160156 11.085938 6.648438 Z M 11.085938 6.648438 "
         ></path>
       </g>
-    </svg>. Hosted on <Link class="link" href="https://vercel.com">Vercel</Link>.
+    </svg>. Hosted on <Link href="https://vercel.com">Vercel</Link>.
   </div>
 </footer>
 
@@ -36,10 +36,6 @@ import Link from '@components/ui/Link.astro'
     font-size: var(--text-sm);
     margin-top: var(--size-3);
     text-align: center;
-  }
-
-  .link {
-    display: inline-flex;
   }
 
   svg {
