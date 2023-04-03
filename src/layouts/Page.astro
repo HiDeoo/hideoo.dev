@@ -5,6 +5,7 @@ import '@fontsource/archivo/variable.css'
 import Footer from '@components/ui/Footer.astro'
 import Head from '@components/ui/Head.astro'
 import Header from '@components/ui/Header.astro'
+import SkipLink from '@components/ui/SkipLink.astro'
 ---
 
 <html lang="en">
@@ -13,9 +14,9 @@ import Header from '@components/ui/Header.astro'
     {() => <Head />}
   </head>
   <body>
+    <SkipLink />
     <div class="app">
       <Header />
-      <!-- // TODO(HiDeoo) needed id? -->
       <main id="main">
         <slot />
       </main>
