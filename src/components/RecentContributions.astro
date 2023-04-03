@@ -19,8 +19,12 @@ if (recentContributions.length < 8) {
       recentContributions.map((recentContribution) => {
         return (
           <li>
-            <RepoLink href={recentContribution.url} title={`Open ${recentContribution.name} GitHub repository`}>
-              <span>{recentContribution.name}</span>
+            <RepoLink
+              class="link"
+              href={recentContribution.url}
+              title={`Open ${recentContribution.name} GitHub repository`}
+            >
+              {recentContribution.name}
             </RepoLink>
           </li>
         )
@@ -36,15 +40,5 @@ if (recentContributions.length < 8) {
     gap: var(--size-4);
     grid-template-columns: repeat(var(--contributions-columns), 1fr);
     justify-content: space-between;
-  }
-
-  li {
-    overflow: hidden;
-  }
-
-  span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
   }
 </style>
