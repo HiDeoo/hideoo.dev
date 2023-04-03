@@ -75,6 +75,7 @@ import Header from '@components/ui/Header.astro'
     --bg-color: var(--zinc-50);
     --grid-border-color: var(--zinc-350);
     --grid-color: var(--zinc-200);
+    --selection-color: hsl(213 94% 68%);
   }
 
   :where(html).dark {
@@ -85,6 +86,7 @@ import Header from '@components/ui/Header.astro'
     --bg-color: var(--zinc-950);
     --grid-border-color: var(--zinc-700);
     --grid-color: var(--zinc-850);
+    --selection-color: hsl(224 76% 48%);
   }
 
   /* https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Archivo */
@@ -110,5 +112,9 @@ import Header from '@components/ui/Header.astro'
     padding: var(--size-4);
 
     /* // TODO(HiDeoo) responsive padding */
+  }
+
+  :global(::selection) {
+    background-color: var(--selection-color);
   }
 </style>

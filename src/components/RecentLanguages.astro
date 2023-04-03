@@ -67,14 +67,14 @@ const hoverAnimationCss = stats.map(
   }
 
   .bar {
+    --stripe-color: var(--bar-color-dimmed-light);
+
+    :is(html.dark) & {
+      --stripe-color: var(--bar-color-dimmed-dark);
+    }
+
     background: var(--bar-color)
-      repeating-linear-gradient(
-        -45deg,
-        var(--bar-color-dimmed-light) 0,
-        var(--bar-color-dimmed-light) 25%,
-        transparent 0,
-        transparent 50%
-      )
+      repeating-linear-gradient(-45deg, var(--stripe-color) 0, var(--stripe-color) 25%, transparent 0, transparent 50%)
       0 0 / var(--size-8) var(--size-8);
     border-right: 3px solid var(--bg-color);
     grid-column-end: var(--bar-tick-end);
@@ -84,18 +84,6 @@ const hoverAnimationCss = stats.map(
     @media (--motionSafe) {
       animation: stripe var(--duration-3000) linear infinite;
       animation-play-state: paused;
-    }
-
-    :is(html.dark) & {
-      background: var(--bar-color)
-        repeating-linear-gradient(
-          -45deg,
-          var(--bar-color-dimmed-dark) 0,
-          var(--bar-color-dimmed-dark) 25%,
-          transparent 0,
-          transparent 50%
-        )
-        0 0 / var(--size-8) var(--size-8);
     }
 
     &:last-child {
