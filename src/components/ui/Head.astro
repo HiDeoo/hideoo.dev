@@ -2,7 +2,6 @@
 const author = 'HiDeoo'
 const description = "HiDeoo's Open Source Portfolio"
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
-const ogImageAlt = "HiDeoo's avatar"
 const ogImageUrl = new URL('/images/og.png', Astro.site)
 const title = author
 ---
@@ -23,7 +22,7 @@ const title = author
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta property="og:image" content={ogImageUrl} />
-<meta property="og:image:alt" content={ogImageAlt} />
+<meta property="og:image:alt" content={description} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content={title} />
 <meta property="og:type" content="profile" />
@@ -32,7 +31,7 @@ const title = author
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageUrl} />
-<meta name="twitter:image:alt" content={ogImageAlt} />
+<meta name="twitter:image:alt" content={description} />
 <meta name="twitter:title" content={title} />
 
 {
