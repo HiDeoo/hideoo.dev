@@ -98,10 +98,14 @@ const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunc
 
   .description {
     color: var(--color-dimmed);
+    display: -webkit-box;
     flex-grow: 1;
     font-size: 0.95rem;
     line-height: var(--line-height-6);
     margin-block: var(--size-2) 0.75rem;
+    overflow: hidden;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
   }
 
   .languages {

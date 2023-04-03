@@ -44,7 +44,8 @@
     border: none;
     border-radius: var(--rounded-full);
     cursor: pointer;
-    display: flex;
+    display: none;
+    height: var(--size-7);
     justify-content: center;
     outline: none;
     padding: 0;
@@ -58,6 +59,10 @@
 
     &:focus-visible {
       box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--color);
+    }
+
+    @media (--xxs-n-above) {
+      display: flex;
     }
   }
 

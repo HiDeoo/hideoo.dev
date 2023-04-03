@@ -6,8 +6,8 @@ import ThemeToggle from '@components/ui/ThemeToggle.astro'
 <header>
   <nav aria-label="Resources">
     <ul>
-      <li><Link class="link" href="https://github.com/HiDeoo">GitHub</Link></li>
-      <li><Link class="link" href="https://github.com/HiDeoo/dotfiles">Dotfiles</Link></li>
+      <li><Link class="resource" href="https://github.com/HiDeoo">GitHub</Link></li>
+      <li><Link class="resource" href="https://github.com/HiDeoo/dotfiles">Dotfiles</Link></li>
     </ul>
   </nav>
   <ThemeToggle />
@@ -40,8 +40,12 @@ import ThemeToggle from '@components/ui/ThemeToggle.astro'
 
   nav {
     align-items: center;
-    display: flex;
+    display: none;
     gap: var(--size-3);
+
+    @media (--xs-n-above) {
+      display: flex;
+    }
   }
 
   ul {
@@ -49,7 +53,7 @@ import ThemeToggle from '@components/ui/ThemeToggle.astro'
     gap: var(--size-3);
   }
 
-  .link {
+  .resource {
     font-weight: var(--font-medium);
   }
 </style>
