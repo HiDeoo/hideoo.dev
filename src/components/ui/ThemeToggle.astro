@@ -67,23 +67,19 @@
     }
 
     & > :is(.moon, .sun) {
-      fill: var(--color);
+      fill: var(--color-dimmed);
 
       :is(button:is(:hover, :focus-visible)) & {
-        /* // TODO(HiDeoo)  */
         fill: var(--color);
-        fill: red;
       }
     }
 
     & > .sun-beams {
-      stroke: var(--color);
+      stroke: var(--color-dimmed);
       stroke-width: 2px;
 
       :is(button:is(:hover, :focus-visible)) & {
-        /* // TODO(HiDeoo)  */
         stroke: var(--color);
-        stroke: red;
       }
     }
 

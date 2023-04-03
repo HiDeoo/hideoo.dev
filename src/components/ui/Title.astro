@@ -1,21 +1,6 @@
----
-import { type HTMLTag } from 'astro/types'
-
-// TODO(HiDeoo) Still needed?
-export interface Props {
-  as?: HTMLTag
-}
-
-const { as } = Astro.props
-
-// https://github.com/withastro/astro/blob/63cd9d89e8b83ce5e39cdae84a8342e28d1940cc/packages/astro/astro-jsx.d.ts#L34-L36
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Element: any = as ?? 'h2'
----
-
-<Element class="title">
+<h2 class="title">
   <slot />
-</Element>
+</h2>
 
 <style>
   .title {
@@ -25,7 +10,6 @@ const Element: any = as ?? 'h2'
     letter-spacing: 1px;
     line-height: var(--line-height-8);
     margin-bottom: var(--size-3);
-    margin-left: var(--size-1);
     text-shadow: 1px -1px 0 var(--color);
     text-transform: uppercase;
     -webkit-text-stroke: 1px var(--color);
