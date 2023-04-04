@@ -14,7 +14,7 @@
   <br />
 </div>
 
-Built with [Astro](https://astro.build) & [Open Props](https://open-props.style). Hosted on [Vercel](https://vercel.com).
+Built with [Astro](https://astro.build) & hosted on [Vercel](https://vercel.com).
 
 ## License
 

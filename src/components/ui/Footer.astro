@@ -1,0 +1,35 @@
+---
+import Icon from '@components/ui/Icon.astro'
+import Link from '@components/ui/Link.astro'
+---
+
+<footer>
+  <div>
+    Brewed with <Link href="https://astro.build">Astro</Link> &amp; <Icon
+      aria-label="coffee"
+      class="coffeeIcon"
+      name="coffee"
+      role="img"
+    />. Hosted on <Link href="https://vercel.com">Vercel</Link>.
+  </div>
+</footer>
+
+<style>
+  footer {
+    color: var(--color-dimmed);
+    font-size: var(--text-sm);
+    margin-top: var(--size-3);
+    text-align: center;
+  }
+
+  .coffeeIcon {
+    --size: 1.4rem;
+
+    display: inline;
+    fill: var(--color-dimmed);
+    height: var(--size);
+    margin-inline: var(--size-px);
+    vertical-align: text-bottom;
+    width: var(--size);
+  }
+</style>

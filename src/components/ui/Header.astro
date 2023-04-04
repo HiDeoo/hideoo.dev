@@ -1,0 +1,59 @@
+---
+import Link from '@components/ui/Link.astro'
+import ThemeToggle from '@components/ui/ThemeToggle.astro'
+---
+
+<header>
+  <nav aria-label="Resources">
+    <ul>
+      <li><Link class="resource" href="https://github.com/HiDeoo">GitHub</Link></li>
+      <li><Link class="resource" href="https://github.com/HiDeoo/dotfiles">Dotfiles</Link></li>
+    </ul>
+  </nav>
+  <ThemeToggle />
+</header>
+
+<style>
+  header {
+    align-items: center;
+    color: var(--color-dimmed);
+    display: flex;
+    font-weight: var(--font-medium);
+    gap: var(--size-3);
+    justify-content: flex-end;
+    left: var(--size-5);
+    position: absolute;
+    right: var(--size-5);
+    top: var(--size-5);
+  }
+
+  .infos {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+  }
+
+  .title {
+    font-size: var(--size-7);
+    margin-bottom: 0;
+  }
+
+  nav {
+    align-items: center;
+    display: none;
+    gap: var(--size-3);
+
+    @media (--xs-n-above) {
+      display: flex;
+    }
+  }
+
+  ul {
+    display: flex;
+    gap: var(--size-3);
+  }
+
+  .resource {
+    font-weight: var(--font-medium);
+  }
+</style>

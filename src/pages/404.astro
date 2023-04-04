@@ -1,42 +1,32 @@
 ---
-import Card from '../components/Card.astro'
-import CardRow from '../components/CardRow.astro'
-import App from '../layouts/App.astro'
+import Link from '@components/ui/Link.astro'
+import Page from '@layouts/Page.astro'
 ---
 
-<App class="not-found">
-  <h1>Page not found</h1>
-  <p>Sorry, we can&apos;t find the page you&apos;re looking for.</p>
-  <Card href="/" class="home-link">
-    <CardRow>Go home?</CardRow>
-  </Card>
-</App>
+{/* Explicitely not using a <Section /> to avoid having its CSS splitted in a separate file. */}
+<Page>
+  <section>
+    <h2>Whoops!</h2>
+    <div>Sorry, we can&apos;t find the page you&apos;re looking for. <Link href="/" target="_self">Go home?</Link></div>
+  </section>
+</Page>
 
 <style>
-  .app.not-found {
-    display: grid;
-    gap: 0;
-    grid-template-rows: 1fr repeat(3, auto) 1fr;
-    grid-template-columns: 1fr;
-    height: 100vh;
-    place-items: center;
-    text-align: center;
+  h2 {
+    color: var(--bg-color);
+    font-size: var(--size-6);
+    font-weight: var(--font-extrabold);
+    letter-spacing: var(--size-px);
+    line-height: var(--line-height-8);
+    margin-bottom: var(--size-3);
+    text-shadow: var(--size-px) var(--size-npx) 0 var(--color);
+    text-transform: uppercase;
+    -webkit-text-stroke: var(--size-px) var(--color);
   }
 
-  h1 {
-    display: inline;
-    font-size: var(--text-size-xl);
-    grid-row-start: 2;
-  }
-
-  p {
-    grid-row-start: 3;
-    margin-block: var(--size-2);
-  }
-
-  :global(.card).home-link {
-    display: inline-flex;
-    grid-row-start: 4;
-    margin-block: var(--size-6);
+  div {
+    background-color: var(--bg-color);
+    border: var(--size-px) solid var(--grid-border-color);
+    padding: var(--size-3);
   }
 </style>

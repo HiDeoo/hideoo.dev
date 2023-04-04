@@ -1,0 +1,15 @@
+---
+import Repos from '@components/repos/Repos.astro'
+import Section from '@components/ui/Section.astro'
+import { type GitHubRepo } from '@libs/github'
+
+export interface Props {
+  repos: GitHubRepo[]
+}
+
+const { repos } = Astro.props
+---
+
+<Section opaque={false} title="All Projects">
+  <Repos repos={repos} />
+</Section>

@@ -1,12 +1,22 @@
-import { type User, type LanguageEdge, type Maybe, type Repository } from '@octokit/graphql-schema'
+import {
+  type CreatedPullRequestContribution,
+  type LanguageEdge,
+  type Maybe,
+  type PullRequestContributionsByRepository,
+  type Repository,
+  type User,
+} from '@octokit/graphql-schema'
 
-import { getLanguageColors } from './color'
+import { LANGUAGE_COLOR_OVERRIDES, getLanguageColor, getLanguageColorOverride } from '@libs/color'
+
+const maxLanguageStats = 8
+const maxContributions = 8
 
 const repoBanList: RegExp[] = [/\.github/, /-repro/]
 
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
-  'HiDeoo/prettier-config': [{ node: { color: '#267CB9', name: 'JSON' } }],
-  'HiDeoo/tsconfig': [{ node: { color: '#267CB9', name: 'JSON' } }],
+  'HiDeoo/prettier-config': [{ node: { color: LANGUAGE_COLOR_OVERRIDES['JSON'], name: 'JSON' } }],
+  'HiDeoo/tsconfig': [{ node: { color: LANGUAGE_COLOR_OVERRIDES['JSON'], name: 'JSON' } }],
 }
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
@@ -29,17 +39,35 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
   }
 }`
 
-export async function fetchGitHubProfile() {
-  const { viewer } = await fetchGitHubApi<{ viewer: GitHubProfile }>({
+export async function fetchGitHubRecentContributions() {
+  const json = await fetchGitHubApi<{ viewer: Pick<User, 'contributionsCollection'> }>({
     query: `
-    query Infos {
+    query {
       viewer {
-        login
+        contributionsCollection {
+          pullRequestContributionsByRepository(maxRepositories: 100) {
+            repository {
+              isFork
+              nameWithOwner
+              owner {
+                login
+              }
+              url
+            }
+            contributions(last: 1, orderBy:{direction:ASC}) {
+              nodes {
+                pullRequest {
+                  createdAt
+                }
+              }
+            }
+          }
+        }
       }
     }`,
   })
 
-  return viewer
+  return normalizeContributions(json.viewer.contributionsCollection.pullRequestContributionsByRepository)
 }
 
 export async function fetchGitHubReposAndLanguageStats() {
@@ -159,7 +187,7 @@ function getReposAndLanguageStatsFromNodes(
           node.languages.edges = languageOverride
         }
 
-        if (typeof node.languages?.edges === 'undefined' || node.languages.edges?.length === 0) {
+        if (node.languages?.edges === undefined || node.languages.edges?.length === 0) {
           console.error(`No languages found for repository '${node.nameWithOwner}'.`)
           continue
         }
@@ -168,22 +196,27 @@ function getReposAndLanguageStatsFromNodes(
 
         if (node.languages.edges) {
           for (const languageEdge of node.languages.edges) {
-            if (!languageEdge || !languageEdge.node.color) {
+            if (!languageEdge?.node.color) {
               continue
             }
 
-            const colors = getLanguageColors(languageEdge.node.color)
+            // In most projects, the shell language is only appearing due to pre-commit hooks so we can safely skip it.
+            if (languageEdge.node.name === 'Shell' && languageEdge.size < 2000) {
+              continue
+            }
+
+            const color = getLanguageColor(getLanguageColorOverride(languageEdge.node.name) ?? languageEdge.node.color)
 
             if (typeof languageEdge.size === 'number') {
               rawLanguageStats[languageEdge.node.name] = {
-                colors,
+                color,
                 name: languageEdge.node.name,
                 size: (rawLanguageStats[languageEdge.node.name]?.size ?? 0) + languageEdge.size,
               }
             }
 
             languages.push({
-              colors,
+              color,
               name: languageEdge.node.name,
             })
           }
@@ -229,15 +262,46 @@ function normalizeLanguageStats(rawLanguageStats: RawLanguageStats): LanguageSta
 
   return Object.values(rawLanguageStats)
     .sort((statA, statB) => statB.size - statA.size)
-    .slice(0, 8)
+    .slice(0, maxLanguageStats)
+}
+
+function normalizeContributions(rawContributions: PullRequestContributionsByRepository[]): GitHubContribution[] {
+  const sanitizedRawContributions: PullRequestContributionsByRepository[] = []
+
+  for (const rawContribution of rawContributions) {
+    if (
+      rawContribution.repository.owner.login === 'HiDeoo' ||
+      rawContribution.repository.isFork ||
+      rawContribution.contributions.nodes?.length === 0
+    ) {
+      continue
+    }
+
+    sanitizedRawContributions.push(rawContribution)
+  }
+
+  sanitizedRawContributions.sort((leftContribution, rightContribution) => {
+    const leftPullRequest = leftContribution.contributions.nodes?.at(0) as CreatedPullRequestContribution
+    const rightPullRequest = rightContribution.contributions.nodes?.at(0) as CreatedPullRequestContribution
+
+    const leftContributionDate = new Date(leftPullRequest.pullRequest.createdAt as string)
+    const rightContributionDate = new Date(rightPullRequest.pullRequest.createdAt as string)
+
+    return rightContributionDate.getTime() - leftContributionDate.getTime()
+  })
+
+  return sanitizedRawContributions
+    .map((rawContribution) => ({
+      name: rawContribution.repository.nameWithOwner,
+      url: rawContribution.repository.url,
+    }))
+    .slice(0, maxContributions)
 }
 
 interface GitHubApiRequestBody {
   query: string
   variables?: Record<string, string | number | undefined>
 }
-
-type GitHubProfile = Pick<User, 'login'>
 
 export interface GitHubRepo {
   description: string | null
@@ -248,16 +312,18 @@ export interface GitHubRepo {
   url: string
 }
 
-export interface GitHubLanguage {
-  colors: {
-    dark: string
-    light: string
-  }
+interface GitHubContribution {
+  name: string
+  url: string
+}
+
+interface GitHubLanguage {
+  color: string
   name: string
 }
 
-export interface LanguageStat {
-  colors: GitHubLanguage['colors']
+interface LanguageStat {
+  color: GitHubLanguage['color']
   name: string
   size: number
 }

@@ -1,0 +1,26 @@
+---
+import Repo from '@components/repos/Repo.astro'
+import { type GitHubRepo } from '@libs/github'
+
+export interface Props {
+  repos: GitHubRepo[]
+}
+
+const { repos } = Astro.props
+---
+
+<div>
+  {repos.map((repo) => <Repo repo={repo} />)}
+</div>
+
+<style>
+  div {
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: minmax(0, 1fr);
+
+    @media (--sm-n-above) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

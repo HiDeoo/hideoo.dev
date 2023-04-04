@@ -1,0 +1,56 @@
+---
+export interface Props {
+  class?: string
+  href: string
+  title: string
+}
+
+const { class: className, href, title } = Astro.props
+---
+
+<a class={className} href={href} rel="noreferrer" target="_blank" title={title}>
+  <slot />
+</a>
+
+<style>
+  a {
+    background-color: var(--bg-color);
+    border: var(--size-px) solid var(--grid-border-color);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: var(--size-2) var(--size-3);
+    position: relative;
+    transform-style: preserve-3d;
+
+    @media (--motionSafe) {
+      transition: border-color var(--duration-400) var(--ease);
+    }
+
+    &::after {
+      background-color: var(--color-dimmed);
+      content: '';
+      inset: 0;
+      pointer-events: none;
+      position: absolute;
+      transform: translateZ(var(--size-npx));
+
+      @media (--motionSafe) {
+        transition: transform var(--duration-400) var(--ease);
+      }
+    }
+
+    &:focus-visible {
+      border: var(--size-px) solid var(--color-dimmed);
+      outline: none;
+    }
+
+    &:is(:hover, :focus-visible) {
+      border-color: var(--color-dimmed);
+
+      &::after {
+        transform: translate3d(5px, 5px, var(--size-npx));
+      }
+    }
+  }
+</style>

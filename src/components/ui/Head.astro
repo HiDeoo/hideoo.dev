@@ -1,11 +1,9 @@
 ---
-import '../styles/theme.css'
-import '../styles/global.css'
+import archivoFont from '@fontsource/archivo/files/archivo-latin-variable-wghtOnly-normal.woff2'
 
 const author = 'HiDeoo'
 const description = "HiDeoo's Open Source Portfolio"
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
-const ogImageAlt = "HiDeoo's avatar"
 const ogImageUrl = new URL('/images/og.png', Astro.site)
 const title = author
 ---
@@ -17,16 +15,18 @@ const title = author
 <link rel="canonical" href={canonicalUrl} />
 <link rel="icon" href="/images/favicon.ico" sizes="any" />
 <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+<link rel="preload" as="font" crossorigin="anonymous" href={archivoFont} type="font/woff2" />
+<link rel="sitemap" href="/sitemap-index.xml" />
 
 <meta name="author" content={author} />
 <meta name="color-scheme" content="dark light" />
 <meta name="description" property="og:description" content={description} />
-<meta name="theme-color" media="(prefers-color-scheme: dark)" content="hsl(210 11% 7%)" />
-<meta name="theme-color" media="(prefers-color-scheme: light)" content="hsl(210 16% 93%)" />
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="hsl(240 10% 4%)" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="hsl(0 0% 98%)" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 <meta property="og:image" content={ogImageUrl} />
-<meta property="og:image:alt" content={ogImageAlt} />
+<meta property="og:image:alt" content={description} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content={title} />
 <meta property="og:type" content="profile" />
@@ -35,7 +35,7 @@ const title = author
 <meta name="twitter:card" content="summary" />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={ogImageUrl} />
-<meta name="twitter:image:alt" content={ogImageAlt} />
+<meta name="twitter:image:alt" content={description} />
 <meta name="twitter:title" content={title} />
 
 {
@@ -48,30 +48,30 @@ const title = author
    */
 }
 <script is:inline>
-  const themeName = { dark: 'dark', light: 'light' }
-  const themeKey = 'theme'
+  const themes = { dark: 'dark', light: 'light' }
+  const localStorageThemeKey = 'theme'
   let theme = getTheme()
 
   function getTheme() {
     try {
-      const persistedTheme = localStorage.getItem(themeKey)
+      const persistedTheme = localStorage.getItem(localStorageThemeKey)
       const preferDarkTheme = window.matchMedia('(prefers-color-scheme: dark)')
 
-      if (persistedTheme === themeName.dark || (!persistedTheme && preferDarkTheme.matches)) {
-        return themeName.dark
+      if (persistedTheme === themes.dark || (!persistedTheme && preferDarkTheme.matches)) {
+        return themes.dark
       }
 
-      return themeName.light
+      return themes.light
     } catch {
-      return themeName.light
+      return themes.light
     }
   }
 
   function applyTheme() {
-    if (theme === themeName.dark) {
-      document.documentElement.classList.add(themeName.dark)
+    if (theme === themes.dark) {
+      document.documentElement.classList.add(themes.dark)
     } else {
-      document.documentElement.classList.remove(themeName.dark)
+      document.documentElement.classList.remove(themes.dark)
     }
 
     document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
@@ -83,7 +83,7 @@ const title = author
     applyTheme()
 
     try {
-      localStorage.setItem(themeKey, newThemeName)
+      localStorage.setItem(localStorageThemeKey, newThemeName)
     } catch {}
   }
 
@@ -94,7 +94,7 @@ const title = author
   })
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-    theme = event.matches ? themeName.dark : themeName.light
+    theme = event.matches ? themes.dark : themes.light
 
     applyTheme()
   })

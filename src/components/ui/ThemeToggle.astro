@@ -4,14 +4,12 @@
 
 <script is:inline>
   function toggleTheme() {
-    if (typeof updateTheme !== 'undefined') {
-      updateTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark')
-    }
+    updateTheme(document.documentElement.classList.contains('dark') ? 'light' : 'dark')
   }
 </script>
 
 <button aria-label="auto" id="theme-toggle" onclick="toggleTheme()" title="Toggle light & dark theme" type="button">
-  <svg width="24" height="24" viewBox="0 0 24 24" aria-hidden="true">
+  <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true">
     <mask class="moon" id="moon-mask">
       <rect x="0" y="0" width="100%" height="100%" fill="white"></rect>
       <circle cx="24" cy="10" r="6" fill="black"></circle>
@@ -31,25 +29,22 @@
 </button>
 
 <style>
-  @import 'open-props/media';
-
   button {
+    --animation-duration: var(--duration-400);
+
     align-items: center;
     background: none;
     border: none;
-    border-radius: var(--radius-round);
+    border-radius: var(--rounded-full);
     cursor: pointer;
-    display: flex;
-    height: var(--size-6);
+    display: none;
+    height: var(--size-7);
     justify-content: center;
     outline: none;
     padding: 0;
-    position: absolute;
-    right: 0;
+    position: relative;
+    top: var(--size-npx);
     touch-action: manipulation;
-    top: -2px;
-    width: var(--size-6);
-    z-index: 1;
 
     &:focus {
       outline: none;
@@ -57,6 +52,10 @@
 
     &:focus-visible {
       box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--color);
+    }
+
+    @media (--xxs-n-above) {
+      display: flex;
     }
   }
 
@@ -70,7 +69,7 @@
     & > :is(.moon, .sun) {
       fill: var(--color-dimmed);
 
-      @nest button:is(:hover, :focus-visible) > & {
+      :is(button:is(:hover, :focus-visible)) & {
         fill: var(--color);
       }
     }
@@ -79,12 +78,12 @@
       stroke: var(--color-dimmed);
       stroke-width: 2px;
 
-      @nest button:is(:hover, :focus-visible) & {
+      :is(button:is(:hover, :focus-visible)) & {
         stroke: var(--color);
       }
     }
 
-    @nest html.dark & {
+    :is(html.dark) & {
       & > .sun {
         transform: scale(1.75);
       }
@@ -103,39 +102,39 @@
       }
     }
 
-    @media (--motionOK) {
+    @media (--motionSafe) {
       & > .sun {
-        transition: transform var(--theme-toggle-animation-duration) var(--ease-elastic-3);
+        transition: transform var(--animation-duration) var(--ease-elastic);
       }
 
       & > .sun-beams {
-        transition: transform var(--theme-toggle-animation-duration) var(--ease-elastic-4),
-          opacity var(--theme-toggle-animation-duration) var(--ease-3);
+        transition: transform var(--animation-duration) var(--ease-elastic),
+          opacity var(--animation-duration) var(--ease);
       }
 
       & .moon > circle {
-        transition: transform calc(var(--theme-toggle-animation-duration) / 2) var(--ease-out-5);
+        transition: transform calc(var(--animation-duration) / 2) var(--ease-out);
 
         @supports (cx: 1) {
-          transition: cx calc(var(--theme-toggle-animation-duration) / 2) var(--ease-out-5);
+          transition: cx calc(var(--animation-duration) / 2) var(--ease-out);
         }
       }
 
-      @nest html.dark & {
+      :is(html.dark) & {
         & > .sun {
           transform: scale(1.75);
-          transition-duration: calc(var(--theme-toggle-animation-duration) / 2);
-          transition-timing-function: var(--ease-3);
+          transition-duration: calc(var(--animation-duration) / 2);
+          transition-timing-function: var(--ease);
         }
 
         & > .sun-beams {
           transform: rotateZ(-25deg);
-          transition-duration: calc(var(--theme-toggle-animation-duration) / 4);
+          transition-duration: calc(var(--animation-duration) / 4);
         }
 
         & > .moon > circle {
-          transition-delay: calc(var(--theme-toggle-animation-duration) / 4);
-          transition-duration: var(--theme-toggle-animation-duration);
+          transition-delay: calc(var(--animation-duration) / 4);
+          transition-duration: var(--animation-duration);
         }
       }
     }

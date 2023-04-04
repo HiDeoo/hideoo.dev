@@ -1,18 +1,135 @@
 ---
-import 'modern-normalize'
+import '@unocss/reset/tailwind.css'
+import '@fontsource/archivo/variable.css'
 
-import Footer from '../components/Footer.astro'
-import Sidebar from '../components/Sidebar.astro'
-
-import App from './App.astro'
+import Footer from '@components/ui/Footer.astro'
+import Head from '@components/ui/Head.astro'
+import Header from '@components/ui/Header.astro'
+import Icons from '@components/ui/Icons.astro'
+import SkipLink from '@components/ui/SkipLink.astro'
+import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 ---
 
-<App>
-  <Sidebar>
-    <slot name="sidebar" />
-  </Sidebar>
-  <main id="main">
-    <slot />
-  </main>
-  <Footer />
-</App>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
+    {() => <Head />}
+  </head>
+  <body>
+    <SkipLink />
+    <Icons />
+    <div class="app">
+      <Header />
+      <main id="main">
+        <VisuallyHidden>
+          <h1>HiDeoo&apos;s Open Source Portfolio</h1>
+        </VisuallyHidden>
+        <slot />
+      </main>
+      <Footer />
+    </div>
+  </body>
+</html>
+
+<style>
+  :where(html) {
+    --duration-300: 300ms;
+    --duration-400: 400ms;
+    --duration-500: 500ms;
+    --duration-1200: 1200ms;
+    --duration-3000: 3s;
+
+    --ease: cubic-bezier(0.25, 0, 0.3, 1);
+    --ease-elastic: cubic-bezier(0.5, 1.25, 0.75, 1.25);
+    --ease-out: cubic-bezier(0, 0, 0, 1);
+
+    --font-normal: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-extrabold: 800;
+
+    --line-height-6: 1.5rem;
+    --line-height-7: 1.75rem;
+    --line-height-8: 2rem;
+
+    --rounded-full: 1e5px;
+
+    --size-npx: -1px;
+    --size-px: 1px;
+    --size-1: 0.25rem;
+    --size-2: 0.5rem;
+    --size-3: 0.825rem;
+    --size-4: 1rem;
+    --size-5: 1.15rem;
+    --size-6: 1.5rem;
+    --size-7: 1.75rem;
+    --size-8: 2rem;
+    --size-17: 12rem;
+    --size-21: 64rem;
+
+    --text-sm: 0.875rem;
+    --text-base: 1rem;
+    --text-xl: 1.25rem;
+
+    --zinc-50: hsl(0 0% 98%);
+    --zinc-200: hsl(240 6% 90%);
+    --zinc-300: hsl(240 5% 84%);
+    --zinc-350: hsl(240 5% 75%);
+    --zinc-700: hsl(240 5% 26%);
+    --zinc-850: hsl(240 5% 13%);
+    --zinc-950: hsl(240 10% 4%);
+  }
+
+  :where(html) {
+    color-scheme: light;
+
+    --color: var(--zinc-950);
+    --color-dimmed: var(--zinc-850);
+    --bg-color: var(--zinc-50);
+    --grid-border-color: var(--zinc-350);
+    --grid-color: var(--zinc-200);
+    --selection-color: hsl(213 94% 68%);
+  }
+
+  :where(html).dark {
+    color-scheme: dark;
+
+    --color: var(--zinc-50);
+    --color-dimmed: var(--zinc-300);
+    --bg-color: var(--zinc-950);
+    --grid-border-color: var(--zinc-700);
+    --grid-color: var(--zinc-850);
+    --selection-color: hsl(224 76% 48%);
+  }
+
+  /* https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Archivo */
+  @font-face {
+    font-family: 'Archivo-fallback';
+    size-adjust: 98.44%;
+    src: local('Arial');
+  }
+
+  body {
+    --grid-spacing: 21px;
+
+    background-image: linear-gradient(var(--grid-color) var(--size-px), transparent var(--size-px)),
+      linear-gradient(to right, var(--grid-color) var(--size-px), var(--bg-color) var(--size-px));
+    background-size: var(--grid-spacing) var(--grid-spacing);
+    color: var(--color);
+    font-family: 'ArchivoVariable', 'Archivo-fallback', sans-serif;
+    font-weight: var(--font-normal);
+    line-height: var(--line-height-7);
+  }
+
+  .app {
+    margin-inline: auto;
+    max-width: var(--size-21);
+    padding: var(--size-4);
+    position: relative;
+  }
+
+  :global(::selection) {
+    background-color: var(--selection-color);
+  }
+</style>
