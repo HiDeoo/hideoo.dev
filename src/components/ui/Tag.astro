@@ -1,23 +1,15 @@
 ---
-import { type HTMLTag } from 'astro/types'
-
 export interface Props {
-  // TODO(HiDeoo) still needed?
-  as?: HTMLTag
   class?: string
   color: string
 }
 
-const { as, class: className, color, ...others } = Astro.props
-
-// https://github.com/withastro/astro/blob/63cd9d89e8b83ce5e39cdae84a8342e28d1940cc/packages/astro/astro-jsx.d.ts#L34-L36
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-const Element: any = as ?? 'div'
+const { class: className, color, ...others } = Astro.props
 ---
 
-<Element class:list={['tag', className]} style={{ '--tag-color': color }} {...others}>
+<li class:list={['tag', className]} style={{ '--tag-color': color }} {...others}>
   <code><slot /></code>
-</Element>
+</li>
 
 <style>
   .tag {

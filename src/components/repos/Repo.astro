@@ -39,13 +39,7 @@ const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunc
   </div>
   <div aria-hidden="true" class="description">{repo.description}</div>
   <ul aria-hidden="true" class="languages">
-    {
-      repo.languages.map((language) => (
-        <Tag as="li" color={language.color}>
-          {language.name}
-        </Tag>
-      ))
-    }
+    {repo.languages.map((language) => <Tag color={language.color}>{language.name}</Tag>)}
   </ul>
 </RepoLink>
 
