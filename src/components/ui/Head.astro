@@ -43,32 +43,31 @@ const title = author
    *  update its aria-label. We have to wait for the window `load` event to do so.
    */
 }
-<!-- // TODO(HiDeoo) review -->
 <script is:inline>
-  const themeName = { dark: 'dark', light: 'light' }
-  const themeKey = 'theme'
+  const themes = { dark: 'dark', light: 'light' }
+  const localStorageThemeKey = 'theme'
   let theme = getTheme()
 
   function getTheme() {
     try {
-      const persistedTheme = localStorage.getItem(themeKey)
+      const persistedTheme = localStorage.getItem(localStorageThemeKey)
       const preferDarkTheme = window.matchMedia('(prefers-color-scheme: dark)')
 
-      if (persistedTheme === themeName.dark || (!persistedTheme && preferDarkTheme.matches)) {
-        return themeName.dark
+      if (persistedTheme === themes.dark || (!persistedTheme && preferDarkTheme.matches)) {
+        return themes.dark
       }
 
-      return themeName.light
+      return themes.light
     } catch {
-      return themeName.light
+      return themes.light
     }
   }
 
   function applyTheme() {
-    if (theme === themeName.dark) {
-      document.documentElement.classList.add(themeName.dark)
+    if (theme === themes.dark) {
+      document.documentElement.classList.add(themes.dark)
     } else {
-      document.documentElement.classList.remove(themeName.dark)
+      document.documentElement.classList.remove(themes.dark)
     }
 
     document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
@@ -80,7 +79,7 @@ const title = author
     applyTheme()
 
     try {
-      localStorage.setItem(themeKey, newThemeName)
+      localStorage.setItem(localStorageThemeKey, newThemeName)
     } catch {}
   }
 
@@ -91,7 +90,7 @@ const title = author
   })
 
   window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
-    theme = event.matches ? themeName.dark : themeName.light
+    theme = event.matches ? themes.dark : themes.light
 
     applyTheme()
   })
