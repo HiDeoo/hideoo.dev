@@ -32,7 +32,7 @@ const { class: className, color, ...others } = Astro.props
       left: var(--offset);
       position: absolute;
       top: var(--offset);
-      transform: translateZ(-1px);
+      transform: translateZ(var(--size-npx));
       width: 100%;
     }
   }

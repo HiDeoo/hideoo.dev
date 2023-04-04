@@ -49,6 +49,8 @@ import SkipLink from '@components/ui/SkipLink.astro'
 
     --rounded-full: 1e5px;
 
+    --size-npx: -1px;
+    --size-px: 1px;
     --size-1: 0.25rem;
     --size-2: 0.5rem;
     --size-3: 0.825rem;
@@ -103,9 +105,11 @@ import SkipLink from '@components/ui/SkipLink.astro'
   }
 
   body {
-    background-image: linear-gradient(var(--grid-color) 1px, transparent 1px),
-      linear-gradient(to right, var(--grid-color) 1px, var(--bg-color) 1px);
-    background-size: 21px 21px;
+    --grid-spacing: 21px;
+
+    background-image: linear-gradient(var(--grid-color) var(--size-px), transparent var(--size-px)),
+      linear-gradient(to right, var(--grid-color) var(--size-px), var(--bg-color) var(--size-px));
+    background-size: var(--grid-spacing) var(--grid-spacing);
     color: var(--color);
     font-family: 'ArchivoVariable', 'Archivo-fallback', sans-serif;
     font-weight: var(--font-normal);
