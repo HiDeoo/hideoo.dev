@@ -1,5 +1,6 @@
 ---
 import RepoLink from '@components/repos/RepoLink.astro'
+import Icon from '@components/ui/Icon.astro'
 import Section from '@components/ui/Section.astro'
 import { fetchGitHubRecentContributions } from '@libs/github'
 
@@ -19,8 +20,13 @@ if (recentContributions.length < 8) {
       recentContributions.map((recentContribution) => {
         return (
           <li>
-            <RepoLink href={recentContribution.url} title={`Open ${recentContribution.name} GitHub repository`}>
+            <RepoLink
+              class="link"
+              href={recentContribution.url}
+              title={`Open ${recentContribution.name} GitHub repository`}
+            >
               <div>{recentContribution.name}</div>
+              <Icon class="chevronIcon" name="chevron-right" />
             </RepoLink>
           </li>
         )
@@ -51,5 +57,36 @@ if (recentContributions.length < 8) {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
+  }
+
+  .link {
+    align-items: center;
+    flex-direction: row;
+    gap: var(--size-1);
+    justify-content: space-between;
+
+    @media (--motionSafe) {
+      &:hover .chevronIcon {
+        animation: bounce var(--duration-1200) infinite var(--ease);
+      }
+    }
+  }
+
+  .chevronIcon {
+    --size: var(--size-5);
+
+    fill: currentColor;
+    height: var(--size);
+    width: var(--size);
+  }
+
+  @keyframes bounce {
+    25% {
+      transform: translateX(-12%);
+    }
+
+    75% {
+      transform: translateX(12%);
+    }
   }
 </style>
