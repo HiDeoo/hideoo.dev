@@ -81,7 +81,7 @@ const hoverAnimationCss = stats.map(
     grid-column-start: var(--bar-tick-start);
     height: var(--size-7);
 
-    @media (--motionSafe) {
+    @media (--motionSafe) and (--mouse) {
       animation: stripe var(--duration-3000) linear infinite;
       animation-play-state: paused;
     }
@@ -120,7 +120,7 @@ const hoverAnimationCss = stats.map(
       100% 0 / 200% 100%;
     cursor: default;
 
-    @media (--motionSafe) {
+    @media (--motionSafe) and (--mouse) {
       transition: background-position var(--duration-500) var(--ease), border-color var(--duration-300) var(--ease),
         color var(--duration-300) var(--ease);
 

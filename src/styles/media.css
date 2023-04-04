@@ -1,5 +1,7 @@
 @custom-media --motionSafe (prefers-reduced-motion: no-preference);
 
+@custom-media --mouse (hover) and (pointer: fine);
+
 @custom-media --xxs-n-above (width >= 360px);
 @custom-media --xs-n-above (width >= 480px);
 @custom-media --sm-n-above (width >= 640px);

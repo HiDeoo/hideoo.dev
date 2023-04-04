@@ -49,6 +49,9 @@ devDependencies:
   lint-staged:
     specifier: 13.2.0
     version: 13.2.0
+  postcss-hover-media-feature:
+    specifier: 1.0.2
+    version: 1.0.2(postcss@8.4.21)
   postcss-preset-env:
     specifier: 8.3.0
     version: 8.3.0(postcss@8.4.21)
@@ -4561,6 +4564,16 @@ packages:
       postcss: ^8.4
     dependencies:
       postcss: 8.4.21
+    dev: true
+
+  /postcss-hover-media-feature@1.0.2(postcss@8.4.21):
+    resolution: {integrity: sha512-o5xDUqCQ4xtilWOcvo5LKYxFVSLWcBN0IlTqa0IJwAwHTd4pxKmX4c0fGIpgLQCcBB/+aFizt2NVWNGJWG4Izg==}
+    engines: {node: '>=10.0.0'}
+    peerDependencies:
+      postcss: ^8.0.0
+    dependencies:
+      postcss: 8.4.21
+      postcss-selector-parser: 6.0.11
     dev: true
 
   /postcss-image-set-function@5.0.2(postcss@8.4.21):
