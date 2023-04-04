@@ -14,6 +14,10 @@ const { repo } = Astro.props
 const shouldShowStars = repo.stars > 0
 
 const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunction' })
+
+function normalizeDescription(description: string | null) {
+  return description?.replace(/\.$/, '')
+}
 ---
 
 <RepoLink class="link" href={repo.url} title={`Open ${repo.name} GitHub repository`}>
@@ -37,7 +41,7 @@ const listFormatter = new Intl.ListFormat('en', { style: 'short', type: 'conjunc
       ) : null
     }
   </div>
-  <div aria-hidden="true" class="description">{repo.description}</div>
+  <div aria-hidden="true" class="description">{normalizeDescription(repo.description)}</div>
   <ul aria-hidden="true" class="languages">
     {repo.languages.map((language) => <Tag color={language.color}>{language.name}</Tag>)}
   </ul>
