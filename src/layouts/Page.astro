@@ -7,8 +7,10 @@ import Head from '@components/ui/Head.astro'
 import Header from '@components/ui/Header.astro'
 import Icons from '@components/ui/Icons.astro'
 import SkipLink from '@components/ui/SkipLink.astro'
+import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 ---
 
+<!DOCTYPE html>
 <html lang="en">
   <head>
     {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
@@ -20,6 +22,9 @@ import SkipLink from '@components/ui/SkipLink.astro'
     <div class="app">
       <Header />
       <main id="main">
+        <VisuallyHidden>
+          <h1>HiDeoo&apos;s Open Source Portfolio</h1>
+        </VisuallyHidden>
         <slot />
       </main>
       <Footer />
