@@ -39,12 +39,6 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
   }
 }`
 
-// TODO(HiDeoo) https://docs.github.com/en/graphql/overview/explorer
-// TODO(HiDeoo) Make a tag list?
-// TODO(HiDeoo) Check max last
-// TODO(HiDeoo) tag link
-// TODO(HiDeoo) last max
-// TODO(HiDeoo)   |=> refactor hover effect
 export async function fetchGitHubRecentContributions() {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'contributionsCollection'> }>({
     query: `
