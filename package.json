@@ -13,6 +13,7 @@
     "prepare": "husky install"
   },
   "devDependencies": {
+    "@astrojs/sitemap": "1.2.1",
     "@csstools/postcss-global-data": "1.0.3",
     "@fontsource/archivo": "4.5.11",
     "@hideoo/eslint-config": "1.1.1",
