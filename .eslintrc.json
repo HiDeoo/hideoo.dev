@@ -16,7 +16,19 @@
         "react/jsx-key": "off",
         "react/no-unknown-property": [
           "error",
-          { "ignore": ["class", "class:list", "is:inline", "define:vars", "onclick", "set:html", "srcset", "tabindex"] }
+          {
+            "ignore": [
+              "class",
+              "class:list",
+              "crossorigin",
+              "is:inline",
+              "define:vars",
+              "onclick",
+              "set:html",
+              "srcset",
+              "tabindex"
+            ]
+          }
         ],
         "unicorn/text-encoding-identifier-case": "off"
       }

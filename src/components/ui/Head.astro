@@ -1,4 +1,6 @@
 ---
+import archivoFont from '@fontsource/archivo/files/archivo-latin-variable-wghtOnly-normal.woff2'
+
 const author = 'HiDeoo'
 const description = "HiDeoo's Open Source Portfolio"
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
@@ -13,6 +15,7 @@ const title = author
 <link rel="canonical" href={canonicalUrl} />
 <link rel="icon" href="/images/favicon.ico" sizes="any" />
 <link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+<link rel="preload" as="font" crossorigin="anonymous" href={archivoFont} type="font/woff2" />
 
 <meta name="author" content={author} />
 <meta name="color-scheme" content="dark light" />
