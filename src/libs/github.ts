@@ -1,10 +1,10 @@
-import {
-  type CreatedPullRequestContribution,
-  type LanguageEdge,
-  type Maybe,
-  type PullRequestContributionsByRepository,
-  type Repository,
-  type User,
+import type {
+  CreatedPullRequestContribution,
+  LanguageEdge,
+  Maybe,
+  PullRequestContributionsByRepository,
+  Repository,
+  User,
 } from '@octokit/graphql-schema'
 
 import { LANGUAGE_COLOR_OVERRIDES, getLanguageColor, getLanguageColorOverride } from '@libs/color'
