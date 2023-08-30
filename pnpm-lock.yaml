@@ -23,8 +23,8 @@ devDependencies:
     specifier: 14.27.2
     version: 14.27.2
   '@unocss/reset':
-    specifier: 0.50.6
-    version: 0.50.6
+    specifier: 0.55.3
+    version: 0.55.3
   astro:
     specifier: 2.1.9
     version: 2.1.9
@@ -1478,8 +1478,8 @@ packages:
       eslint-visitor-keys: 3.4.3
     dev: true
 
-  /@unocss/reset@0.50.6:
-    resolution: {integrity: sha512-e1fuSEgp1p7FgpsIZKNejOKgq4gyZcDGDvi+6544x458hInM6MfiMQNP95UBJEG4JZXq6qCZ8t7tRVWS2m5IXg==}
+  /@unocss/reset@0.55.3:
+    resolution: {integrity: sha512-zl3mogr3z6huA5CHZggOljoYFQDTidEw5T6pGPahfHB5qS9DH0UGozg5T9UtYWiidHL3xqyv6ZU27nyIMnlnhg==}
     dev: true
 
   /@vscode/emmet-helper@2.8.6:

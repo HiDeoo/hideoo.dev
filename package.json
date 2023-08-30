@@ -20,7 +20,7 @@
     "@hideoo/prettier-config": "2.0.0",
     "@hideoo/tsconfig": "2.0.1",
     "@octokit/graphql-schema": "14.27.2",
-    "@unocss/reset": "0.50.6",
+    "@unocss/reset": "0.55.3",
     "astro": "2.1.9",
     "autoprefixer": "10.4.15",
     "colord": "2.9.3",
