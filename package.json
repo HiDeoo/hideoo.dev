@@ -15,7 +15,7 @@
   "devDependencies": {
     "@astrojs/sitemap": "1.2.1",
     "@csstools/postcss-global-data": "2.1.0",
-    "@fontsource/archivo": "4.5.11",
+    "@fontsource-variable/archivo": "5.0.9",
     "@hideoo/eslint-config": "1.5.1",
     "@hideoo/prettier-config": "2.0.0",
     "@hideoo/tsconfig": "2.0.1",

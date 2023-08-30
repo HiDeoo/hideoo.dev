@@ -7,9 +7,9 @@ devDependencies:
   '@csstools/postcss-global-data':
     specifier: 2.1.0
     version: 2.1.0(postcss@8.4.29)
-  '@fontsource/archivo':
-    specifier: 4.5.11
-    version: 4.5.11
+  '@fontsource-variable/archivo':
+    specifier: 5.0.9
+    version: 5.0.9
   '@hideoo/eslint-config':
     specifier: 1.5.1
     version: 1.5.1(eslint@8.48.0)(typescript@5.2.2)
@@ -1034,8 +1034,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@fontsource/archivo@4.5.11:
-    resolution: {integrity: sha512-2bff98S2meggVKZ4cTCbckVhDid7Hgp32y7jHt2pJnJC3vEDOuPEERn2XZl5EAxcAwc/n63DI/m5m5B7hmdocg==}
+  /@fontsource-variable/archivo@5.0.9:
+    resolution: {integrity: sha512-nQLVCcmZtCEoYe1/AztX9+EpReZn9Q873bcnZefXs0ZVTyhhf9i7Lsk3cYSb54k5e7K1tiEvwVIS8t3qsDOcAg==}
     dev: true
 
   /@hideoo/eslint-config-base@1.5.1(@typescript-eslint/parser@5.59.8)(eslint-import-resolver-typescript@3.5.5)(eslint@8.48.0):
