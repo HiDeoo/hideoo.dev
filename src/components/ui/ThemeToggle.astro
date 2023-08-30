@@ -53,7 +53,9 @@
     }
 
     &:focus-visible {
-      box-shadow: 0 0 0 2px var(--bg-color), 0 0 0 4px var(--color);
+      box-shadow:
+        0 0 0 2px var(--bg-color),
+        0 0 0 4px var(--color);
     }
 
     @media (--xxs-n-above) {
@@ -110,7 +112,8 @@
       }
 
       & > .sun-beams {
-        transition: transform var(--animation-duration) var(--ease-elastic),
+        transition:
+          transform var(--animation-duration) var(--ease-elastic),
           opacity var(--animation-duration) var(--ease);
       }
 

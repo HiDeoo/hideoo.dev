@@ -18,7 +18,7 @@ const hoverAnimationCss = stats.map(
   (stat) => `html:has(.legend li[data-language="${stat.name}"]:hover) .bar[data-language="${stat.name}"] {
   animation-play-state: running;
 }
-`
+`,
 )
 ---
 
@@ -121,8 +121,11 @@ const hoverAnimationCss = stats.map(
     cursor: default;
 
     @media (--motionSafe) and (--mouse) {
-      transition: background-position var(--duration-500) var(--ease), border-color var(--duration-300) var(--ease),
-        box-shadow var(--duration-400) var(--ease), color var(--duration-300) var(--ease);
+      transition:
+        background-position var(--duration-500) var(--ease),
+        border-color var(--duration-300) var(--ease),
+        box-shadow var(--duration-400) var(--ease),
+        color var(--duration-300) var(--ease);
 
       &:hover {
         background-position: 0;

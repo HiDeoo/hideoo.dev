@@ -168,7 +168,7 @@ async function fetchGitHubApi<TData>(body: GitHubApiRequestBody) {
 
 function getReposAndLanguageStatsFromNodes(
   nodes: Maybe<Maybe<Repository>[]> | undefined,
-  rawLanguageStats: RawLanguageStats = {}
+  rawLanguageStats: RawLanguageStats = {},
 ) {
   const repos: GitHubRepo[] = []
 

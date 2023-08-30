@@ -31,7 +31,9 @@ const { class: className, href, target = '_blank' } = Astro.props
       width: 100%;
 
       @media (--motionSafe) {
-        transition: opacity var(--duration-300) var(--ease), transform var(--duration-300) var(--ease);
+        transition:
+          opacity var(--duration-300) var(--ease),
+          transform var(--duration-300) var(--ease);
       }
     }
 
