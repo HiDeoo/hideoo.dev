@@ -13,7 +13,8 @@
     "prepare": "husky install"
   },
   "devDependencies": {
-    "@astrojs/sitemap": "1.2.1",
+    "@astrojs/check": "0.2.0",
+    "@astrojs/sitemap": "3.0.0",
     "@csstools/postcss-global-data": "2.1.0",
     "@fontsource-variable/archivo": "5.0.9",
     "@hideoo/eslint-config": "1.5.1",
@@ -21,7 +22,7 @@
     "@hideoo/tsconfig": "2.0.1",
     "@octokit/graphql-schema": "14.27.2",
     "@unocss/reset": "0.55.3",
-    "astro": "2.1.9",
+    "astro": "3.0.2",
     "autoprefixer": "10.4.15",
     "colord": "2.9.3",
     "eslint": "8.48.0",
@@ -35,7 +36,7 @@
     "typescript": "5.2.2"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18.14.1"
   },
   "packageManager": "pnpm@8.1.0",
   "private": true,

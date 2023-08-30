@@ -23,7 +23,7 @@ const hoverAnimationCss = stats.map(
 ---
 
 <Section title="Recent Languages">
-  <div aria-hidden="true" class="chart">
+  <div aria-hidden="true" class="chart" style={{ '--chart-ticks': totalSize }}>
     {
       stats.map((stat) => {
         const dimmedColors = getLanguageDimmedColors(stat.color)
@@ -42,7 +42,7 @@ const hoverAnimationCss = stats.map(
       })
     }
   </div>
-  <ul class="legend">
+  <ul class="legend" style={{ '--legend-size': entryCount }}>
     {
       stats.map((stat) => (
         <Tag color={stat.color} class="tag" data-language={stat.name}>
@@ -55,7 +55,7 @@ const hoverAnimationCss = stats.map(
 
 <style is:inline set:html={hoverAnimationCss}></style>
 
-<style define:vars={{ 'chart-ticks': totalSize, 'legend-size': entryCount }}>
+<style>
   .chart {
     display: grid;
     grid-template-columns: repeat(var(--chart-ticks), 1fr);
