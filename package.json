@@ -9,7 +9,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "lint": "prettier -c . '**/*.astro' && eslint . --max-warnings=0 && astro check && tsc --noEmit",
+    "lint": "prettier -c --cache . '**/*.astro' && eslint . --cache --max-warnings=0 && astro check && tsc --noEmit",
     "prepare": "husky install"
   },
   "devDependencies": {
