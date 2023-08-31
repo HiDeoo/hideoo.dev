@@ -228,7 +228,7 @@ function getReposAndLanguageStatsFromNodes(
           languages,
           name: node.name,
           stars: node.stargazerCount,
-          url: node.url,
+          url: String(node.url),
         })
       }
     }
@@ -293,7 +293,7 @@ function normalizeContributions(rawContributions: PullRequestContributionsByRepo
   return sanitizedRawContributions
     .map((rawContribution) => ({
       name: rawContribution.repository.nameWithOwner,
-      url: rawContribution.repository.url,
+      url: String(rawContribution.repository.url),
     }))
     .slice(0, maxContributions)
 }
