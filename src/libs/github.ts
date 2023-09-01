@@ -12,7 +12,7 @@ import { LANGUAGE_COLOR_OVERRIDES, getLanguageColor, getLanguageColorOverride } 
 const maxLanguageStats = 8
 const maxContributions = 8
 
-const repoBanList: RegExp[] = [/\.github/, /-repro/]
+const repoBanList: RegExp[] = [/\.github/, /-repro/, /^edge-developer\.fr-FR$/]
 
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
   'HiDeoo/prettier-config': [{ node: { color: LANGUAGE_COLOR_OVERRIDES['JSON'], name: 'JSON' } }],
