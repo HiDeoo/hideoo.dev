@@ -1,6 +1,10 @@
-<h2 class="title">
-  <slot />
-</h2>
+---
+import { slug } from 'github-slugger'
+
+const title = await Astro.slots.render('default')
+---
+
+<h2 class="title" id={slug(title)} set:text={title} />
 
 <style>
   .title {
