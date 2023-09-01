@@ -57,6 +57,7 @@ function normalizeDescription(description: string | null) {
   }
 
   .name {
+    align-items: flex-start;
     display: flex;
     gap: var(--size-4);
     justify-content: space-between;
@@ -64,6 +65,7 @@ function normalizeDescription(description: string | null) {
     & strong {
       font-weight: var(--font-semibold);
       font-size: var(--text-xl);
+      word-break: break-word;
     }
   }
 
