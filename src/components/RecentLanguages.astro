@@ -94,11 +94,15 @@ const hoverAnimationCss = stats.map(
   .legend {
     display: grid;
     gap: var(--size-4);
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(1, 1fr);
     justify-content: space-between;
     margin-top: var(--size-4);
     padding-right: 4px;
     padding-bottom: var(--size-2);
+
+    @media (--xxs-n-above) {
+      grid-template-columns: repeat(2, 1fr);
+    }
 
     @media (--sm-n-above) {
       grid-template-columns: repeat(4, 1fr);
