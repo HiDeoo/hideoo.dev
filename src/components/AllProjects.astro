@@ -1,4 +1,6 @@
 ---
+import { getEntry } from 'astro:content'
+
 import Repos from '@components/repos/Repos.astro'
 import Section from '@components/ui/Section.astro'
 import type { GitHubRepo } from '@libs/github'
@@ -8,8 +10,47 @@ export interface Props {
 }
 
 const { repos } = Astro.props
+
+const uncategorizedCategoryName = 'Other Projects'
+
+const projectCategories = await getEntry('categories', 'projects')
+const categories = await Promise.all(
+  projectCategories.data.map((categoryReference) => getEntry('category', categoryReference.id)),
+)
+
+const reposByCategories = new Map<string, GitHubRepo[]>()
+const uncategorizedRepos: GitHubRepo[] = []
+
+for (const category of categories) {
+  const categoryRepos: GitHubRepo[] = []
+
+  for (const repo of repos) {
+    if (category.data.repos.includes(repo.name.toLowerCase())) {
+      categoryRepos.push(repo)
+    }
+  }
+
+  reposByCategories.set(category.data.name, categoryRepos)
+}
+
+for (const repo of repos) {
+  if (![...reposByCategories.values()].flat().includes(repo)) {
+    uncategorizedRepos.push(repo)
+  }
+}
 ---
 
-<Section opaque={false} title="All Projects">
-  <Repos repos={repos} />
-</Section>
+{
+  [...reposByCategories.entries()].map(([categoryName, categoryRepos]) => (
+    <Section opaque={false} title={categoryName}>
+      <Repos repos={categoryRepos} />
+    </Section>
+  ))
+}
+{
+  uncategorizedRepos.length > 0 && (
+    <Section opaque={false} title={uncategorizedCategoryName}>
+      <Repos repos={uncategorizedRepos} />
+    </Section>
+  )
+}

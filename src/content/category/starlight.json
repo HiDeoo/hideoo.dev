@@ -1,0 +1,10 @@
+{
+  "name": "Starlight Integrations",
+  "repos": [
+    "starlight-blog",
+    "starlight-links-validator",
+    "starlight-openapi",
+    "starlight-package-managers",
+    "starlight-typedoc"
+  ]
+}
