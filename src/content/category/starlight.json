@@ -1,0 +1,10 @@
+{
+  "name": "Starlight Plugins",
+  "repos": [
+    "starlight-blog",
+    "starlight-links-validator",
+    "starlight-openapi",
+    "starlight-package-managers",
+    "starlight-typedoc"
+  ]
+}

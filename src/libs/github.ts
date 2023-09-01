@@ -12,7 +12,7 @@ import { LANGUAGE_COLOR_OVERRIDES, getLanguageColor, getLanguageColorOverride } 
 const maxLanguageStats = 8
 const maxContributions = 8
 
-const repoBanList: RegExp[] = [/\.github/, /-repro/]
+const repoBanList: RegExp[] = [/\.github/, /-repro/, /^edge-developer\.fr-FR$/]
 
 const repoLanguageOverrides: Record<string, Maybe<DeepPartial<LanguageEdge>>[]> = {
   'HiDeoo/prettier-config': [{ node: { color: LANGUAGE_COLOR_OVERRIDES['JSON'], name: 'JSON' } }],
@@ -168,7 +168,7 @@ async function fetchGitHubApi<TData>(body: GitHubApiRequestBody) {
 
 function getReposAndLanguageStatsFromNodes(
   nodes: Maybe<Maybe<Repository>[]> | undefined,
-  rawLanguageStats: RawLanguageStats = {}
+  rawLanguageStats: RawLanguageStats = {},
 ) {
   const repos: GitHubRepo[] = []
 
@@ -228,7 +228,7 @@ function getReposAndLanguageStatsFromNodes(
           languages,
           name: node.name,
           stars: node.stargazerCount,
-          url: node.url,
+          url: String(node.url),
         })
       }
     }
@@ -293,7 +293,7 @@ function normalizeContributions(rawContributions: PullRequestContributionsByRepo
   return sanitizedRawContributions
     .map((rawContribution) => ({
       name: rawContribution.repository.nameWithOwner,
-      url: rawContribution.repository.url,
+      url: String(rawContribution.repository.url),
     }))
     .slice(0, maxContributions)
 }

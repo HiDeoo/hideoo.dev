@@ -1,9 +1,10 @@
 const baseConfig = require('@hideoo/prettier-config')
 
-/** @type {import('prettier').Config} */
+/**
+ * @type {import('prettier').Config}
+ */
 const customPrettierConfig = {
   ...baseConfig,
-  plugins: [require.resolve('prettier-plugin-astro')],
   overrides: [
     {
       files: '*.astro',
@@ -12,6 +13,7 @@ const customPrettierConfig = {
       },
     },
   ],
+  plugins: ['prettier-plugin-astro'],
 }
 
 module.exports = customPrettierConfig

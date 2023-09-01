@@ -1,45 +1,19 @@
 {
-  "extends": ["@hideoo", "plugin:astro/recommended"],
+  "extends": ["@hideoo"],
   "globals": {
-    "astroHTML": "readonly",
     "updateTheme": "readonly"
   },
   "overrides": [
     {
-      "files": ["*.astro"],
-      "parser": "astro-eslint-parser",
-      "parserOptions": {
-        "parser": "@typescript-eslint/parser",
-        "extraFileExtensions": [".astro"]
-      },
+      "files": ["src/components/ui/Head.astro/*.js", "src/components/ui/ThemeToggle.astro/*.js"],
       "rules": {
-        "react/jsx-key": "off",
-        "react/no-unknown-property": [
-          "error",
-          {
-            "ignore": [
-              "class",
-              "class:list",
-              "crossorigin",
-              "is:inline",
-              "define:vars",
-              "onclick",
-              "set:html",
-              "srcset",
-              "tabindex"
-            ]
-          }
-        ],
-        "unicorn/text-encoding-identifier-case": "off"
+        "@typescript-eslint/no-unused-vars": "off"
       }
     },
     {
-      // Configuration for `<script>` tags in Astro components which are assigned a virtual file name with the `.js`
-      // extension.
-      "files": ["**/*.astro/*.js", "*.astro/*.js"],
+      "files": ["src/components/ui/Title.astro"],
       "rules": {
-        "no-empty": ["error", { "allowEmptyCatch": true }],
-        "@typescript-eslint/no-unused-vars": "off"
+        "import/namespace": "off"
       }
     }
   ]

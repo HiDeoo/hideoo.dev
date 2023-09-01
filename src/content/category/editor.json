@@ -1,0 +1,4 @@
+{
+  "name": "Editor Extensions",
+  "repos": ["autocomplete-lodash", "create", "toggler", "toggler-nova", "toggler-vscode", "trailing", "typedown"]
+}

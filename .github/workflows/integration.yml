@@ -25,7 +25,7 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v2.2.2
         with:
-          version: 8.1.0
+          version: 8.7.0
           run_install: false
 
       - name: Get pnpm store directory path
@@ -43,6 +43,9 @@ jobs:
 
       - name: Install dependencies
         run: pnpm install
+
+      - name: Generates TypeScript types
+        run: pnpm astro sync
 
       - name: Lint
         run: pnpm lint
