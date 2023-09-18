@@ -2,6 +2,7 @@
   "name": "Starlight Plugins",
   "repos": [
     "starlight-blog",
+    "starlight-i18n",
     "starlight-links-validator",
     "starlight-openapi",
     "starlight-package-managers",
