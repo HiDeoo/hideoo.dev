@@ -1,83 +1,68 @@
 ---
-import RepoLink from '@components/repos/RepoLink.astro'
+import RepoLink from '@components/repo/RepoLink.astro'
 import Icon from '@components/ui/Icon.astro'
 import Section from '@components/ui/Section.astro'
 import { fetchGitHubRecentContributions } from '@libs/github'
-
-let contributionsColumns = 4
 
 let recentContributions = await fetchGitHubRecentContributions()
 
 if (recentContributions.length < 8) {
   recentContributions = recentContributions.splice(0, 4)
-  contributionsColumns = recentContributions.length
 }
 ---
 
-<Section opaque={false} title="Recent Contributions" visible={recentContributions.length >= 3}>
-  <ul class="contributions">
+<Section title="Recent Contributions">
+  <div>
     {
-      recentContributions.map((recentContribution) => {
-        return (
-          <li>
-            <RepoLink
-              class="link"
-              href={recentContribution.url}
-              title={`Open ${recentContribution.name} GitHub repository`}
-            >
-              <div>{recentContribution.name}</div>
-              <Icon class="chevronIcon" name="chevron-right" />
-            </RepoLink>
-          </li>
-        )
-      })
+      recentContributions.map((contribution) => (
+        <RepoLink href={contribution.url} name={contribution.name}>
+          <div class="name">{contribution.name}</div>
+          <Icon name="chevron-right" />
+        </RepoLink>
+      ))
     }
-  </ul>
+  </div>
 </Section>
 
-<style define:vars={{ 'contributions-columns': contributionsColumns }}>
-  .contributions {
+<style>
+  div {
     display: grid;
-    font-weight: var(--font-semibold);
     gap: var(--size-4);
-    grid-template-columns: repeat(calc(var(--contributions-columns) - 2), 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    justify-content: space-between;
+    grid-template-columns: 1fr;
 
-    @media (--md-n-above) {
-      grid-template-columns: repeat(var(--contributions-columns), 1fr);
+    @media (--sm-n-above) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 
-  li {
-    min-width: 0;
-  }
-
-  div {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  .link {
+  div :global(a) {
     align-items: center;
-    flex-direction: row;
-    gap: var(--size-1);
-    justify-content: space-between;
+    display: flex;
+    gap: var(--size-3);
+    min-width: 0;
 
     @media (--motionSafe) {
-      &:hover .chevronIcon {
+      &:is(:hover, :focus-visible) :global(svg) {
         animation: bounce var(--duration-1200) infinite var(--ease);
       }
     }
   }
 
-  .chevronIcon {
+  div :global(svg) {
     --size: var(--size-5);
 
+    flex-shrink: 0;
     fill: currentColor;
     height: var(--size);
     width: var(--size);
+  }
+
+  .name {
+    display: block;
+    flex-grow: 1;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   @keyframes bounce {

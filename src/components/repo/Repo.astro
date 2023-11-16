@@ -1,6 +1,6 @@
 ---
+import RepoLink from '@components/repo/RepoLink.astro'
 import Icon from '@components/ui/Icon.astro'
-import LinkCard from '@components/ui/LinkCard.astro'
 import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 import type { GitHubRepo } from '@libs/github'
 import { pluralize } from '@libs/string'
@@ -19,7 +19,7 @@ const srDescription = `${repo.name} - ${
 }${description}.`
 ---
 
-<LinkCard href={repo.url} title={`Go to ${repo.name} GitHub repository`}>
+<RepoLink href={repo.url} name={repo.name}>
   <VisuallyHidden>
     {srDescription}
   </VisuallyHidden>
@@ -35,7 +35,7 @@ const srDescription = `${repo.name} - ${
     }
   </div>
   <div aria-hidden="true" class="description">{description}</div>
-</LinkCard>
+</RepoLink>
 
 <style>
   .header {

@@ -1,0 +1,14 @@
+---
+import LinkCard from '@components/ui/LinkCard.astro'
+
+export interface Props {
+  href: string
+  name: string
+}
+
+const { href, name } = Astro.props
+---
+
+<LinkCard {href} title={`Go to ${name} GitHub repository`}>
+  <slot />
+</LinkCard>
