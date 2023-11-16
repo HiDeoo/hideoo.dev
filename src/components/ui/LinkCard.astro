@@ -1,0 +1,30 @@
+---
+export interface Props {
+  href: string
+  title: string
+}
+
+const { href, title } = Astro.props
+---
+
+<a href={href} title={title}>
+  <slot />
+</a>
+
+<style>
+  a {
+    border: 2px solid var(--color-gray-800);
+    border-radius: var(--rounded-lg);
+    padding: var(--size-3) var(--size-4);
+
+    &:is(:hover, :focus-visible) {
+      border-color: var(--color-text-highlight);
+      color: var(--color-text-highlight);
+      outline: none;
+    }
+
+    @media (--motionSafe) {
+      transition: border-color var(--duration-300) var(--ease);
+    }
+  }
+</style>
