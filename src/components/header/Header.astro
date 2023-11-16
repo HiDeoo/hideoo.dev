@@ -19,11 +19,7 @@ import ThemeToggle from '@components/header/ThemeToggle.astro'
     column-gap: var(--size-1);
     grid-template-areas: 'home navigation-menu navigation-toggle theme-toggle';
     grid-template-columns: 1fr auto auto;
-    padding: var(--size-3) var(--size-4);
-
-    @media (--md-n-above) {
-      padding-inline: var(--size-12);
-    }
+    padding: var(--size-3) var(--page-padding-inline);
   }
 
   :global([data-navigation-menu-expanded='true']) header {

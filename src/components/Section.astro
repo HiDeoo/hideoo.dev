@@ -1,0 +1,30 @@
+---
+export interface Props {
+  title: string
+}
+
+const { title } = Astro.props
+---
+
+<section>
+  <h2>{title}</h2>
+  <slot />
+</section>
+
+<style>
+  section + section {
+    margin-top: var(--size-8);
+  }
+
+  h2 {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-extrabold);
+    line-height: 1.25;
+    margin-bottom: var(--size-8);
+    overflow-wrap: anywhere;
+
+    @media (--md-n-above) {
+      font-size: var(--text-4xl);
+    }
+  }
+</style>
