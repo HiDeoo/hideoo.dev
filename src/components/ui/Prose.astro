@@ -1,0 +1,29 @@
+<div class="prose">
+  <slot />
+</div>
+
+<style>
+  .prose {
+    :global(a) {
+      color: var(--color-text-highlight);
+      text-decoration: underline;
+      text-decoration-color: var(--color-gray-500);
+      text-underline-offset: var(--size-0-5);
+
+      @media (--motionSafe) {
+        transition: text-decoration-color var(--duration-300) var(--ease);
+      }
+
+      &:hover {
+        text-decoration-color: var(--color-text-highlight);
+      }
+
+      &:focus-visible {
+        border-radius: var(--rounded-sm);
+        outline: 2px solid var(--color-text-highlight);
+        outline-offset: 1px;
+        text-decoration: none;
+      }
+    }
+  }
+</style>
