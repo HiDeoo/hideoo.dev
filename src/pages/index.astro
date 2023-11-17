@@ -1,17 +1,12 @@
 ---
-import AllProjects from '@components/AllProjects.astro'
-import RecentContributions from '@components/RecentContributions.astro'
-import RecentLanguages from '@components/RecentLanguages.astro'
+import About from '@components/About.astro'
 import RecentProjects from '@components/RecentProjects.astro'
+import Section from '@components/ui/Section.astro'
 import Page from '@layouts/Page.astro'
-import { fetchGitHubReposAndLanguageStats } from '@libs/github'
-
-const { repos: allRepos, languageStats } = await fetchGitHubReposAndLanguageStats()
 ---
 
-<Page>
+<Page title="HiDeoo's Personal Website">
+  <About />
   <RecentProjects />
-  <RecentLanguages stats={languageStats} />
-  <RecentContributions />
-  <AllProjects repos={allRepos} />
+  <Section title="Recent Notes">// TODO(HiDeoo)</Section>
 </Page>
