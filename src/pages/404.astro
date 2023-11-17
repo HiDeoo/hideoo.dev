@@ -1,32 +1,16 @@
 ---
-import Link from '@components/ui/Link.astro'
+import Prose from '@components/ui/Prose.astro'
+import Section from '@components/ui/Section.astro'
 import Page from '@layouts/Page.astro'
 ---
 
-{/* Explicitely not using a <Section /> to avoid having its CSS splitted in a separate file. */}
-<Page>
-  <section>
-    <h2>Whoops!</h2>
-    <div>Sorry, we can&apos;t find the page you&apos;re looking for. <Link href="/" target="_self">Go home?</Link></div>
-  </section>
+<Page title="Page not found">
+  <Section title="Whoops!" titleProps={{ 'aria-hidden': true }}>
+    <Prose>
+      <p>Sorry, we can't find the page you are looking for.</p>
+      <p>
+        <a href="/">Go home?</a>
+      </p>
+    </Prose>
+  </Section>
 </Page>
-
-<style>
-  h2 {
-    color: var(--bg-color);
-    font-size: var(--size-6);
-    font-weight: var(--font-extrabold);
-    letter-spacing: var(--size-px);
-    line-height: var(--line-height-8);
-    margin-bottom: var(--size-3);
-    text-shadow: var(--size-px) var(--size-npx) 0 var(--color);
-    text-transform: uppercase;
-    -webkit-text-stroke: var(--size-px) var(--color);
-  }
-
-  div {
-    background-color: var(--bg-color);
-    border: var(--size-px) solid var(--grid-border-color);
-    padding: var(--size-3);
-  }
-</style>
