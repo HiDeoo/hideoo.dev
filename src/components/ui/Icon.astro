@@ -1,11 +1,13 @@
 ---
-export interface Props {
+import type { HTMLAttributes } from 'astro/types'
+
+export interface Props extends HTMLAttributes<'svg'> {
   name: string
 }
 
-const { name } = Astro.props
+const { name, ...others } = Astro.props
 ---
 
-<svg>
+<svg {...others}>
   <use href={`#${name}`}></use>
 </svg>
