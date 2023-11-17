@@ -1,0 +1,45 @@
+---
+import ThemeProvider from '@components/ThemeProvider.astro'
+
+const author = 'HiDeoo'
+// TODO(HiDeoo)
+const description = "HiDeoo's Open Source Portfolio"
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+// TODO(HiDeoo)
+const ogImageUrl = new URL('/images/og.png', Astro.site)
+const title = author
+
+// FIXME(HiDeoo)
+---
+
+<meta charset="utf-8" />
+
+<title>{title}</title>
+
+<link rel="canonical" href={canonicalUrl} />
+<link rel="icon" href="/images/favicon.ico" sizes="any" />
+<link rel="icon" href="/images/favicon.svg" type="image/svg+xml" />
+<link rel="sitemap" href="/sitemap-index.xml" />
+
+<meta name="author" content={author} />
+<meta name="color-scheme" content="dark light" />
+<meta name="description" property="og:description" content={description} />
+<!-- // TODO(HiDeoo)  -->
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="hsl(240 10% 4%)" />
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="hsl(0 0% 98%)" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:image:alt" content={description} />
+<meta property="og:locale" content="en_US" />
+<meta property="og:title" content={title} />
+<meta property="og:type" content="profile" />
+<meta property="og:url" content={canonicalUrl} />
+
+<meta name="twitter:card" content="summary" />
+<meta name="twitter:description" content={description} />
+<meta name="twitter:image" content={ogImageUrl} />
+<meta name="twitter:image:alt" content={description} />
+<meta name="twitter:title" content={title} />
+
+<ThemeProvider />
