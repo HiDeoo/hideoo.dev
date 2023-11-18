@@ -5,7 +5,7 @@ import ThemeToggle from '@components/ui/header/ThemeToggle.astro'
 
 <header>
   <div>
-    <a aria-label="Home" href="/" title="Home">HiDeoo</a>
+    <a aria-current={Astro.url.pathname === '/'} aria-label="Home" href="/" title="Home">HiDeoo</a>
   </div>
   <Navigation />
   <ThemeToggle />
