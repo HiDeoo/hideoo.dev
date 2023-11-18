@@ -104,9 +104,24 @@ const links = [
     align-items: center;
     display: none;
     grid-area: navigation-menu;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    @media (--xxs-n-above) {
+      overflow-x: initial;
+      scrollbar-width: initial;
+
+      &::-webkit-scrollbar {
+        display: initial;
+      }
+    }
 
     @media (--sm-n-above) {
       display: flex;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 
