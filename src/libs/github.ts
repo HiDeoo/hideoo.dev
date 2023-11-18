@@ -6,7 +6,7 @@ import type {
   User,
 } from '@octokit/graphql-schema'
 
-const repoBanList: RegExp[] = [/\.github/, /-repro/, /^edge-developer\.fr-FR$/]
+const repoBanList: RegExp[] = [/\.github/, /-repro/, /^edge-developer\.fr-FR$/, /-test$/]
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
@@ -53,6 +53,7 @@ export async function fetchGitHubRecentContributions(count = 8) {
           pullRequestContributionsByRepository(maxRepositories: 100) {
             repository {
               isFork
+              name
               nameWithOwner
               owner {
                 login
@@ -184,7 +185,8 @@ function normalizeContributions(
     if (
       rawContribution.repository.owner.login === 'HiDeoo' ||
       rawContribution.repository.isFork ||
-      rawContribution.contributions.nodes?.length === 0
+      rawContribution.contributions.nodes?.length === 0 ||
+      repoBanList.some((regex) => regex.test(rawContribution.repository.name))
     ) {
       continue
     }
