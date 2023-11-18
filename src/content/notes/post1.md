@@ -9,3 +9,5 @@ Post 1 Content
 ## Test 2
 
 haha
+
+[test](/notes/post2)

@@ -170,4 +170,26 @@ const { title, titleVisibility, ...headProps } = Astro.props
       margin-bottom: var(--size-8);
     }
   }
+
+  :global(p a) {
+    color: var(--color-text-highlight);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gray-500);
+    text-underline-offset: var(--size-0-5);
+
+    @media (--motionSafe) {
+      transition: text-decoration-color var(--duration-300) var(--ease);
+    }
+
+    &:hover {
+      text-decoration-color: var(--color-text-highlight);
+    }
+
+    &:focus-visible {
+      border-radius: var(--rounded-sm);
+      outline: var(--outline-width) solid var(--color-text-highlight);
+      outline-offset: var(--size-px);
+      text-decoration: none;
+    }
+  }
 </style>
