@@ -1,20 +1,6 @@
 {
   "extends": ["@hideoo"],
   "globals": {
-    "updateTheme": "readonly"
-  },
-  "overrides": [
-    {
-      "files": ["src/components/ui/Head.astro/*.js", "src/components/ui/ThemeToggle.astro/*.js"],
-      "rules": {
-        "@typescript-eslint/no-unused-vars": "off"
-      }
-    },
-    {
-      "files": ["src/components/ui/Title.astro"],
-      "rules": {
-        "import/namespace": "off"
-      }
-    }
-  ]
+    "ThemeProvider": "readonly"
+  }
 }
