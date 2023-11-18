@@ -20,6 +20,17 @@ import Icon from '@components/ui/Icon.astro'
     line-height: 1.5;
     padding: var(--size-5) var(--page-padding-inline);
     place-items: center;
+
+    & :global(svg) {
+      --size: var(--size-5);
+
+      display: inline;
+      fill: currentColor;
+      height: var(--size);
+      margin-inline-start: var(--size-0-5);
+      vertical-align: top;
+      width: var(--size);
+    }
   }
 
   a:is(:hover, :focus-visible) {
@@ -30,16 +41,5 @@ import Icon from '@components/ui/Icon.astro'
     border-radius: var(--rounded-sm);
     outline: var(--outline-width) solid var(--color-text-highlight);
     outline-offset: var(--size-px);
-  }
-
-  :global(svg) {
-    --size: var(--size-5);
-
-    display: inline;
-    fill: currentColor;
-    height: var(--size);
-    margin-inline-start: var(--size-0-5);
-    vertical-align: top;
-    width: var(--size);
   }
 </style>
