@@ -1,25 +1,25 @@
 ---
 import '@unocss/reset/tailwind.css'
 
-import Head from '@components/Head.astro'
+import Head, { type HeadProps } from '@components/Head.astro'
 import Footer from '@components/ui/Footer.astro'
 import Header from '@components/ui/header/Header.astro'
 import Icons from '@components/ui/Icons.astro'
 import SkipLink from '@components/ui/SkipLink.astro'
 import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 
-export interface Props {
+export interface Props extends Omit<HeadProps, 'metaDescription'> {
   title: string
 }
 
-const { title } = Astro.props
+const { title, ...headProps } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
-    {() => <Head />}
+    {() => <Head {...headProps} metaDescription={title} />}
   </head>
   <body>
     <SkipLink />

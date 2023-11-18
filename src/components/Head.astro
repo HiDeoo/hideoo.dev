@@ -1,13 +1,28 @@
 ---
 import ThemeProvider from '@components/ThemeProvider.astro'
 
+export interface HeadProps {
+  metaDescription: string
+  metaTitle?: string
+}
+
+export type Props = HeadProps
+
+const { metaDescription, metaTitle } = Astro.props
+
 const author = 'HiDeoo'
-// TODO(HiDeoo)
-const description = "HiDeoo's Open Source Portfolio"
+const isHome = Astro.url.pathname === '/'
+
+if (!isHome && !metaTitle) {
+  throw new Error(`Property 'metaTitle' not found for page '${Astro.url.pathname}'`)
+}
+
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
+const description = metaDescription
+const title = isHome ? author : `${metaTitle} | ${author}`
+
 // TODO(HiDeoo)
 const ogImageUrl = new URL('/images/og.png', Astro.site)
-const title = author
 
 // FIXME(HiDeoo)
 ---
@@ -29,17 +44,26 @@ const title = author
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="hsl(0 0% 98%)" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+<!-- // TODO(HiDeoo)  -->
 <meta property="og:image" content={ogImageUrl} />
+<!-- // TODO(HiDeoo)  -->
 <meta property="og:image:alt" content={description} />
+<!-- // TODO(HiDeoo) correct? -->
 <meta property="og:locale" content="en_US" />
+<!-- // TODO(HiDeoo)  -->
 <meta property="og:title" content={title} />
+<!-- // TODO(HiDeoo)  -->
 <meta property="og:type" content="profile" />
 <meta property="og:url" content={canonicalUrl} />
 
 <meta name="twitter:card" content="summary" />
+<!-- // TODO(HiDeoo)  -->
 <meta name="twitter:description" content={description} />
+<!-- // TODO(HiDeoo)  -->
 <meta name="twitter:image" content={ogImageUrl} />
+<!-- // TODO(HiDeoo)  -->
 <meta name="twitter:image:alt" content={description} />
+<!-- // TODO(HiDeoo)  -->
 <meta name="twitter:title" content={title} />
 
 <ThemeProvider />
