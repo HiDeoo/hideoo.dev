@@ -144,4 +144,8 @@ const { title } = Astro.props
     max-width: var(--page-max-width);
     width: 100%;
   }
+
+  html[data-transition-disabled='true'] :global(main *) {
+    transition: none !important;
+  }
 </style>

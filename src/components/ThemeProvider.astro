@@ -30,8 +30,13 @@
     }
 
     function applyTheme() {
+      document.documentElement.dataset.transitionDisabled = true
       document.documentElement.dataset.theme = theme
       document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
+
+      requestAnimationFrame(() => {
+        delete document.documentElement.dataset.transitionDisabled
+      })
     }
 
     function updateTheme(newThemeName) {
