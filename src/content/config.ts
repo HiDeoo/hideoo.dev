@@ -13,4 +13,11 @@ const categories = defineCollection({
   type: 'data',
 })
 
-export const collections = { category, categories }
+const notes = defineCollection({
+  schema: z.object({
+    title: z.string(),
+  }),
+  type: 'content',
+})
+
+export const collections = { category, categories, notes }

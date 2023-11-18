@@ -10,9 +10,10 @@ import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 
 export interface Props extends Omit<HeadProps, 'metaDescription'> {
   title: string
+  titleVisibility: 'hidden' | 'visible'
 }
 
-const { title, ...headProps } = Astro.props
+const { title, titleVisibility, ...headProps } = Astro.props
 ---
 
 <!doctype html>
@@ -27,9 +28,15 @@ const { title, ...headProps } = Astro.props
     <Header />
     <div class="frame">
       <main id="content">
-        <VisuallyHidden>
-          <h1>{title}</h1>
-        </VisuallyHidden>
+        {
+          titleVisibility === 'visible' ? (
+            <h1 class="title">{title}</h1>
+          ) : (
+            <VisuallyHidden>
+              <h1>{title}</h1>
+            </VisuallyHidden>
+          )
+        }
         <slot />
       </main>
     </div>
@@ -147,5 +154,20 @@ const { title, ...headProps } = Astro.props
 
   html[data-transition-disabled='true'] :global(main *) {
     transition: none !important;
+  }
+
+  h1:not(:where(.visually-hidden *)),
+  :global(h2:not(:where(.prose *))) {
+    font-size: var(--text-3xl);
+    font-weight: var(--font-weight-extrabold);
+    line-height: 1.25;
+    margin-bottom: var(--size-6);
+    overflow-wrap: anywhere;
+    text-wrap: balance;
+
+    @media (--md-n-above) {
+      font-size: var(--text-4xl);
+      margin-bottom: var(--size-8);
+    }
   }
 </style>

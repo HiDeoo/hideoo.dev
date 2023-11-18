@@ -1,0 +1,17 @@
+---
+import { getCollection } from 'astro:content'
+
+import Page from '@layouts/Page.astro'
+
+const notes = await getCollection('notes')
+---
+
+<Page metaTitle="Notes" title="All Notes" titleVisibility="visible">
+  {
+    notes.map((note) => (
+      <div>
+        <a href={`/notes/${note.slug}/`}>{note.data.title}</a>
+      </div>
+    ))
+  }
+</Page>

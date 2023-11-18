@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content'
+
+import Prose from '@components/ui/Prose.astro'
+import Page from '@layouts/Page.astro'
+
+export async function getStaticPaths() {
+  const notes = await getCollection('notes')
+
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }))
+}
+
+const { note } = Astro.props
+const { Content } = await note.render()
+---
+
+<Page metaTitle={note.data.title} title="// TODO(HiDeoo) SINGLE" titleVisibility="visible">
+  <Prose>
+    <Content />
+  </Prose>
+</Page>
