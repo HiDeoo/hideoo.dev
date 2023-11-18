@@ -1,6 +1,8 @@
 ---
 import type { HTMLAttributes } from 'astro/types'
 
+import { slug } from '@libs/string'
+
 export interface Props {
   title?: string
   titleProps?: HTMLAttributes<'h2'>
@@ -10,7 +12,13 @@ const { title, titleProps } = Astro.props
 ---
 
 <section>
-  {title && <h2 {...titleProps}>{title}</h2>}
+  {
+    title && (
+      <h2 {...titleProps} id={slug(title)}>
+        {title}
+      </h2>
+    )
+  }
   <slot />
 </section>
 
