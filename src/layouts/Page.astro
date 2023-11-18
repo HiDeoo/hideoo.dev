@@ -48,25 +48,25 @@ const { title, titleVisibility, ...headProps } = Astro.props
   :where(html) {
     color-scheme: light;
 
-    --color-white: oklch(5% 0 0);
-    --color-gray-300: oklch(30% 0.005 286);
-    --color-gray-400: oklch(50% 0.02 286);
-    --color-gray-500: oklch(70% 0.02 286);
-    --color-gray-800: oklch(86% 0.02 286);
-    --color-gray-900: oklch(95% 0.01 286);
-    --color-black: oklch(98.5% 0 0);
+    --color-white: hsl(0 0% 0%);
+    --color-gray-300: hsl(240 3% 18%);
+    --color-gray-400: hsl(240 6% 41%);
+    --color-gray-500: hsl(240 8% 64%);
+    --color-gray-800: hsl(240 19% 84%);
+    --color-gray-900: hsl(240 26% 95%);
+    --color-black: hsl(0 0% 98%);
   }
 
   :where(html)[data-theme='dark'] {
     color-scheme: dark;
 
-    --color-white: oklch(98.5% 0 0);
-    --color-gray-300: oklch(87% 0.005 286);
-    --color-gray-400: oklch(70% 0.005 286);
-    --color-gray-500: oklch(50% 0.02 286);
-    --color-gray-800: oklch(29% 0.02 286);
-    --color-gray-900: oklch(20% 0.01 286);
-    --color-black: oklch(16% 0.005 248);
+    --color-white: hsl(0 0% 98%);
+    --color-gray-300: hsl(240 4% 84%);
+    --color-gray-400: hsl(240 2% 63%);
+    --color-gray-500: hsl(240 6% 41%);
+    --color-gray-800: hsl(240 12% 19%);
+    --color-gray-900: hsl(240 11% 9%);
+    --color-black: hsl(220 11% 5%);
   }
 
   :where(html) {

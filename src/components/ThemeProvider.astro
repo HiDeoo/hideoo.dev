@@ -34,6 +34,17 @@
       document.documentElement.dataset.theme = theme
       document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
 
+      const themesColors = document.querySelectorAll('meta[name=theme-color]')
+
+      for (const themesColor of themesColors) {
+        themesColor.remove()
+      }
+
+      const meta = document.createElement('meta')
+      meta.name = 'theme-color'
+      meta.content = theme === themes.dark ? 'hsl(240 11% 9%)' : 'hsl(240 26% 95%)'
+      document.head.append(meta)
+
       requestAnimationFrame(() => {
         delete document.documentElement.dataset.transitionDisabled
       })
