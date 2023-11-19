@@ -1,16 +1,61 @@
 ---
+import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 import Page from '@layouts/Page.astro'
-import { getNoteUrl, getNotes } from '@libs/notes'
+import { getNotes } from '@libs/notes'
 
 const notes = await getNotes()
 ---
 
 <Page metaTitle="Notes" title="All Notes" titleVisibility="visible">
-  {
-    notes.map((note) => (
-      <div>
-        <a href={getNoteUrl(note)}>{note.data.title}</a>
-      </div>
-    ))
-  }
+  <ul>
+    {
+      notes.map((note) => (
+        <li>
+          <article>
+            <p>
+              <a href={note.href}>{note.data.title}</a>
+            </p>
+            <div>
+              <VisuallyHidden>Published on</VisuallyHidden>
+              <time datetime={note.publishDatetime}>{note.publishDate}</time>
+            </div>
+          </article>
+        </li>
+      ))
+    }
+  </ul>
 </Page>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+
+    @media (--md-n-above) {
+      gap: var(--size-2);
+    }
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+
+    @media (--md-n-above) {
+      align-items: center;
+      flex-direction: row;
+      gap: var(--size-2);
+    }
+  }
+
+  p {
+    font-size: var(--text-lg);
+  }
+
+  div {
+    color: var(--color-text-dimmed);
+    font-size: var(--text-xs);
+    line-height: 1.2;
+  }
+</style>

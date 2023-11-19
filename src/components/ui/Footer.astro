@@ -18,8 +18,13 @@ import Icon from '@components/ui/Icon.astro'
     color: var(--color-text-dimmed);
     font-size: var(--text-sm);
     line-height: 1.5;
+    margin-top: var(--size-4);
     padding: var(--size-8) var(--page-padding-inline) var(--size-12);
     place-items: center;
+
+    @media (--md-n-above) {
+      margin-top: 0;
+    }
 
     & :global(svg) {
       --size: var(--size-5);
