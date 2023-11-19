@@ -32,6 +32,9 @@ devDependencies:
   astro:
     specifier: 3.5.5
     version: 3.5.5(typescript@5.2.2)
+  astro-expressive-code:
+    specifier: 0.28.2
+    version: 0.28.2(astro@3.5.5)
   autoprefixer:
     specifier: 10.4.16
     version: 10.4.16(postcss@8.4.31)
@@ -826,6 +829,11 @@ packages:
       postcss-selector-parser: 6.0.13
     dev: true
 
+  /@ctrl/tinycolor@3.6.1:
+    resolution: {integrity: sha512-SITSV6aIXsuVNV3f3O0f2n/cgyEDWoSqtZMYiAmcsYHydcKrOz3gUxB/iXd/Qf08+IZX4KpgNbvUdMBmWz+kcA==}
+    engines: {node: '>=10'}
+    dev: true
+
   /@emmetio/abbreviation@2.3.3:
     resolution: {integrity: sha512-mgv58UrU3rh4YgbE/TzgLQwJ3pFsHHhCLqY20aJq+9comytTXUDNGG/SMtSeMJdkpxgXSXunBGLD8Boka3JyVA==}
     dependencies:
@@ -1273,6 +1281,38 @@ packages:
   /@eslint/js@8.54.0:
     resolution: {integrity: sha512-ut5V+D+fOoWPgGGNj83GGjnntO39xDy6DWxO0wb7Jp3DcMX0TfIqdzHF85VTQkerdyGmuuMD9AKAo5KiNlf/AQ==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+    dev: true
+
+  /@expressive-code/core@0.28.2:
+    resolution: {integrity: sha512-SZASDZb6quhRqYylN6NeCy+ahhGadrOSVRXfmZOJnpoXGpVkYCXCFl2e5b5rHNUZflRK00qHbtkk6CGudNPLQg==}
+    dependencies:
+      '@ctrl/tinycolor': 3.6.1
+      hast-util-to-html: 8.0.4
+      hastscript: 7.2.0
+      postcss: 8.4.31
+      postcss-nested: 6.0.1(postcss@8.4.31)
+    dev: true
+
+  /@expressive-code/plugin-frames@0.28.2:
+    resolution: {integrity: sha512-fYNE0aivB1mBJuZkfesT7L3YQz6PLw0BEBN1xHUWmcm28EvHCx2e7TOj/ozMEvcteVNvTKW8ktfK4nxupGCwdw==}
+    dependencies:
+      '@expressive-code/core': 0.28.2
+      hastscript: 7.2.0
+    dev: true
+
+  /@expressive-code/plugin-shiki@0.28.2:
+    resolution: {integrity: sha512-HrEARCIGcrnmX5tQiGimxjSTkqGkeZxXKl14GgNQ8UjXBgk3H2lynMC70IJgjWlKm3SyWjvFs5ehxfGNKqBYXg==}
+    dependencies:
+      '@expressive-code/core': 0.28.2
+      shiki: 0.14.5
+    dev: true
+
+  /@expressive-code/plugin-text-markers@0.28.2:
+    resolution: {integrity: sha512-KgBEK2VffFxna55KDikZneJ268RAu69UgtR0dSAON14mjlzB+7Ue7WpaMMXJ0NnJ9imkni0MbvO8HiuwMHvdGQ==}
+    dependencies:
+      '@expressive-code/core': 0.28.2
+      hastscript: 7.2.0
+      unist-util-visit-parents: 5.1.3
     dev: true
 
   /@hideoo/eslint-config-astro@2.0.2(eslint@8.54.0)(typescript@5.2.2):
@@ -1845,6 +1885,10 @@ packages:
     engines: {node: '>=12'}
     dev: true
 
+  /ansi-sequence-parser@1.1.1:
+    resolution: {integrity: sha512-vJXt3yiaUL4UU546s3rPXlsry/RnM730G1+HkpKE012AN0sx1eOrxSu95oKDIonskeLTijMgqWZ3uDEe3NFvyg==}
+    dev: true
+
   /ansi-styles@3.2.1:
     resolution: {integrity: sha512-VT0ZI6kZRdTh8YyJw3SMbYm/u+NqfsAxEpWO0Pf9sq8/e94WxxOpPKx9FR1FlyCtOVDNOQ+8ntlqFxiRc+r5qA==}
     engines: {node: '>=4'}
@@ -1991,6 +2035,15 @@ packages:
       semver: 7.5.4
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /astro-expressive-code@0.28.2(astro@3.5.5):
+    resolution: {integrity: sha512-ohiQ/ADJVMDcV4zc+45M9cMXQPLZRneWDbpcs+VY7WCx0mwi8ML3+8VnlaOBlVARw0FxEELe5yHhQzQCZMEDXQ==}
+    peerDependencies:
+      astro: ^3.0.0-beta
+    dependencies:
+      astro: 3.5.5(typescript@5.2.2)
+      remark-expressive-code: 0.28.2
     dev: true
 
   /astro@3.5.5(typescript@5.2.2):
@@ -3262,6 +3315,15 @@ packages:
     dev: true
     optional: true
 
+  /expressive-code@0.28.2:
+    resolution: {integrity: sha512-YexyhdVkow63/dP7/6uU2nLl3NqrTa+nABW/V3dP9owZIZf3M8wWoIy9k2F/BI1dGpPtCXFs6HYlQBIZG26VLQ==}
+    dependencies:
+      '@expressive-code/core': 0.28.2
+      '@expressive-code/plugin-frames': 0.28.2
+      '@expressive-code/plugin-shiki': 0.28.2
+      '@expressive-code/plugin-text-markers': 0.28.2
+    dev: true
+
   /extend-shallow@2.0.1:
     resolution: {integrity: sha512-zCnTtlxNoAiDc3gqY2aYAWFx7XWWiasuF2K8Me5WbN8otHKTUKBwjPtNpRs/rbUZm7KxWAaNj7P1a/p52GbVug==}
     engines: {node: '>=0.10.0'}
@@ -4204,6 +4266,10 @@ packages:
 
   /jsonc-parser@2.3.1:
     resolution: {integrity: sha512-H8jvkz1O50L3dMZCsLqiuB2tA7muqbSg1AtGEkN0leAqGjsUzDJir3Zwr02BhqdcITPg3ei3mZ+HjMocAknhhg==}
+    dev: true
+
+  /jsonc-parser@3.2.0:
+    resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
 
   /jsx-ast-utils@3.3.5:
@@ -5447,6 +5513,16 @@ packages:
       postcss-value-parser: 4.2.0
     dev: true
 
+  /postcss-nested@6.0.1(postcss@8.4.31):
+    resolution: {integrity: sha512-mEp4xPMi5bSWiMbsgoPfcP74lsWLHkQbZc3sY+jWYd65CUwXrUaTp0fmNpa01ZcETKlIgUdFN/MpS2xZtqL9dQ==}
+    engines: {node: '>=12.0'}
+    peerDependencies:
+      postcss: ^8.2.14
+    dependencies:
+      postcss: 8.4.31
+      postcss-selector-parser: 6.0.13
+    dev: true
+
   /postcss-nesting@12.0.1(postcss@8.4.31):
     resolution: {integrity: sha512-6LCqCWP9pqwXw/njMvNK0hGY44Fxc4B2EsGbn6xDcxbNRzP8GYoxT7yabVVMLrX3quqOJ9hg2jYMsnkedOf8pA==}
     engines: {node: ^14 || ^16 || >=18}
@@ -5853,6 +5929,14 @@ packages:
       unified: 10.1.2
     dev: true
 
+  /remark-expressive-code@0.28.2:
+    resolution: {integrity: sha512-nbQEcPCkEmt30tbbKHUAp+ufW2XQG72r9F/sKk9bnBXn/xK2PRQPxAtr9oCTBANAU2uTcROwKbMk+5P8Eobeow==}
+    dependencies:
+      expressive-code: 0.28.2
+      hast-util-to-html: 8.0.4
+      unist-util-visit: 4.1.2
+    dev: true
+
   /remark-gfm@3.0.1:
     resolution: {integrity: sha512-lEFDoi2PICJyNrACFOfDD3JlLkuSbOa5Wd8EPt06HUdptv8Gn0bxYTdbU/XXQ3swAPkEaGxxPN9cbnMHvVu1Ig==}
     dependencies:
@@ -6130,6 +6214,15 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
+    dev: true
+
+  /shiki@0.14.5:
+    resolution: {integrity: sha512-1gCAYOcmCFONmErGTrS1fjzJLA7MGZmKzrBNX7apqSwhyITJg2O102uFzXUeBxNnEkDA9vHIKLyeKq0V083vIw==}
+    dependencies:
+      ansi-sequence-parser: 1.1.1
+      jsonc-parser: 3.2.0
+      vscode-oniguruma: 1.7.0
+      vscode-textmate: 8.0.0
     dev: true
 
   /shikiji@0.6.13:
@@ -7016,6 +7109,14 @@ packages:
 
   /vscode-nls@5.2.0:
     resolution: {integrity: sha512-RAaHx7B14ZU04EU31pT+rKz2/zSl7xMsfIZuo8pd+KZO6PXtQmpevpq3vxvWNcrGbdmhM/rr5Uw5Mz+NBfhVng==}
+    dev: true
+
+  /vscode-oniguruma@1.7.0:
+    resolution: {integrity: sha512-L9WMGRfrjOhgHSdOYgCt/yRMsXzLDJSL7BPrOZt73gU0iWO4mpqzqQzOz5srxqTvMBaR0XZTSrVWo4j55Rc6cA==}
+    dev: true
+
+  /vscode-textmate@8.0.0:
+    resolution: {integrity: sha512-AFbieoL7a5LMqcnOF04ji+rpXadgOXnZsxQr//r83kLPr7biP7am3g9zbaZIaBGwBRWeSvoMD4mgPdX3e4NWBg==}
     dev: true
 
   /vscode-uri@2.1.2:

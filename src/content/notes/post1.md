@@ -208,10 +208,6 @@ test
 
 ### Heading 3 `with` code
 
-test
-
-## Not tested - not tested - not tested - not tested - not tested - not tested - not tested - not tested - not tested
-
 none
 
 ```
@@ -230,6 +226,24 @@ json
   "lastName": "Smith",
   "age": 25
 }
+```
+
+test
+
+```js title="example.js" {2-4}
+// Example function
+function add(a, b) {
+  return a + b
+}
+
+console.log(add(1, 2))
+```
+
+test
+
+```shell
+# test
+npm install
 ```
 
 test

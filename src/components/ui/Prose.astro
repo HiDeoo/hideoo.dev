@@ -153,4 +153,13 @@
     font-size: inherit;
     padding-inline: var(--size-1-5);
   }
+
+  .prose :global(.expressive-code) {
+    margin-top: var(--size-5);
+
+    & :global(.copy button:focus-visible) {
+      outline: var(--outline-width) solid var(--color-text-highlight);
+      outline-offset: var(--outline-offset-base);
+    }
+  }
 </style>

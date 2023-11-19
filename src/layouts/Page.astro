@@ -56,6 +56,8 @@ const { title, titleVisibility, ...headProps } = Astro.props
     --color-gray-800: hsl(240 19% 84%);
     --color-gray-900: hsl(240 26% 95%);
     --color-black: hsl(0 0% 98%);
+
+    --color-bg-selection: hsl(240 14% 80% / 0.75);
   }
 
   :where(html)[data-theme='dark'] {
@@ -69,6 +71,8 @@ const { title, titleVisibility, ...headProps } = Astro.props
     --color-gray-800: hsl(240 12% 19%);
     --color-gray-900: hsl(240 11% 9%);
     --color-black: hsl(220 11% 5%);
+
+    --color-bg-selection: hsl(240 12% 25% / 0.75);
   }
 
   :where(html) {
@@ -207,6 +211,6 @@ const { title, titleVisibility, ...headProps } = Astro.props
   }
 
   :global(::selection) {
-    background-color: var(--color-gray-700);
+    background-color: var(--color-bg-selection);
   }
 </style>
