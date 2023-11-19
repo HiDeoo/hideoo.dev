@@ -1,14 +1,26 @@
 ---
+import Icon from '@components/ui/Icon.astro'
+
 export interface Props {
   href: string
+  text?: string | undefined
   title: string
 }
 
-const { href, title } = Astro.props
+const { href, text, title } = Astro.props
 ---
 
-<a href={href} title={title}>
-  <slot />
+<a class:list={{ 'link-card-text': typeof text === 'string' }} href={href} title={title}>
+  {
+    text ? (
+      <>
+        <div>{text}</div>
+        <Icon name="chevron-right" />
+      </>
+    ) : (
+      <slot />
+    )
+  }
 </a>
 
 <style>
@@ -25,6 +37,46 @@ const { href, title } = Astro.props
 
     @media (--motionSafe) {
       transition: border-color var(--duration-300) var(--ease);
+    }
+  }
+
+  a.link-card-text {
+    align-items: center;
+    display: flex;
+    gap: var(--size-3);
+    min-width: 0;
+
+    @media (--motionSafe) {
+      &:is(:hover, :focus-visible) :global(svg) {
+        animation: bounce var(--duration-1200) infinite var(--ease);
+      }
+    }
+
+    div {
+      display: block;
+      flex-grow: 1;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    & :global(svg) {
+      --size: var(--size-5);
+
+      flex-shrink: 0;
+      fill: currentColor;
+      height: var(--size);
+      width: var(--size);
+    }
+  }
+
+  @keyframes bounce {
+    25% {
+      transform: translateX(-12%);
+    }
+
+    75% {
+      transform: translateX(12%);
     }
   }
 </style>

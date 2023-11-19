@@ -1,5 +1,6 @@
 ---
 title: Post 1
+publishDate: 2023-10-12
 ---
 
 test

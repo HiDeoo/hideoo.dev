@@ -1,6 +1,5 @@
 ---
 import RepoLink from '@components/repo/RepoLink.astro'
-import Icon from '@components/ui/Icon.astro'
 import Section from '@components/ui/Section.astro'
 import { fetchGitHubRecentContributions } from '@libs/github'
 
@@ -13,14 +12,7 @@ if (recentContributions.length < 8) {
 
 <Section title="Recent Contributions">
   <div>
-    {
-      recentContributions.map((contribution) => (
-        <RepoLink href={contribution.url} name={contribution.name}>
-          <div class="name">{contribution.name}</div>
-          <Icon name="chevron-right" />
-        </RepoLink>
-      ))
-    }
+    {recentContributions.map((contribution) => <RepoLink href={contribution.url} name={contribution.name} />)}
   </div>
 </Section>
 
@@ -32,46 +24,6 @@ if (recentContributions.length < 8) {
 
     @media (--sm-n-above) {
       grid-template-columns: repeat(2, 1fr);
-    }
-  }
-
-  div :global(a) {
-    align-items: center;
-    display: flex;
-    gap: var(--size-3);
-    min-width: 0;
-
-    @media (--motionSafe) {
-      &:is(:hover, :focus-visible) :global(svg) {
-        animation: bounce var(--duration-1200) infinite var(--ease);
-      }
-    }
-  }
-
-  div :global(svg) {
-    --size: var(--size-5);
-
-    flex-shrink: 0;
-    fill: currentColor;
-    height: var(--size);
-    width: var(--size);
-  }
-
-  .name {
-    display: block;
-    flex-grow: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  @keyframes bounce {
-    25% {
-      transform: translateX(-12%);
-    }
-
-    75% {
-      transform: translateX(12%);
     }
   }
 </style>

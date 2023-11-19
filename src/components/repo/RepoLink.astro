@@ -9,6 +9,6 @@ export interface Props {
 const { href, name } = Astro.props
 ---
 
-<LinkCard {href} title={`Go to ${name} GitHub repository`}>
+<LinkCard {href} text={Astro.slots.has('default') ? undefined : name} title={`Go to ${name} GitHub repository`}>
   <slot />
 </LinkCard>

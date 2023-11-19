@@ -1,0 +1,29 @@
+---
+import LinkCard from '@components/ui/LinkCard.astro'
+import Section from '@components/ui/Section.astro'
+import { getNoteUrl, getNotes } from '@libs/notes'
+
+const recentNotes = await getNotes(5)
+---
+
+<Section title="Recent Notes">
+  <ul>
+    {
+      recentNotes.map((note) => (
+        <li>
+          <article>
+            <LinkCard href={getNoteUrl(note)} text={note.data.title} title={`Read ${note.data.title}`} />
+          </article>
+        </li>
+      ))
+    }
+  </ul>
+</Section>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-4);
+  }
+</style>

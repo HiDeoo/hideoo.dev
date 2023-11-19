@@ -15,6 +15,7 @@ const categories = defineCollection({
 
 const notes = defineCollection({
   schema: z.object({
+    publishDate: z.date(),
     title: z.string(),
   }),
   type: 'content',
