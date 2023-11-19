@@ -139,4 +139,18 @@
       text-decoration: none;
     }
   }
+
+  .prose :global(:not(pre) > code) {
+    background-color: var(--color-gray-800);
+    border-radius: var(--rounded-base);
+    color: var(--color-text-highlight);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--size-1) var(--size-1) var(--size-0-5);
+  }
+
+  .prose :global(:is(h2, h3, h4, h5, h6):not(pre) > code) {
+    font-size: inherit;
+    padding-inline: var(--size-1-5);
+  }
 </style>
