@@ -74,6 +74,7 @@ const { title, titleVisibility, ...headProps } = Astro.props
   :where(html) {
     --color-bg: var(--color-black);
     --color-text: var(--color-gray-300);
+    --color-text-dimmed: var(--color-gray-400);
     --color-text-highlight: var(--color-white);
 
     --duration-300: 300ms;
@@ -183,6 +184,10 @@ const { title, titleVisibility, ...headProps } = Astro.props
       transition: text-decoration-color var(--duration-300) var(--ease);
     }
 
+    & :global(img) {
+      border: 2px solid transparent;
+    }
+
     &:hover {
       text-decoration-color: var(--color-text-highlight);
     }
@@ -192,6 +197,10 @@ const { title, titleVisibility, ...headProps } = Astro.props
       outline: var(--outline-width) solid var(--color-text-highlight);
       outline-offset: var(--size-px);
       text-decoration: none;
+
+      & :global(img) {
+        border: 2px solid var(--color-text);
+      }
     }
   }
 

@@ -1,16 +1,13 @@
 ---
-import Prose from '@components/ui/Prose.astro'
 import Section from '@components/ui/Section.astro'
 import Page from '@layouts/Page.astro'
 ---
 
 <Page metaTitle="Not found" title="Page not found" titleVisibility="hidden">
   <Section title="Whoops!" titleProps={{ 'aria-hidden': true }}>
-    <Prose>
-      <p>Sorry, we can't find the page you are looking for.</p>
-      <p>
-        <a href="/">Go home?</a>
-      </p>
-    </Prose>
+    <p>Sorry, we can't find the page you are looking for.</p>
+    <p>
+      <a href="/">Go home?</a>
+    </p>
   </Section>
 </Page>

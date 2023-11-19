@@ -17,7 +17,7 @@ const { note } = Astro.props
 const { Content } = await note.render()
 ---
 
-<Page metaTitle={note.data.title} title="// TODO(HiDeoo) SINGLE" titleVisibility="visible">
+<Page metaTitle={note.data.title} title={note.data.title} titleVisibility="visible">
   <Prose>
     <Content />
   </Prose>
