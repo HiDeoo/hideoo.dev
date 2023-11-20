@@ -12,6 +12,7 @@ const { metaDescription, metaTitle } = Astro.props
 
 const author = 'HiDeoo'
 const isHome = Astro.url.pathname === '/'
+const isNote = Astro.url.pathname.startsWith('/notes/')
 
 if (!isHome && !metaTitle) {
   throw new Error(`Property 'metaTitle' not found for page '${Astro.url.pathname}'.`)
@@ -22,6 +23,7 @@ const description = metaDescription
 const title = isHome ? author : `${metaTitle} | ${author}`
 
 const ogImageUrl = new URL(`/og${Astro.url.pathname === '/' ? '/index' : Astro.url.pathname}.png`, Astro.site)
+const ogType = isNote ? 'article' : 'website'
 ---
 
 <meta charset="utf-8" />
@@ -45,8 +47,7 @@ const ogImageUrl = new URL(`/og${Astro.url.pathname === '/' ? '/index' : Astro.u
 <meta property="og:image:alt" content={description} />
 <meta property="og:locale" content="en_US" />
 <meta property="og:title" content={title} />
-<!-- // TODO(HiDeoo)  -->
-<meta property="og:type" content="profile" />
+<meta property="og:type" content={ogType} />
 <meta property="og:url" content={canonicalUrl} />
 
 <meta name="twitter:card" content="summary" />
