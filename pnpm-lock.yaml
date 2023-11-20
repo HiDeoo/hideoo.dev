@@ -62,9 +62,6 @@ devDependencies:
   lint-staged:
     specifier: 15.1.0
     version: 15.1.0
-  postcss-hover-media-feature:
-    specifier: 1.0.2
-    version: 1.0.2(postcss@8.4.31)
   postcss-preset-env:
     specifier: 9.3.0
     version: 9.3.0(postcss@8.4.31)
@@ -2604,6 +2601,7 @@ packages:
   /cssesc@3.0.0:
     resolution: {integrity: sha512-/Tb/JcjK111nNScGob5MNtsntNM1aCNUDipB/TkwZFhyDrrE47SOx/18wF2bbjgc3ZzCSKW1T5nt5EbFoAz/Vg==}
     engines: {node: '>=4'}
+    hasBin: true
     dev: true
 
   /damerau-levenshtein@1.0.8:
@@ -5541,16 +5539,6 @@ packages:
       postcss: 8.4.31
     dev: true
 
-  /postcss-hover-media-feature@1.0.2(postcss@8.4.31):
-    resolution: {integrity: sha512-o5xDUqCQ4xtilWOcvo5LKYxFVSLWcBN0IlTqa0IJwAwHTd4pxKmX4c0fGIpgLQCcBB/+aFizt2NVWNGJWG4Izg==}
-    engines: {node: '>=10.0.0'}
-    peerDependencies:
-      postcss: ^8.0.0
-    dependencies:
-      postcss: 8.4.31
-      postcss-selector-parser: 6.0.11
-    dev: true
-
   /postcss-image-set-function@6.0.1(postcss@8.4.31):
     resolution: {integrity: sha512-VlZncC9hhZ5tg0JllY4g6Z28BeoPO8DIkelioEEkXL0AA0IORlqYpTi2L8TUnl4YQrlwvBgxVy+mdZJw5R/cIQ==}
     engines: {node: ^14 || ^16 || >=18}
@@ -5737,14 +5725,6 @@ packages:
     dependencies:
       postcss: 8.4.31
       postcss-selector-parser: 6.0.13
-    dev: true
-
-  /postcss-selector-parser@6.0.11:
-    resolution: {integrity: sha512-zbARubNdogI9j7WY4nQJBiNqQf3sLS3wCP4WfOidu+p28LofJqDH1tcXypGrcmMHhDk2t9wGhCsYe/+szLTy1g==}
-    engines: {node: '>=4'}
-    dependencies:
-      cssesc: 3.0.0
-      util-deprecate: 1.0.2
     dev: true
 
   /postcss-selector-parser@6.0.13:
