@@ -14,7 +14,7 @@ const author = 'HiDeoo'
 const isHome = Astro.url.pathname === '/'
 
 if (!isHome && !metaTitle) {
-  throw new Error(`Property 'metaTitle' not found for page '${Astro.url.pathname}'`)
+  throw new Error(`Property 'metaTitle' not found for page '${Astro.url.pathname}'.`)
 }
 
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site)

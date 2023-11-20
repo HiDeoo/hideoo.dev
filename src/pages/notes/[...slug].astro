@@ -1,5 +1,6 @@
 ---
 import NoteMeta from '@components/note/NoteMeta.astro'
+import NotePagination from '@components/note/NotePagination.astro'
 import Prose from '@components/ui/Prose.astro'
 import Page from '@layouts/Page.astro'
 import { getNotes } from '@libs/note'
@@ -27,4 +28,5 @@ const { Content } = await note.render()
   <Prose>
     <Content />
   </Prose>
+  <NotePagination {note} />
 </Page>
