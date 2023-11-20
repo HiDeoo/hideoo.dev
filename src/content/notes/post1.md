@@ -235,7 +235,14 @@ test
 
 ```js title="example.js" {2-4}
 // Example function
-function add(a, b) {
+function add(
+  a,
+  b,
+  casdasdasdasdasdasd,
+  asdasdasdasdasdasd,
+  asdasdasdasdadasdas,
+  asdasdasdas,
+) {
   return a + b
 }
 
