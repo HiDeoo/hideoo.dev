@@ -1,7 +1,7 @@
 ---
-import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
+import NoteMeta from '@components/note/NoteMeta.astro'
 import Page from '@layouts/Page.astro'
-import { getNotes } from '@libs/notes'
+import { getNotes } from '@libs/note'
 
 const notes = await getNotes()
 ---
@@ -15,10 +15,7 @@ const notes = await getNotes()
             <p>
               <a href={note.href}>{note.data.title}</a>
             </p>
-            <div>
-              <VisuallyHidden>Published on</VisuallyHidden>
-              <time datetime={note.publishDatetime}>{note.publishDate}</time>
-            </div>
+            <NoteMeta {note} />
           </article>
         </li>
       ))
@@ -52,11 +49,5 @@ const notes = await getNotes()
   p {
     font-size: var(--text-lg);
     line-height: 1.6;
-  }
-
-  div {
-    color: var(--color-text-dimmed);
-    font-size: var(--text-xs);
-    line-height: 1.2;
   }
 </style>

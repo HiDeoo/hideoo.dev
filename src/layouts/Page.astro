@@ -37,6 +37,7 @@ const { title, titleVisibility, ...headProps } = Astro.props
             </VisuallyHidden>
           )
         }
+        <slot name="content-header" />
         <slot />
       </main>
     </div>
@@ -178,6 +179,10 @@ const { title, titleVisibility, ...headProps } = Astro.props
       font-size: var(--text-4xl);
       margin-bottom: var(--size-8);
     }
+  }
+
+  h1:not(:where(.visually-hidden *)) + :global(header) {
+    margin-block: calc(var(--size-4) * -1) var(--size-6);
   }
 
   :global(p a) {

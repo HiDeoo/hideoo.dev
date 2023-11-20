@@ -1,0 +1,36 @@
+---
+import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
+import type { Note } from '@libs/note'
+
+export interface Props {
+  note: Note
+  showUpdates?: boolean
+  tag?: 'div' | 'header'
+}
+
+const { note, showUpdates = false, tag: Tag = 'div' } = Astro.props
+
+const hasUpdates = showUpdates && note.updateDate !== undefined
+---
+
+<Tag>
+  <VisuallyHidden>Published on</VisuallyHidden>
+  <time datetime={note.publishDatetime}>{note.publishDate}</time>
+  {
+    hasUpdates && (
+      <>
+        {' - '}
+        Updated on <time datetime={note.updateDatetime}>{note.updateDate}</time>
+      </>
+    )
+  }
+</Tag>
+
+<style>
+  div,
+  header {
+    color: var(--color-text-dimmed);
+    font-size: var(--text-xs);
+    line-height: 1.6;
+  }
+</style>
