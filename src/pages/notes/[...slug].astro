@@ -17,7 +17,12 @@ const { note } = Astro.props
 const { Content } = await note.render()
 ---
 
-<Page metaTitle={note.data.title} title={note.data.title} titleVisibility="visible">
+<Page
+  metaDescription={note.data.description}
+  metaTitle={note.data.title}
+  title={note.data.title}
+  titleVisibility="visible"
+>
   <NoteMeta {note} showUpdates slot="content-header" tag="header" />
   <Prose>
     <Content />

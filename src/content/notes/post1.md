@@ -1,5 +1,6 @@
 ---
 title: Post 1
+description: Post 1 description
 publishDate: 2023-10-12
 updateDate: 2023-11-12
 ---

@@ -9,18 +9,19 @@ import SkipLink from '@components/ui/SkipLink.astro'
 import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 
 export interface Props extends Omit<HeadProps, 'metaDescription'> {
+  metaDescription?: string
   title: string
   titleVisibility: 'hidden' | 'visible'
 }
 
-const { title, titleVisibility, ...headProps } = Astro.props
+const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
     {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
-    {() => <Head {...headProps} metaDescription={title} />}
+    {() => <Head {...headProps} metaDescription={metaDescription ?? title} />}
   </head>
   <body>
     <SkipLink />
