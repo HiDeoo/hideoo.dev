@@ -33,14 +33,14 @@ const notes = await getNotes()
     gap: var(--size-3);
 
     @media (--md-n-above) {
-      gap: var(--size-2);
+      gap: var(--size-1);
     }
   }
 
   article {
     display: flex;
     flex-direction: column;
-    gap: 0;
+    gap: var(--size-1);
 
     @media (--md-n-above) {
       align-items: center;
@@ -51,6 +51,7 @@ const notes = await getNotes()
 
   p {
     font-size: var(--text-lg);
+    line-height: 1.6;
   }
 
   div {
