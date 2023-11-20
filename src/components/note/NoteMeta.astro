@@ -24,6 +24,9 @@ const hasUpdates = showUpdates && note.updateDate !== undefined
       </>
     )
   }
+  {' - '}
+  <VisuallyHidden>Reading time</VisuallyHidden>
+  <time datetime={note.readingDatetime}>{note.readingTime}</time>
 </Tag>
 
 <style>

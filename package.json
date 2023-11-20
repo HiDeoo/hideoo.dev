@@ -32,6 +32,8 @@
     "postcss-preset-env": "9.3.0",
     "prettier": "3.1.0",
     "prettier-plugin-astro": "0.12.2",
+    "reading-time": "1.5.0",
+    "tinyduration": "3.3.0",
     "typescript": "5.2.2"
   },
   "engines": {
