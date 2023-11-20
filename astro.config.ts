@@ -35,5 +35,9 @@ export default defineConfig({
   markdown: {
     syntaxHighlight: false,
   },
+  prefetch: {
+    defaultStrategy: 'hover',
+    prefetchAll: true,
+  },
   site: 'https://hideoo.dev',
 })
