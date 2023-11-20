@@ -1,9 +1,16 @@
 import { getCollection, type CollectionEntry } from 'astro:content'
 import readingTime from 'reading-time'
+import type { Blog, BlogPosting, Person } from 'schema-dts'
 import { serialize } from 'tinyduration'
 
 const dateFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' })
 const datetimeFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'short' })
+
+const schemaAuthor: Person = {
+  '@type': 'Person',
+  name: 'HiDeoo',
+  url: 'https://hideoo.dev',
+}
 
 export async function getNotes(count?: number): Promise<Note[]> {
   const rawNotes = await getCollection('notes')
@@ -56,6 +63,38 @@ export async function getNotes(count?: number): Promise<Note[]> {
   }
 
   return notes
+}
+
+export function getNotesSchema(notes: Note[], site: URL | undefined): Blog {
+  return {
+    '@type': 'Blog',
+    author: schemaAuthor,
+    blogPost: notes.map((note) => getNoteSchema(note, site, false)),
+  }
+}
+
+export function getNoteSchema(note: Note, site: URL | undefined, includeRef = true): BlogPosting {
+  const schema: BlogPosting = {
+    '@type': 'BlogPosting',
+    author: schemaAuthor,
+    dateCreated: note.data.publishDate.toISOString(),
+    datePublished: note.data.publishDate.toISOString(),
+    description: note.data.description,
+    headline: note.data.title,
+  }
+
+  if (includeRef) {
+    schema.mainEntityOfPage = {
+      '@type': 'WebPage',
+      '@id': new URL('/notes', site).toString(),
+    }
+  }
+
+  if (note.data.updateDate) {
+    schema.dateModified = note.data.updateDate.toISOString()
+  }
+
+  return schema
 }
 
 function getNoteHref(note: CollectionEntry<'notes'>) {

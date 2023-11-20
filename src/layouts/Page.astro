@@ -21,7 +21,13 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
 <html lang="en">
   <head>
     {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
-    {() => <Head {...headProps} metaDescription={metaDescription ?? title} />}
+    {
+      (
+        <Head {...headProps} metaDescription={metaDescription ?? title}>
+          <slot name="head" />
+        </Head>
+      )
+    }
   </head>
   <body>
     <SkipLink />

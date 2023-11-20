@@ -25,6 +25,7 @@
     "astro": "3.5.5",
     "astro-expressive-code": "0.28.2",
     "astro-og-canvas": "0.3.1",
+    "astro-seo-schema": "3.2.1",
     "autoprefixer": "10.4.16",
     "eslint": "8.54.0",
     "github-slugger": "2.0.0",
@@ -35,6 +36,7 @@
     "prettier": "3.1.0",
     "prettier-plugin-astro": "0.12.2",
     "reading-time": "1.5.0",
+    "schema-dts": "1.1.2",
     "tinyduration": "3.3.0",
     "typescript": "5.2.2"
   },

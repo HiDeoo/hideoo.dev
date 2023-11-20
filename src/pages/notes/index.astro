@@ -1,6 +1,7 @@
 ---
 import NoteHeader from '@components/note/NoteHeader.astro'
 import NoteMeta from '@components/note/NoteMeta.astro'
+import NotesSchema from '@components/note/NotesSchema.astro'
 import Page from '@layouts/Page.astro'
 import { getNotes } from '@libs/note'
 
@@ -8,6 +9,7 @@ const notes = await getNotes()
 ---
 
 <Page metaDescription="HiDeoo's Personal Notes" metaTitle="Notes" title="All Notes" titleVisibility="visible">
+  <NotesSchema {notes} slot="head" />
   <NoteHeader slot="content-header" tag="header">
     <a href="/notes/rss.xml">RSS Feed</a>
   </NoteHeader>
