@@ -1,19 +1,19 @@
 ---
+import NoteHeader, { type NoteHeaderProps } from '@components/note/NoteHeader.astro'
 import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
 import type { Note } from '@libs/note'
 
-export interface Props {
+export interface Props extends NoteHeaderProps {
   note: Note
   showUpdates?: boolean
-  tag?: 'div' | 'header'
 }
 
-const { note, showUpdates = false, tag: Tag = 'div' } = Astro.props
+const { note, showUpdates = false, tag } = Astro.props
 
 const hasUpdates = showUpdates && note.updateDate !== undefined
 ---
 
-<Tag>
+<NoteHeader {tag}>
   <VisuallyHidden>Published on</VisuallyHidden>
   <time datetime={note.publishDatetime}>{note.publishDate}</time>
   {
@@ -27,13 +27,4 @@ const hasUpdates = showUpdates && note.updateDate !== undefined
   {' - '}
   <VisuallyHidden>Reading time</VisuallyHidden>
   <time datetime={note.readingDatetime}>{note.readingTime}</time>
-</Tag>
-
-<style>
-  div,
-  header {
-    color: var(--color-text-dimmed);
-    font-size: var(--text-xs);
-    line-height: 1.6;
-  }
-</style>
+</NoteHeader>

@@ -1,0 +1,34 @@
+---
+export interface NoteHeaderProps {
+  tag?: 'div' | 'header'
+}
+
+const { tag: Tag = 'div' } = Astro.props
+---
+
+<Tag>
+  <slot />
+</Tag>
+
+<style>
+  div,
+  header {
+    color: var(--color-text-dimmed);
+    font-size: var(--text-xs);
+    line-height: 1.6;
+
+    & :global(a) {
+      &:hover {
+        text-decoration-color: var(--color-text-highlight);
+      }
+
+      &:focus-visible {
+        border-radius: var(--rounded-sm);
+        color: var(--color-text-highlight);
+        outline: var(--outline-width) solid var(--color-text-highlight);
+        outline-offset: var(--size-px);
+        text-decoration: none;
+      }
+    }
+  }
+</style>

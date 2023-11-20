@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "0.3.1",
+    "@astrojs/rss": "3.0.0",
     "@astrojs/sitemap": "3.0.3",
     "@csstools/postcss-global-data": "2.1.0",
     "@hideoo/eslint-config": "2.0.2",
