@@ -11,7 +11,28 @@
     color: var(--color-text-highlight);
     line-height: 1.25;
     overflow-wrap: anywhere;
+    position: relative;
     text-wrap: balance;
+
+    & > :global(a) {
+      position: relative;
+
+      &::before {
+        color: var(--color-text-dimmed);
+        color: var(--color-gray-600);
+        content: '#';
+        display: none;
+        left: calc(var(--size-7) * -1);
+        position: absolute;
+        top: 0;
+      }
+
+      @media (--md-n-above) {
+        &:hover::before {
+          display: block;
+        }
+      }
+    }
   }
 
   .prose :global(h2) {

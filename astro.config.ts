@@ -1,6 +1,8 @@
+import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 import { astroExpressiveCode } from 'astro-expressive-code'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 export default defineConfig({
   integrations: [
@@ -33,6 +35,7 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
+    rehypePlugins: [rehypeHeadingIds, [rehypeAutolinkHeadings, { behavior: 'wrap', properties: { tabIndex: -1 } }]],
     syntaxHighlight: false,
   },
   prefetch: {
