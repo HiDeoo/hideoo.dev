@@ -102,11 +102,11 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
       Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
-    --font-weight-base: 400;
-    --font-weight-medium: 500;
-    --font-weight-semibold: 600;
-    --font-weight-bold: 700;
-    --font-weight-extrabold: 800;
+    --font-base: 400;
+    --font-medium: 500;
+    --font-semibold: 600;
+    --font-bold: 700;
+    --font-extrabold: 800;
 
     --outline-offset-base: 2px;
     --outline-offset-lg: 4px;
@@ -176,7 +176,7 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
   h1:not(:where(.visually-hidden *)),
   :global(h2:not(:where(.prose *))) {
     font-size: var(--text-3xl);
-    font-weight: var(--font-weight-extrabold);
+    font-weight: var(--font-extrabold);
     line-height: 1.25;
     margin-bottom: var(--size-6);
     overflow-wrap: anywhere;
@@ -194,7 +194,7 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
 
   :global(p a) {
     color: var(--color-text-highlight);
-    font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-semibold);
     text-decoration: underline;
     text-decoration-color: var(--color-gray-500);
     text-underline-offset: var(--size-0-5);

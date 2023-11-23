@@ -5,7 +5,7 @@ import ThemeToggle from '@components/ui/header/ThemeToggle.astro'
 
 <header>
   <div>
-    <a aria-current={Astro.url.pathname === '/'} aria-label="Home" href="/" title="Home">HiDeoo</a>
+    <a aria-current={Astro.url.pathname === '/'} href="/" title="Home">HiDeoo</a>
   </div>
   <Navigation />
   <ThemeToggle />
@@ -39,7 +39,7 @@ import ThemeToggle from '@components/ui/header/ThemeToggle.astro'
   a {
     border-radius: var(--rounded-sm);
     font-size: var(--text-2xl);
-    font-weight: var(--font-weight-bold);
+    font-weight: var(--font-bold);
     line-height: 1;
 
     &:focus-visible {
