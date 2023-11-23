@@ -98,22 +98,22 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
     --ease-elastic: cubic-bezier(0.5, 1.25, 0.75, 1.25);
     --ease-out: cubic-bezier(0, 0, 0, 1);
 
-    --font-base: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
       Arial, 'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
 
-    --font-base: 400;
+    --font-normal: 400;
     --font-medium: 500;
     --font-semibold: 600;
     --font-bold: 700;
     --font-extrabold: 800;
 
-    --outline-offset-base: 2px;
+    --outline-offset: 2px;
     --outline-offset-lg: 4px;
     --outline-width: 2px;
 
     --rounded-sm: 0.125rem;
-    --rounded-base: 0.25rem;
+    --rounded: 0.25rem;
     --rounded-lg: 0.5rem;
     --rounded-full: 1e5px;
 
@@ -132,7 +132,7 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
 
     --text-xs: 0.875rem;
     --text-sm: 0.9375rem;
-    --text-base: 1rem;
+    --text-normal: 1rem;
     --text-lg: 1.125rem;
     --text-xl: 1.25rem;
     --text-2xl: 1.5rem;
@@ -154,7 +154,7 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
   body {
     background-color: var(--color-bg);
     color: var(--color-text);
-    font-family: var(--font-base);
+    font-family: var(--font-sans);
     line-height: 1.8;
   }
 

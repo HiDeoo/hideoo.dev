@@ -7,7 +7,7 @@ export default defineConfig({
     astroExpressiveCode({
       styleOverrides: {
         borderColor: 'var(--color-gray-800)',
-        borderRadius: 'var(--rounded-base)',
+        borderRadius: 'var(--rounded)',
         borderWidth: 'var(--size-px)',
         codeFontFamily: 'var(--font-mono)',
         codeLineHeight: '1.5',
@@ -21,7 +21,7 @@ export default defineConfig({
           inlineButtonBorder: 'var(--color-white)',
           terminalTitlebarBackground: 'var(--color-black)',
         },
-        uiFontFamily: 'var(--font-base)',
+        uiFontFamily: 'var(--font-sans)',
         uiFontSize: 'var(--text-sm)',
         uiPaddingBlock: 'var(--size-1)',
         uiPaddingInline: 'var(--size-3)',
