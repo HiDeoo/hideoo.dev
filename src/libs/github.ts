@@ -19,7 +19,7 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
   }
 }`
 
-export async function fetchGitHubRecentRepos(count = 4) {
+export async function fetchGitHubRecentRepos(count = 6) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
     query: `
     ${GithubRepoFragment}
