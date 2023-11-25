@@ -1,5 +1,5 @@
 ---
-const includeStar = Astro.url.pathname === '/' || Astro.url.pathname === '/projects'
+const includeStar = Astro.url.pathname === '/' || /\/projects\/?$/.test(Astro.url.pathname)
 ---
 
 <svg xmlns="http://www.w3.org/2000/svg" style={{ display: 'none' }}>
