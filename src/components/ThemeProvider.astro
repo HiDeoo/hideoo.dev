@@ -43,10 +43,13 @@
       const meta = document.createElement('meta')
       meta.name = 'theme-color'
       meta.content = theme === themes.dark ? 'hsl(240 11% 9%)' : 'hsl(240 26% 95%)'
-      document.head.append(meta)
 
       requestAnimationFrame(() => {
-        delete document.documentElement.dataset.transitionDisabled
+        document.head.append(meta)
+
+        requestAnimationFrame(() => {
+          delete document.documentElement.dataset.transitionDisabled
+        })
       })
     }
 
