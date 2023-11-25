@@ -144,6 +144,14 @@
     margin-top: var(--size-8);
     padding-top: var(--size-4);
 
+    & :global(a) {
+      color: var(--color-text);
+
+      &:hover {
+        color: var(--color-text-highlight);
+      }
+    }
+
     :global(.sr-only) {
       border: 0px;
       clip: rect(0, 0, 0, 0);
