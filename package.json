@@ -23,12 +23,12 @@
     "@hideoo/eslint-config": "2.0.2",
     "@hideoo/prettier-config": "2.0.0",
     "@hideoo/tsconfig": "2.0.1",
-    "@octokit/graphql-schema": "14.42.0",
+    "@octokit/graphql-schema": "14.44.0",
     "@playwright/test": "1.40.0",
-    "@unocss/reset": "0.57.5",
+    "@unocss/reset": "0.57.7",
     "astro": "3.6.0",
-    "astro-expressive-code": "0.28.2",
-    "astro-og-canvas": "0.3.1",
+    "astro-expressive-code": "0.29.1",
+    "astro-og-canvas": "0.3.2",
     "astro-seo-schema": "3.2.1",
     "autoprefixer": "10.4.16",
     "canvaskit-wasm": "0.39.1",
@@ -43,7 +43,7 @@
     "rehype-autolink-headings": "7.1.0",
     "schema-dts": "1.1.2",
     "tinyduration": "3.3.0",
-    "typescript": "5.2.2"
+    "typescript": "5.3.2"
   },
   "engines": {
     "node": ">=18.14.1"
