@@ -194,7 +194,7 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
     margin-block: calc(var(--size-4) * -1) var(--size-6);
   }
 
-  :global(p a) {
+  :global(:is(p, .prose :not(h2, h3, h4, h5, h6)) a) {
     color: var(--color-text-highlight);
     font-weight: var(--font-semibold);
     text-decoration: underline;
