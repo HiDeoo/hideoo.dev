@@ -12,9 +12,7 @@ export default defineConfig({
         borderRadius: 'var(--rounded)',
         borderWidth: 'var(--size-px)',
         codeFontFamily: 'var(--font-mono)',
-        codeLineHeight: '1.5',
-        codePaddingBlock: 'var(--size-2)',
-        codePaddingInline: 'var(--size-3)',
+        codeLineHeight: '1.6',
         focusBorder: 'var(--color-text-highlight)',
         frames: {
           editorTabBarBackground: 'var(--color-black)',
