@@ -1,4 +1,5 @@
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
+import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 import { astroExpressiveCode } from 'astro-expressive-code'
@@ -30,6 +31,7 @@ export default defineConfig({
       themes: ['vitesse-dark', 'vitesse-light'],
       useDarkModeMediaQuery: false,
     }),
+    mdx(),
     sitemap(),
   ],
   markdown: {
