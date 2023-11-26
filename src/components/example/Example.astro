@@ -1,0 +1,22 @@
+---
+export interface ExampleProps {
+  description: string
+}
+
+export type Props = ExampleProps
+
+const { description } = Astro.props
+---
+
+<figure aria-label={description} class="not-prose">
+  <slot />
+</figure>
+
+<style>
+  figure {
+    border-radius: calc(var(--rounded) + 1px);
+    border: 1px solid var(--color-gray-800);
+    margin-block: var(--size-6) var(--size-7);
+    overflow: hidden;
+  }
+</style>

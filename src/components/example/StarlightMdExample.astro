@@ -1,6 +1,14 @@
-<div class="sl-markdown-content">
-  <slot />
-</div>
+---
+import Example, { type ExampleProps } from '@components/example/Example.astro'
+
+export type Props = ExampleProps
+---
+
+<Example {...Astro.props}>
+  <div class="sl-markdown-content">
+    <slot />
+  </div>
+</Example>
 
 <style>
   .sl-markdown-content {
