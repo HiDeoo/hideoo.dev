@@ -7,7 +7,7 @@
     margin-block: var(--size-8) var(--size-6);
   }
 
-  .prose :global(:is(h2, h3, h4, h5, h6)) {
+  .prose :global(:is(h2, h3, h4, h5, h6):not(:where(.not-prose *))) {
     color: var(--color-text-highlight);
     line-height: 1.25;
     overflow-wrap: anywhere;
@@ -185,7 +185,7 @@
   }
 
   .prose :global(.expressive-code) {
-    margin-top: var(--size-5);
+    margin-block: var(--size-6) var(--size-7);
 
     & :global(.copy button:focus-visible) {
       outline: var(--outline-width) solid var(--color-text-highlight);
