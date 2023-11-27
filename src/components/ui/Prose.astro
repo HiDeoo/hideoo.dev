@@ -192,4 +192,16 @@
       outline-offset: var(--outline-offset);
     }
   }
+
+  .prose :global(.admonition) {
+    background-color: var(--color-bg-code-block);
+    border: 1px solid var(--color-gray-800);
+    border-radius: calc(var(--rounded) + 1px);
+    margin-block: var(--size-6) var(--size-7);
+    padding: var(--size-3) var(--size-4);
+
+    & > :global(p:first-child) {
+      margin-top: 0;
+    }
+  }
 </style>

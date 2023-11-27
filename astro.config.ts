@@ -4,6 +4,9 @@ import sitemap from '@astrojs/sitemap'
 import { defineConfig } from 'astro/config'
 import { astroExpressiveCode } from 'astro-expressive-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import remarkDirective from 'remark-directive'
+
+import { remarkAdmonitions } from './src/libs/remark'
 
 export default defineConfig({
   integrations: [
@@ -36,6 +39,7 @@ export default defineConfig({
   ],
   markdown: {
     rehypePlugins: [rehypeHeadingIds, [rehypeAutolinkHeadings, { behavior: 'wrap', properties: { tabIndex: -1 } }]],
+    remarkPlugins: [remarkDirective, remarkAdmonitions],
     syntaxHighlight: false,
   },
   prefetch: {
