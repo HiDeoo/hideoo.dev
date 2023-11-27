@@ -1,8 +1,7 @@
 import AxeBuilder from '@axe-core/playwright'
 import { expect, test } from '@playwright/test'
 
-// TODO(HiDeoo) Add some notes
-const paths = ['/', '/projects', '/notes']
+const paths = ['/', '/projects', '/notes', '/notes/contributing-to-starlight', '/notes/starlight-heading-links']
 
 for (const theme of ['dark', 'light'] as const) {
   test.describe(`${theme} theme`, () => {
