@@ -62,12 +62,12 @@
     font-weight: var(--font-semibold);
   }
 
-  .prose :global(:is(ul, ol) > li) {
+  .prose :global(:is(ul, ol) > li:not(:where(.not-prose *))) {
     padding-left: var(--size-8);
     position: relative;
   }
 
-  .prose :global(ul > li::before) {
+  .prose :global(ul > li:not(:where(.not-prose *))::before) {
     --size: var(--size-1-5);
 
     background-color: var(--color-text-dimmed);

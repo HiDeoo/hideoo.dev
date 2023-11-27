@@ -1,6 +1,7 @@
 import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import mdx from '@astrojs/mdx'
 import sitemap from '@astrojs/sitemap'
+import markdownIntegration from '@astropub/md'
 import { defineConfig } from 'astro/config'
 import { astroExpressiveCode } from 'astro-expressive-code'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
@@ -10,6 +11,7 @@ import { remarkAdmonitions } from './src/libs/remark'
 
 export default defineConfig({
   integrations: [
+    markdownIntegration(),
     astroExpressiveCode({
       styleOverrides: {
         borderColor: 'var(--color-gray-800)',
