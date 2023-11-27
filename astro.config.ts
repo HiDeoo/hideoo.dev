@@ -21,6 +21,7 @@ export default defineConfig({
         codeLineHeight: '1.6',
         focusBorder: 'var(--color-text-highlight)',
         frames: {
+          editorActiveTabIndicatorHeight: '2px',
           editorTabBarBackground: 'var(--color-black)',
           frameBoxShadowCssValue: 'none',
           inlineButtonBackground: 'var(--color-gray-400)',
