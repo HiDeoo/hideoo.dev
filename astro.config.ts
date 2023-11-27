@@ -27,6 +27,10 @@ export default defineConfig({
           inlineButtonBorder: 'var(--color-white)',
           terminalTitlebarBackground: 'var(--color-black)',
         },
+        textMarkers: {
+          markBackground: 'var(--color-bg-code-block-marker)',
+          markBorderColor: 'var(--color-gray-500)',
+        },
         uiFontFamily: 'var(--font-sans)',
         uiFontSize: 'var(--text-sm)',
         uiPaddingBlock: 'var(--size-1)',
