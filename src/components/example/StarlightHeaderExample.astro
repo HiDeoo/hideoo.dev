@@ -1,0 +1,31 @@
+---
+import Example, { type ExampleProps } from '@components/example/Example.astro'
+
+export type Props = ExampleProps
+---
+
+<Example {...Astro.props}>
+  <div class="sl-header">
+    <slot />
+  </div>
+</Example>
+
+<style>
+  .sl-header {
+    --preview-color-sl-header-bg: hsl(224, 19%, 97%);
+    --preview-color-sl-header-text: hsl(224 10% 23%);
+    --preview-color-sl-header-text-accent: hsl(234 90% 60%);
+
+    :global(:root[data-theme='dark']) & {
+      --preview-color-sl-header-bg: hsl(224 14% 16%);
+      --preview-color-sl-header-text: hsl(224 6% 77%);
+      --preview-color-sl-header-text-accent: hsl(224 100% 85%);
+    }
+
+    align-items: center;
+    background-color: var(--preview-color-sl-header-bg);
+    color: var(--preview-color-sl-header-text);
+    display: flex;
+    padding: var(--size-3) var(--size-6);
+  }
+</style>

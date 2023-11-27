@@ -1,0 +1,67 @@
+---
+import StarlightHeaderExample from '@components/example/StarlightHeaderExample.astro'
+---
+
+<StarlightHeaderExample description="Example of a Starlight header with a custom social link.">
+  <div class="sl-title">
+    <a href="/notes">My Docs</a>
+  </div>
+  <div class="sl-spacer"></div>
+  <div class="sl-social-icons">
+    <a href="https://github.com/withastro/starlight" rel="me">
+      <span class="sr-only">GitHub</span>
+      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+        <path
+          d="M12 .3a12 12 0 0 0-3.8 23.38c.6.12.83-.26.83-.57L9 21.07c-3.34.72-4.04-1.61-4.04-1.61-.55-1.39-1.34-1.76-1.34-1.76-1.08-.74.09-.73.09-.73 1.2.09 1.83 1.24 1.83 1.24 1.08 1.83 2.81 1.3 3.5 1 .1-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.14-.3-.54-1.52.1-3.18 0 0 1-.32 3.3 1.23a11.5 11.5 0 0 1 6 0c2.28-1.55 3.29-1.23 3.29-1.23.64 1.66.24 2.88.12 3.18a4.65 4.65 0 0 1 1.23 3.22c0 4.61-2.8 5.63-5.48 5.92.42.36.81 1.1.81 2.22l-.01 3.29c0 .31.2.69.82.57A12 12 0 0 0 12 .3Z"
+        >
+        </path>
+      </svg>
+    </a>
+    <a href="https://hideoo.dev" rel="me" class="sl-flex">
+      <span class="sr-only">HiDeoo</span>
+      <svg aria-hidden="true" fill="currentColor" height="16" width="16" viewBox="0 0 24 24">
+        <path
+          d="m10 17.55-1.77 1.72a2.47 2.47 0 0 1-3.5-3.5l4.54-4.55a2.46 2.46 0 0 1 3.39-.09l.12.1a1 1 0 0 0 1.4-1.43 2.75 2.75 0 0 0-.18-.21 4.46 4.46 0 0 0-6.09.22l-4.6 4.55a4.48 4.48 0 0 0 6.33 6.33L11.37 19A1 1 0 0 0 10 17.55ZM20.69 3.31a4.49 4.49 0 0 0-6.33 0L12.63 5A1 1 0 0 0 14 6.45l1.73-1.72a2.47 2.47 0 0 1 3.5 3.5l-4.54 4.55a2.46 2.46 0 0 1-3.39.09l-.12-.1a1 1 0 0 0-1.4 1.43 2.75 2.75 0 0 0 .23.21 4.47 4.47 0 0 0 6.09-.22l4.55-4.55a4.49 4.49 0 0 0 .04-6.33Z"
+        >
+        </path>
+      </svg>
+    </a>
+  </div>
+</StarlightHeaderExample>
+
+<style>
+  a {
+    color: var(--preview-color-sl-header-text-accent);
+  }
+
+  .sl-title {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+  }
+
+  .sl-spacer {
+    flex: 1;
+  }
+
+  .sl-social-icons {
+    display: flex;
+    gap: var(--size-3);
+    justify-content: flex-end;
+
+    & a:hover {
+      opacity: 0.66;
+    }
+  }
+
+  .sr-only {
+    border-width: 0;
+    clip: rect(0, 0, 0, 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+  }
+</style>

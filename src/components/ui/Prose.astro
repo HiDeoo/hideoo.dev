@@ -179,9 +179,13 @@
     padding: var(--size-1) var(--size-1) var(--size-0-5);
   }
 
-  .prose :global(:is(h2, h3, h4, h5, h6):not(pre) > code) {
+  .prose :global(:is(h2, h3, h4, h5, h6):not(pre) > a > code) {
     font-size: inherit;
     padding-inline: var(--size-1-5);
+  }
+
+  .prose :global(h2:not(pre) > a > code) {
+    font-size: var(--text-xl);
   }
 
   .prose :global(.expressive-code) {
