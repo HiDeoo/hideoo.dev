@@ -22,7 +22,10 @@ const canonicalUrl = new URL(Astro.url.pathname, Astro.site)
 const description = metaDescription
 const title = isHome ? author : `${metaTitle} | ${author}`
 
-const ogImageUrl = new URL(`/og${Astro.url.pathname === '/' ? '/index' : Astro.url.pathname}.png`, Astro.site)
+const ogImageUrl = new URL(
+  `/og${Astro.url.pathname === '/' ? '/index' : Astro.url.pathname.replace(/\/?$/, '')}.png`,
+  Astro.site,
+)
 const ogType = isNote ? 'article' : 'website'
 ---
 
