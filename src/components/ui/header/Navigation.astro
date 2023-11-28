@@ -1,0 +1,205 @@
+---
+import HeaderButton from '@components/ui/header/HeaderButton.astro'
+
+const links = [
+  { label: 'Notes', href: '/notes' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'GitHub', href: 'https://github.com/HiDeoo' },
+  { label: 'Dotfiles', href: 'https://github.com/HiDeoo/dotfiles' },
+] satisfies { label: string; href: string }[]
+---
+
+<navigation-toggle aria-expanded="false">
+  <HeaderButton aria-controls="navigation-menu" aria-expanded="false" aria-label="Open Navigation Menu">
+    <svg aria-hidden="true" height="20" viewBox="20 20 60 60" width="20">
+      <path class="top" d="m 70,33 h -40 c 0,0 -8.5,-0.149796 -8.5,8.5 0,8.649796 8.5,8.5 8.5,8.5 h 20 v -20"></path>
+      <path d="m 70,50 h -40"></path>
+      <path class="bottom" d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"
+      ></path>
+    </svg>
+  </HeaderButton>
+</navigation-toggle>
+
+<nav id="navigation-menu">
+  <ul>
+    {
+      links.map((link) => (
+        <li>
+          <a aria-current={Astro.url.pathname === link.href} href={link.href}>
+            {link.label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</nav>
+
+<script>
+  customElements.define(
+    'navigation-toggle',
+    class NavigationToggle extends HTMLElement {
+      #toggle = this.querySelector('button')
+
+      constructor() {
+        super()
+
+        this.#toggle?.addEventListener('click', () => {
+          this.#setNavigationMenuExpanded(!this.isNavigationMenuExpanded)
+        })
+
+        this.closest('header')?.addEventListener('keyup', (event) => {
+          if (event.code !== 'Escape' || !this.isNavigationMenuExpanded) {
+            return
+          }
+
+          this.#setNavigationMenuExpanded(false)
+          this.#toggle?.focus()
+        })
+
+        window.matchMedia('(width >= 640px)').addEventListener('change', (event) => {
+          if (this.isNavigationMenuExpanded && event.matches) {
+            this.#setNavigationMenuExpanded(false)
+          }
+        })
+      }
+
+      private get isNavigationMenuExpanded() {
+        return document.documentElement.dataset.navigationMenuExpanded === 'true'
+      }
+
+      #setNavigationMenuExpanded(expanded: boolean) {
+        if (!this.#toggle) {
+          return
+        }
+
+        const expandedValue = String(expanded)
+
+        document.documentElement.dataset.navigationMenuExpanded = expandedValue
+
+        this.#toggle.ariaLabel = `${expanded ? 'Close' : 'Open'} Navigation Menu`
+        this.#toggle.setAttribute('aria-expanded', expandedValue)
+      }
+    },
+  )
+</script>
+
+<style>
+  navigation-toggle {
+    display: grid;
+    grid-area: navigation-toggle;
+    place-items: center;
+
+    @media (--sm-n-above) {
+      display: none;
+    }
+  }
+
+  button {
+    height: var(--header-button-size);
+    width: var(--header-button-size);
+  }
+
+  nav {
+    align-items: center;
+    display: none;
+    grid-area: navigation-menu;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    @media (--xxs-n-above) {
+      overflow-x: initial;
+      scrollbar-width: initial;
+
+      &::-webkit-scrollbar {
+        display: initial;
+      }
+    }
+
+    @media (--sm-n-above) {
+      display: flex;
+    }
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  :global([data-navigation-menu-expanded='true']) nav {
+    display: flex;
+    margin-top: var(--size-1);
+  }
+
+  ul {
+    display: flex;
+    gap: var(--size-4);
+
+    :global([data-navigation-menu-expanded='true']) & {
+      margin-left: calc((var(--size-1) / 2) * -1);
+    }
+  }
+
+  a {
+    border-radius: var(--rounded-sm);
+    font-size: var(--text-lg);
+    font-weight: var(--font-medium);
+    padding-inline: var(--size-1);
+    outline-offset: var(--outline-offset-lg);
+
+    :global([data-navigation-menu-expanded='true']) & {
+      outline-offset: var(--outline-offset);
+      padding-inline: calc(var(--size-1) / 2);
+    }
+
+    &:focus-visible {
+      outline: var(--outline-width) solid var(--color-text-highlight);
+    }
+
+    &:is(:hover, :focus-visible, :active) {
+      color: var(--color-text-highlight);
+    }
+  }
+
+  svg {
+    --animation-duration: var(--duration-400);
+    --dash: 40;
+    --gap: 121;
+    --offset: -68px;
+
+    :global([data-navigation-menu-expanded='true']) & {
+      transform: rotate(45deg);
+    }
+
+    path {
+      fill: none;
+      stroke: var(--color-text);
+      stroke-width: 7;
+      stroke-linecap: round;
+
+      :is(button:is(:hover, :focus-visible)) & {
+        stroke: var(--color-text-highlight);
+      }
+
+      @media (--motionSafe) {
+        transition:
+          stroke-dasharray var(--animation-duration),
+          stroke-dashoffset var(--animation-duration);
+      }
+    }
+
+    .top {
+      stroke-dasharray: var(--dash) var(--gap);
+
+      :global([data-navigation-menu-expanded='true']) & {
+        stroke-dashoffset: var(--offset);
+      }
+    }
+
+    .bottom {
+      stroke-dasharray: var(--dash) var(--gap);
+
+      :global([data-navigation-menu-expanded='true']) & {
+        stroke-dashoffset: var(--offset);
+      }
+    }
+  }
+</style>

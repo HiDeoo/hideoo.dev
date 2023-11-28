@@ -1,0 +1,130 @@
+---
+title: Add links to Starlight headings
+description: Learn how to install a rehype plugin to add links to Starlight headings to make it easier to share a link to a specific section of your documentation.
+publishDate: 2023-11-26
+---
+
+Using a [rehype](https://github.com/rehypejs/rehype) plugin, you can add links to [Starlight](https://starlight.astro.build) headings to make it easier to share a link to a specific section of your documentation.
+
+## Prerequisites
+
+You will need to have an existing Starlight website.
+
+## Add the plugin
+
+First, install the `rehype-autolink-headings` plugin and also the `@astrojs/markdown-remark` package:
+
+import Pkg from '@components/Pkg.astro'
+
+<Pkg pkg="rehype-autolink-headings @astrojs/markdown-remark" />
+
+:::note
+Astro is responsible for injecting heading IDs but does so after your rehype plugins have run.
+For `rehype-autolink-headings` to access these IDs, you must first run the Astro `rehypeHeadingIds` plugin available in the `@astrojs/markdown-remark` package.
+
+To learn more about Astro and heading IDs, check out the [Astro documentation](https://docs.astro.build/en/guides/markdown-content/#heading-ids-and-plugins).
+:::
+
+## Configure the plugin
+
+Import the plugins in your `astro.config.mjs` file to add them to the [`markdown.rehypePlugins`](https://docs.astro.build/en/reference/configuration-reference/#markdownrehypeplugins) array:
+
+```js ins={4-5,9-11}
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import starlight from '@astrojs/starlight'
+import { rehypeHeadingIds } from '@astrojs/markdown-remark'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+
+export default defineConfig({
+  integrations: [starlight({ title: 'My Docs' })],
+  markdown: {
+    rehypePlugins: [rehypeHeadingIds, rehypeAutolinkHeadings],
+  },
+})
+```
+
+Without any further configuration, a level 2 heading like `## My heading` will be transformed to the following HTML containing a link to the heading:
+
+```html {2-4}
+<h2 id="my-heading">
+  <a aria-hidden="true" tabindex="-1" href="#my-heading">
+    <span class="icon icon-link"></span>
+  </a>
+  My heading
+</h2>
+```
+
+The plugin is configurable using various [options](https://github.com/rehypejs/rehype-autolink-headings?tab=readme-ov-file#options) to customize how the links are inserted, their content, attributes, and more.
+
+## Style the links
+
+The plugin does not add any styling to the links by default so you will need to add some yourself.
+
+The goal of this section is to see how to generate links after the heading text containing the `#` character that will be invisible by default and only visible when the user hovers over the heading (or touches the heading on mobile) like the following example:
+
+import Example from './examples/_starlight-heading-links.astro'
+
+<Example />
+
+Start by editing the plugin configuration in your `astro.config.mjs` file to update its various options and also define a custom CSS file that will contain the styling for the links:
+
+```js {5-8,14-29}
+export default defineConfig({
+  integrations: [
+    starlight({
+      title: 'My Docs',
+      customCss: [
+        // Load this additional CSS file using its relative path.
+        './src/styles/headings.css',
+      ],
+    }),
+  ],
+  markdown: {
+    rehypePlugins: [
+      rehypeHeadingIds,
+      [
+        rehypeAutolinkHeadings,
+        {
+          // Inject the link after the heading text.
+          behavior: 'append',
+          // Remove any content from the link.
+          content: [],
+          properties: {
+            // Add a CSS class to the link.
+            class: 'heading-link',
+            // Add back the default accessibility attributes.
+            ariaHidden: 'true',
+            tabIndex: -1,
+          },
+        },
+      ],
+    ],
+  },
+})
+```
+
+Add a `headings.css` file in your `src/styles/` directory with the following content:
+
+```css
+/* src/styles/headings.css */
+/* Hide the heading links by default. */
+.heading-link {
+  opacity: 0;
+  padding-inline-start: 0.5rem;
+  text-decoration: none;
+
+  &::before {
+    content: '#';
+  }
+}
+
+/* Show the heading links when hovering over the headings in Markdown. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):hover .heading-link {
+  opacity: 1;
+}
+```
+
+Up to you to customize the plugin options and the CSS to match your needs!
+
+You can find the complete source code of this guide in this [StackBlitz example](https://stackblitz.com/edit/github-sxid7t?file=astro.config.mjs).

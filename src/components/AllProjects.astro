@@ -1,17 +1,11 @@
 ---
 import { getEntry } from 'astro:content'
 
-import Repos from '@components/repos/Repos.astro'
+import Repos from '@components/repo/Repos.astro'
 import Section from '@components/ui/Section.astro'
-import type { GitHubRepo } from '@libs/github'
+import { fetchGitHubRepos, type GitHubRepo } from '@libs/github'
 
-export interface Props {
-  repos: GitHubRepo[]
-}
-
-const { repos } = Astro.props
-
-const uncategorizedCategoryName = 'Other Projects'
+const repos = await fetchGitHubRepos()
 
 const projectCategories = await getEntry('categories', 'projects')
 const categories = await Promise.all(
@@ -42,14 +36,14 @@ for (const repo of repos) {
 
 {
   [...reposByCategories.entries()].map(([categoryName, categoryRepos]) => (
-    <Section opaque={false} title={categoryName}>
+    <Section title={categoryName}>
       <Repos repos={categoryRepos} />
     </Section>
   ))
 }
 {
   uncategorizedRepos.length > 0 && (
-    <Section opaque={false} title={uncategorizedCategoryName}>
+    <Section title="Other Projects">
       <Repos repos={uncategorizedRepos} />
     </Section>
   )

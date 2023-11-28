@@ -1,0 +1,82 @@
+---
+/**
+ * Inlined to avoid a FOUC.
+ *
+ * - We do not care if localStorage is not available when saving a theme preference.
+ * - When applying the theme during the first evaluation, the toggle theme button is not yet rendered so we cannot
+ *  update its aria-label. We have to wait for the window `load` event to do so.
+ */
+---
+
+<script is:inline>
+  window.ThemeProvider = (() => {
+    const preferDarkTheme = window.matchMedia('(prefers-color-scheme: dark)')
+    const themes = { dark: 'dark', light: 'light' }
+    const localStorageThemeKey = 'theme'
+    let theme = getTheme()
+
+    function getTheme() {
+      try {
+        const persistedTheme = localStorage.getItem(localStorageThemeKey)
+
+        if (persistedTheme === themes.dark || (!persistedTheme && preferDarkTheme.matches)) {
+          return themes.dark
+        }
+
+        return themes.light
+      } catch {
+        return themes.light
+      }
+    }
+
+    function applyTheme() {
+      document.documentElement.dataset.transitionDisabled = true
+      document.documentElement.dataset.theme = theme
+      document.querySelector('#theme-toggle')?.setAttribute('aria-label', `${theme} theme`)
+
+      const themesColors = document.querySelectorAll('meta[name=theme-color]')
+
+      for (const themesColor of themesColors) {
+        themesColor.remove()
+      }
+
+      const meta = document.createElement('meta')
+      meta.name = 'theme-color'
+      meta.content = theme === themes.dark ? 'hsl(240 11% 9%)' : 'hsl(240 26% 95%)'
+
+      requestAnimationFrame(() => {
+        document.head.append(meta)
+
+        requestAnimationFrame(() => {
+          delete document.documentElement.dataset.transitionDisabled
+        })
+      })
+    }
+
+    function updateTheme(newThemeName) {
+      theme = newThemeName
+
+      applyTheme()
+
+      try {
+        localStorage.setItem(localStorageThemeKey, newThemeName)
+      } catch {
+        //
+      }
+    }
+
+    applyTheme()
+
+    window.addEventListener('load', () => {
+      applyTheme()
+    })
+
+    preferDarkTheme.addEventListener('change', (event) => {
+      theme = event.matches ? themes.dark : themes.light
+
+      applyTheme()
+    })
+
+    return { updateTheme }
+  })()
+</script>

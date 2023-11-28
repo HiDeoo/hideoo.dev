@@ -1,0 +1,110 @@
+---
+import type { Note } from '@libs/note'
+
+export interface Props {
+  note: Note
+}
+
+const {
+  note: { next, prev },
+} = Astro.props
+---
+
+<div class="pagination">
+  <div>
+    {
+      prev && (
+        <a href={prev.href}>
+          <div>Newer</div>
+          <span>{prev.title}</span>
+        </a>
+      )
+    }
+  </div>
+  <div>
+    {
+      next && (
+        <a href={next.href} class="link">
+          <div>Older</div>
+          <span>{next.title}</span>
+        </a>
+      )
+    }
+  </div>
+</div>
+
+<style>
+  .pagination {
+    display: flex;
+    flex-direction: column;
+    margin-top: var(--size-8);
+    padding-top: var(--size-8);
+
+    @media (--sm-n-above) {
+      flex-direction: row;
+    }
+
+    & > div {
+      flex-basis: 50%;
+
+      &:nth-child(1) {
+        border-bottom: var(--size-px) solid var(--color-gray-800);
+        padding-block-end: var(--size-4);
+
+        @media (--sm-n-above) {
+          border-bottom: none;
+          border-inline-end: var(--size-px) solid var(--color-gray-800);
+          padding-block-end: 0;
+          padding-inline-end: var(--size-4);
+        }
+      }
+
+      &:nth-child(2) {
+        padding-block-start: var(--size-4);
+        text-align: right;
+
+        @media (--sm-n-above) {
+          padding-block-start: 0;
+          padding-inline-start: var(--size-4);
+        }
+      }
+    }
+  }
+
+  a {
+    border-radius: var(--rounded);
+    display: block;
+    padding-inline: var(--size-1-5);
+    padding-top: var(--size-0-5);
+
+    &:is(:hover, :focus-visible) {
+      color: var(--color-text-highlight);
+    }
+
+    &:focus-visible {
+      outline: var(--outline-width) solid var(--color-text-highlight);
+      outline-offset: var(--outline-offset-lg);
+    }
+
+    div {
+      color: var(--color-text-dimmed);
+      font-size: var(--text-xs);
+      font-weight: var(--font-semibold);
+      line-height: 1.6;
+    }
+
+    span {
+      text-decoration: underline;
+      text-decoration-color: var(--color-gray-500);
+      text-underline-offset: var(--size-0-5);
+    }
+
+    &:hover span {
+      text-decoration-color: var(--color-text-highlight);
+    }
+
+    &:focus-visible span {
+      text-decoration: none;
+    }
+  }
+</style>

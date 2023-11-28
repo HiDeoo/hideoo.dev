@@ -1,5 +1,5 @@
 ---
-import Repo from '@components/repos/Repo.astro'
+import Repo from '@components/repo/Repo.astro'
 import type { GitHubRepo } from '@libs/github'
 
 export interface Props {
@@ -10,7 +10,7 @@ const { repos } = Astro.props
 ---
 
 <div>
-  {repos.map((repo) => <Repo repo={repo} />)}
+  {repos.map((repo) => <Repo {repo} />)}
 </div>
 
 <style>

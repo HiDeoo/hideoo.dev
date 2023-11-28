@@ -1,0 +1,54 @@
+---
+import Navigation from '@components/ui/header/Navigation.astro'
+import ThemeToggle from '@components/ui/header/ThemeToggle.astro'
+---
+
+<header>
+  <div>
+    <a aria-current={Astro.url.pathname === '/'} href="/" title="Home">HiDeoo</a>
+  </div>
+  <Navigation />
+  <ThemeToggle />
+</header>
+
+<style>
+  header {
+    background-color: var(--color-gray-900);
+    border-bottom: var(--size-px) solid var(--color-gray-800);
+    display: grid;
+    column-gap: var(--size-1);
+    grid-template-areas: 'home navigation-menu navigation-toggle theme-toggle';
+    grid-template-columns: 1fr auto auto;
+    padding: var(--size-3) var(--page-padding-inline);
+  }
+
+  :global([data-navigation-menu-expanded='true']) header {
+    grid-template-areas:
+      'home navigation-toggle theme-toggle'
+      'navigation-menu navigation-menu navigation-menu';
+    height: unset;
+  }
+
+  div {
+    align-items: center;
+    display: flex;
+    grid-area: home;
+    margin-block: var(--size-1-5);
+  }
+
+  a {
+    border-radius: var(--rounded-sm);
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    line-height: 1;
+
+    &:focus-visible {
+      outline: var(--outline-width) solid var(--color-text-highlight);
+      outline-offset: var(--outline-offset-lg);
+    }
+
+    &:is(:hover, :focus-visible, :active) {
+      color: var(--color-text-highlight);
+    }
+  }
+</style>

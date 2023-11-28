@@ -1,0 +1,34 @@
+---
+import NoteMeta from '@components/note/NoteMeta.astro'
+import NotePagination from '@components/note/NotePagination.astro'
+import NoteSchema from '@components/note/NoteSchema.astro'
+import Prose from '@components/ui/Prose.astro'
+import Page from '@layouts/Page.astro'
+import { getNotes } from '@libs/note'
+
+export async function getStaticPaths() {
+  const notes = await getNotes()
+
+  return notes.map((note) => ({
+    params: { slug: note.slug },
+    props: { note },
+  }))
+}
+
+const { note } = Astro.props
+const { Content } = await note.render()
+---
+
+<Page
+  metaDescription={note.data.description}
+  metaTitle={note.data.title}
+  title={note.data.title}
+  titleVisibility="visible"
+>
+  <NoteSchema {note} slot="head" />
+  <NoteMeta {note} showUpdates slot="content-header" tag="header" />
+  <Prose>
+    <Content />
+  </Prose>
+  <NotePagination {note} />
+</Page>

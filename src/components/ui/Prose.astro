@@ -1,0 +1,212 @@
+<article class="prose">
+  <slot />
+</article>
+
+<style>
+  .prose :global(:not(h2, h3, h4, h5, h6) + :is(h2, h3, h4, h5, h6)) {
+    margin-block: var(--size-8) var(--size-6);
+  }
+
+  .prose :global(:is(h2, h3, h4, h5, h6):not(:where(.not-prose *))) {
+    color: var(--color-text-highlight);
+    line-height: 1.25;
+    overflow-wrap: anywhere;
+    position: relative;
+    text-wrap: balance;
+
+    & > :global(a) {
+      position: relative;
+
+      &::before {
+        color: var(--color-text-dimmed);
+        color: var(--color-gray-600);
+        content: '#';
+        display: none;
+        left: calc(var(--size-7) * -1);
+        position: absolute;
+        top: 0;
+      }
+
+      @media (--md-n-above) {
+        &:hover::before {
+          display: block;
+        }
+      }
+    }
+  }
+
+  .prose :global(h2) {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+  }
+
+  .prose :global(h3) {
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+  }
+
+  .prose :global(:is(h4, h5, h6)) {
+    font-weight: var(--font-semibold);
+  }
+
+  .prose :global(:is(p, ul, ol, blockquote, table, hr)) {
+    margin-top: var(--size-5);
+  }
+
+  .prose :global(li > :is(ul, ol)) {
+    margin-top: inherit;
+  }
+
+  .prose :global(strong) {
+    color: var(--color-text-highlight);
+    font-weight: var(--font-semibold);
+  }
+
+  .prose :global(:is(ul, ol) > li:not(:where(.not-prose *))) {
+    padding-left: var(--size-8);
+    position: relative;
+  }
+
+  .prose :global(ul > li:not(:where(.not-prose *))::before) {
+    --size: var(--size-1-5);
+
+    background-color: var(--color-text-dimmed);
+    border-radius: var(--rounded-full);
+    content: '';
+    height: var(--size);
+    left: var(--size-3);
+    position: absolute;
+    top: var(--size-3);
+    width: var(--size);
+  }
+
+  .prose :global(ol > li::before) {
+    color: var(--color-text-dimmed);
+    content: counter(list-item, decimal) '.';
+    left: var(--size-3);
+    position: absolute;
+  }
+
+  .prose :global(blockquote) {
+    border-inline-start: 2px solid var(--color-gray-700);
+    font-style: italic;
+    font-weight: var(--font-medium);
+    margin-left: var(--size-0-5);
+    padding-left: var(--size-4);
+  }
+
+  .prose :global(blockquote p:first-of-type::before) {
+    content: open-quote;
+  }
+
+  .prose :global(blockquote p:last-of-type::after) {
+    content: close-quote;
+  }
+
+  .prose :global(table) {
+    border-collapse: collapse;
+    display: block;
+    overflow: auto;
+  }
+
+  .prose :global(tr:nth-child(2n)) {
+    background-color: var(--color-gray-900);
+  }
+
+  .prose :global(:is(th, td)) {
+    border: 1px solid var(--color-gray-700);
+    padding: var(--size-1-5) var(--size-4);
+  }
+
+  .prose :global(hr) {
+    border: 0;
+    border-bottom: 1px solid var(--color-gray-700);
+  }
+
+  .prose :global(sup) {
+    padding-inline: var(--size-0-5);
+  }
+
+  .prose :global([data-footnote-ref]) {
+    &::before {
+      content: '[';
+    }
+
+    &::after {
+      content: ']';
+    }
+  }
+
+  .prose :global(section[data-footnotes]) {
+    border-top: var(--size-px) solid var(--color-gray-800);
+    color: var(--color-text-dimmed);
+    font-size: var(--text-sm);
+    margin-top: var(--size-8);
+    padding-top: var(--size-4);
+
+    & :global(a) {
+      color: var(--color-text);
+
+      &:hover {
+        color: var(--color-text-highlight);
+      }
+    }
+
+    :global(.sr-only) {
+      border: 0px;
+      clip: rect(0, 0, 0, 0);
+      height: var(--size-px);
+      margin: var(--size-npx);
+      overflow: hidden;
+      padding: 0;
+      position: absolute;
+      white-space: nowrap;
+      width: var(--size-px);
+    }
+
+    :global(a[data-footnote-backref]) {
+      padding-inline: var(--size-0-5);
+      text-decoration: none;
+    }
+  }
+
+  .prose :global(:not(pre) > code) {
+    background-color: var(--color-gray-800);
+    border-radius: var(--rounded);
+    color: var(--color-text-highlight);
+    font-family: var(--font-mono);
+    font-size: var(--text-xs);
+    padding: var(--size-1) var(--size-1) var(--size-0-5);
+  }
+
+  .prose :global(:is(h2, h3, h4, h5, h6):not(pre) > a > code) {
+    font-size: inherit;
+    padding-inline: var(--size-1-5);
+  }
+
+  .prose :global(h2:not(pre) > a > code) {
+    font-size: var(--text-xl);
+  }
+
+  .prose :global(.expressive-code) {
+    margin-block: var(--size-6) var(--size-7);
+
+    & :global(.copy button:focus-visible) {
+      outline: var(--outline-width) solid var(--color-text-highlight);
+      outline-offset: var(--outline-offset);
+    }
+  }
+
+  .prose :global(.admonition) {
+    background-color: var(--color-bg-code-block);
+    border: 1px solid var(--color-gray-800);
+    border-radius: calc(var(--rounded) + 1px);
+    line-height: 1.6;
+    margin-block: var(--size-6) var(--size-7);
+    padding: var(--size-3) var(--size-4);
+
+    & > :global(p:first-child) {
+      margin-top: 0;
+    }
+  }
+</style>

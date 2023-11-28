@@ -1,0 +1,47 @@
+---
+import Example, { type ExampleProps } from '@components/example/Example.astro'
+
+export type Props = ExampleProps
+---
+
+<Example {...Astro.props}>
+  <div class="sl-markdown-content">
+    <slot />
+  </div>
+</Example>
+
+<style>
+  .sl-markdown-content {
+    --preview-color-sl-markdown-bg: hsl(0 0% 100%);
+    --preview-color-sl-markdown-text: hsl(224 10% 23%);
+    --preview-color-sl-markdown-link: hsl(234, 90%, 60%);
+    --preview-color-sl-markdown-heading: hsl(224 10% 10%);
+
+    :global(:root[data-theme='dark']) & {
+      --preview-color-sl-markdown-bg: hsl(224 10% 10%);
+      --preview-color-sl-markdown-text: hsl(224 6% 77%);
+      --preview-color-sl-markdown-link: hsl(224, 100%, 85%);
+      --preview-color-sl-markdown-heading: hsl(0 0% 100%);
+    }
+
+    background-color: var(--preview-color-sl-markdown-bg);
+    color: var(--preview-color-sl-markdown-text);
+    line-height: 1.8;
+    padding: var(--size-6);
+
+    & :global(h2) {
+      color: var(--preview-color-sl-markdown-heading);
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+
+    & :global(a) {
+      color: var(--preview-color-sl-markdown-link);
+
+      &:hover {
+        color: var(--preview-color-sl-markdown-heading);
+      }
+    }
+  }
+</style>

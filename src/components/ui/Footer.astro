@@ -1,35 +1,45 @@
 ---
 import Icon from '@components/ui/Icon.astro'
-import Link from '@components/ui/Link.astro'
 ---
 
 <footer>
-  <div>
-    Brewed with <Link href="https://astro.build">Astro</Link> &amp; <Icon
-      aria-label="coffee"
-      class="coffeeIcon"
-      name="coffee"
-      role="img"
-    />. Hosted on <Link href="https://vercel.com">Vercel</Link>.
-  </div>
+  <p>
+    Brewed with <a href="https://astro.build">Astro</a> & <Icon aria-label="coffee" name="coffee" role="img" />
+  </p>
+  <p>
+    Hosted on <a href="https://vercel.com">Vercel</a>
+  </p>
 </footer>
 
 <style>
   footer {
-    color: var(--color-dimmed);
+    display: grid;
+    border-top: var(--size-px) solid var(--color-gray-800);
+    color: var(--color-text-dimmed);
     font-size: var(--text-sm);
-    margin-top: var(--size-3);
-    text-align: center;
+    line-height: 1.5;
+    margin-top: var(--size-4);
+    padding: var(--size-8) var(--page-padding-inline) var(--size-12);
+    place-items: center;
+
+    @media (--md-n-above) {
+      margin-top: 0;
+    }
+
+    & :global(svg) {
+      --size: var(--size-5);
+
+      display: inline;
+      fill: currentColor;
+      height: var(--size);
+      margin-inline-start: var(--size-0-5);
+      vertical-align: top;
+      width: var(--size);
+    }
   }
 
-  .coffeeIcon {
-    --size: 1.4rem;
-
-    display: inline;
-    fill: var(--color-dimmed);
-    height: var(--size);
-    margin-inline: var(--size-px);
-    vertical-align: text-bottom;
-    width: var(--size);
+  a:not(:focus-visible) {
+    color: var(--color-text-dimmed);
+    text-decoration: none;
   }
 </style>

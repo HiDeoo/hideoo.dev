@@ -1,0 +1,95 @@
+---
+import RepoLink from '@components/repo/RepoLink.astro'
+import Icon from '@components/ui/Icon.astro'
+import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
+import type { GitHubRepo } from '@libs/github'
+import { pluralize } from '@libs/string'
+
+export interface Props {
+  repo: GitHubRepo
+}
+
+const { repo } = Astro.props
+
+const shouldShowStars = repo.stars > 0
+
+const description = repo.description?.replace(/\.$/, '') ?? ''
+const srDescription = `${repo.name} - ${
+  shouldShowStars ? `Starred ${repo.stars} ${pluralize(repo.stars, 'time', 'times')} - ` : ''
+}${description}.`
+---
+
+<RepoLink href={repo.url} name={repo.name}>
+  <VisuallyHidden>
+    {srDescription}
+  </VisuallyHidden>
+  <div aria-hidden="true" class="header">
+    <div class="name">{repo.name}</div>
+    {
+      shouldShowStars && (
+        <div class="stars">
+          {repo.stars}
+          <Icon name="star" />
+        </div>
+      )
+    }
+  </div>
+  <div aria-hidden="true" class="description">{description}</div>
+</RepoLink>
+
+<style>
+  .header {
+    align-items: center;
+    display: flex;
+    font-size: var(--text-xl);
+    font-weight: var(--font-semibold);
+    gap: var(--size-3);
+    justify-content: space-between;
+    line-height: 1.5;
+    margin-bottom: var(--size-1-5);
+
+    .name {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .stars {
+    align-items: center;
+    display: flex;
+    font-size: var(--text-normal);
+    font-weight: var(--font-normal);
+    gap: var(--size-1-5);
+
+    & :global(svg) {
+      --size: var(--size-4);
+
+      fill: currentColor;
+      height: var(--size);
+      width: var(--size);
+
+      @media (--motionSafe) {
+        animation: spin var(--duration-3000) linear infinite;
+        animation-play-state: paused;
+      }
+
+      :global(a:is(:hover, :focus)) & {
+        @media (--motionSafe) {
+          animation-play-state: running;
+        }
+      }
+    }
+  }
+
+  .description {
+    font-size: var(--text-sm);
+    line-height: 1.5;
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(1turn);
+    }
+  }
+</style>

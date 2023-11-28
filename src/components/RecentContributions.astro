@@ -1,92 +1,29 @@
 ---
-import RepoLink from '@components/repos/RepoLink.astro'
-import Icon from '@components/ui/Icon.astro'
+import RepoLink from '@components/repo/RepoLink.astro'
 import Section from '@components/ui/Section.astro'
 import { fetchGitHubRecentContributions } from '@libs/github'
-
-let contributionsColumns = 4
 
 let recentContributions = await fetchGitHubRecentContributions()
 
 if (recentContributions.length < 8) {
   recentContributions = recentContributions.splice(0, 4)
-  contributionsColumns = recentContributions.length
 }
 ---
 
-<Section opaque={false} title="Recent Contributions" visible={recentContributions.length >= 3}>
-  <ul class="contributions">
-    {
-      recentContributions.map((recentContribution) => {
-        return (
-          <li>
-            <RepoLink
-              class="link"
-              href={recentContribution.url}
-              title={`Open ${recentContribution.name} GitHub repository`}
-            >
-              <div>{recentContribution.name}</div>
-              <Icon class="chevronIcon" name="chevron-right" />
-            </RepoLink>
-          </li>
-        )
-      })
-    }
-  </ul>
+<Section title="Recent Contributions">
+  <div>
+    {recentContributions.map((contribution) => <RepoLink href={contribution.url} name={contribution.name} />)}
+  </div>
 </Section>
 
-<style define:vars={{ 'contributions-columns': contributionsColumns }}>
-  .contributions {
-    display: grid;
-    font-weight: var(--font-semibold);
-    gap: var(--size-4);
-    grid-template-columns: repeat(calc(var(--contributions-columns) - 2), 1fr);
-    grid-template-rows: repeat(2, 1fr);
-    justify-content: space-between;
-
-    @media (--md-n-above) {
-      grid-template-columns: repeat(var(--contributions-columns), 1fr);
-    }
-  }
-
-  li {
-    min-width: 0;
-  }
-
+<style>
   div {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
+    display: grid;
+    gap: var(--size-4);
+    grid-template-columns: 1fr;
 
-  .link {
-    align-items: center;
-    flex-direction: row;
-    gap: var(--size-1);
-    justify-content: space-between;
-
-    @media (--motionSafe) {
-      &:hover .chevronIcon {
-        animation: bounce var(--duration-1200) infinite var(--ease);
-      }
-    }
-  }
-
-  .chevronIcon {
-    --size: var(--size-5);
-
-    fill: currentColor;
-    height: var(--size);
-    width: var(--size);
-  }
-
-  @keyframes bounce {
-    25% {
-      transform: translateX(-12%);
-    }
-
-    75% {
-      transform: translateX(12%);
+    @media (--sm-n-above) {
+      grid-template-columns: repeat(2, 1fr);
     }
   }
 </style>
