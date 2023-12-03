@@ -33,7 +33,7 @@
     "@unocss/reset": "0.57.7",
     "astro": "3.6.0",
     "astro-expressive-code": "0.29.1",
-    "astro-og-canvas": "0.3.2",
+    "astro-og-canvas": "0.4.0",
     "astro-seo-schema": "3.2.1",
     "autoprefixer": "10.4.16",
     "canvaskit-wasm": "0.39.1",

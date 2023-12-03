@@ -13,8 +13,11 @@ export const { getStaticPaths, GET } = OGImageRoute({
   getImageOptions: (_, page: OgPage) => {
     const options: OGImageOptions = {
       bgGradient: [[11, 12, 14]],
+      bgImage: {
+        path: './src/images/og-bg.png',
+      },
       border: {
-        color: [213, 213, 216],
+        color: [11, 12, 14],
         side: 'inline-start',
         width: 20,
       },
@@ -37,7 +40,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       ],
       logo: {
         path: './src/images/og.png',
-        size: [210, 100],
+        size: [198, 31],
       },
       title: page.title,
     }
