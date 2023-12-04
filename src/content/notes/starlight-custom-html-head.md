@@ -7,6 +7,10 @@ publishDate: 2023-12-03
 The [HTML head](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) is the contents of the `<head>` element of an HTML document.
 This part of the document is not visible to the user but is used by web browsers and search engines to know how to display the page, load external resources like CSS or scripts, or to know various information about the page.
 
+## Prerequisites
+
+You will need to have an existing Starlight website.
+
 ## Configure the HTML head in Starlight
 
 [Starlight](https://starlight.astro.build) has built-in support for customizing the HTML head of pages using a [`HeadConfig`](https://starlight.astro.build/reference/configuration/#headconfig) object representing each element to add to the HTML head.
