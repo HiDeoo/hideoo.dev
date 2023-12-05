@@ -2,19 +2,19 @@ import { markdown } from '@astropub/md'
 
 import { processCommandsHtml, PKG_TAB_TAG_NAME } from '@libs/rehype'
 
-const pkgManagers = ['npm', 'yarn', 'pnpm', 'bun', 'ni'] as const
+const pkgManagers = ['npm', 'pnpm', 'yarn', 'bun', 'ni'] as const
 
 const commands = {
   npm: {
     add: 'npm install',
     devOption: '-D',
   },
-  yarn: {
-    add: 'yarn add',
-    devOption: '-D',
-  },
   pnpm: {
     add: 'pnpm add',
+    devOption: '-D',
+  },
+  yarn: {
+    add: 'yarn add',
     devOption: '-D',
   },
   bun: {
