@@ -1,0 +1,101 @@
+---
+title: Use third-party icon sets in Starlight
+description: Learn how to use third-party icon sets in Starlight using unplugin-icons.
+publishDate: 2023-12-05
+---
+
+[Starlight](https://starlight.astro.build) provides a [set of icons](https://starlight.astro.build/guides/components/#all-icons) that you can use out of the box in your documentation website.
+The available icons are a limited selection of common icons from the [Unicons set](https://github.com/Iconscout/unicons) which may not be enough for all use cases.
+
+Using third-party icon sets in Starlight is possible and this guide will show you one possible way to do so using [`unplugin-icons`](https://github.com/unplugin/unplugin-icons) which relies on [Iconify](https://iconify.design/) with over 200,000 icons from many open source icon sets.
+
+Other alternatives include [`astro-icon`](https://github.com/natemoo-re/astro-icon) or the [Iconify Icon web component](https://iconify.design/docs/iconify-icon/) [^1].
+
+[^1]: The Iconify Icon web component retrieves [icon data on demand](https://iconify.design/docs/iconify-icon/#icon-data-on-demand) on the client side.
+
+## Prerequisites
+
+You will need to have an existing Starlight website.
+
+## Install `unplugin-icons`
+
+Start by installing the `unplugin-icons` package:
+
+import Pkg from '@components/Pkg.astro'
+
+<Pkg pkg="unplugin-icons @iconify/json" />
+
+:::note
+`@iconify/json` is a fairly large package containing all the icon data from Iconify. You can install it once and use any icon set but you can also [install individual icon sets](https://github.com/unplugin/unplugin-icons#install-by-icon-set) if you prefer.
+Note that only the icons you use will be included in your final markup.
+:::
+
+## Configure `unplugin-icons`
+
+Import the Vite plugin provided by `unplugin-icons` in your `astro.config.mjs` file to add it to the [`vite.plugins`](https://docs.astro.build/en/reference/configuration-reference/#vite) array:
+
+```js ins={4,8-10}
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import starlight from '@astrojs/starlight'
+import Icons from 'unplugin-icons/vite'
+
+export default defineConfig({
+  integrations: [starlight({ title: 'My Docs' })],
+  vite: {
+    plugins: [Icons({ compiler: 'astro' })],
+  },
+})
+```
+
+Add the `unplugin-icons` type declarations to your `tsconfig.json` file:
+
+```json ins={4-6}
+// tsconfig.json
+{
+  "extends": "astro/tsconfigs/strict",
+  "compilerOptions": {
+    "types": ["unplugin-icons/types/astro"]
+  }
+}
+```
+
+## Use a custom icon
+
+To use a custom icon, you import it using the `~icons/{set}/{name}` path convention and use it in your MDX documentation pages.
+To figure out the set and name of the icon you want to use, you can use the [Iconify icon sets reference page](https://icon-sets.iconify.design) or [Icônes](https://icones.js.org/) website.
+
+For example, this [star icon](https://icon-sets.iconify.design/ph/shooting-star/) from the Phosphor Icons set can be imported using the `~icons/ph/shooting-star` path:
+
+```mdx
+---
+// src/content/docs/example.mdx
+title: My content page
+---
+
+## My heading
+
+The content of my Starlight page.
+
+import IconStar from '~icons/ph/shooting-star'
+
+<IconStar color="goldenrod" font-size="3rem" aria-hidden />
+```
+
+:::note
+Any HTML attributes passed to the imported component will be forwarded to the underlying `<svg>` element.
+Using `color="red" font-size="3rem"` will change the color and size of the icon.
+:::
+
+:::note[Do I need to add ARIA attributes?]
+Adding `aria-hidden` to the icon hides it from screen readers which is great if you're using the icon as a decorative element.
+Otherwise, you should add a label to the icon with `aria-label="A shooting star"` for example.
+:::
+
+The above example will render the following content:
+
+import Example from './examples/_starlight-third-party-icon-sets.astro'
+
+<Example />
+
+You can find the complete source code of this guide in this [StackBlitz example](https://stackblitz.com/edit/github-jjuyyz?file=src%2Fcontent%2Fdocs%2Findex.mdx).
