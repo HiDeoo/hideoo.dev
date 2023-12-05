@@ -45,7 +45,7 @@ export default defineConfig({
     sitemap(),
   ],
   markdown: {
-    rehypePlugins: [rehypeHeadingIds, [rehypeAutolinkHeadings, { behavior: 'wrap', properties: { tabIndex: -1 } }]],
+    rehypePlugins: [rehypeHeadingIds, [rehypeAutolinkHeadings, { behavior: 'wrap' }]],
     remarkPlugins: [remarkDirective, remarkAdmonitions],
     syntaxHighlight: false,
   },

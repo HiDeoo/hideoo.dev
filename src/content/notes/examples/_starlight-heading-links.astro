@@ -4,25 +4,18 @@ import StarlightMdExample from '@components/example/StarlightMdExample.astro'
 
 <StarlightMdExample description="Example of a Starlight heading with a link to the heading anchor.">
   <h2 id="my-heading">
-    My heading
-    {/* eslint-disable-next-line astro/jsx-a11y/anchor-has-content */}
-    <a class="preview-heading-link" aria-hidden="true" tabindex="-1" href="#my-heading"></a>
+    <a href="#my-heading">Further reading</a>
   </h2>
   <p>Some random example text in Starlight.</p>
 </StarlightMdExample>
 
 <style>
-  .preview-heading-link {
-    opacity: 0;
-    padding-inline-start: 0.5rem;
+  h2 > a {
+    color: var(--preview-color-sl-markdown-heading);
     text-decoration: none;
 
-    &::before {
-      content: '#';
+    &:hover {
+      text-decoration: underline;
     }
-  }
-
-  h2:hover .preview-heading-link {
-    opacity: 1;
   }
 </style>

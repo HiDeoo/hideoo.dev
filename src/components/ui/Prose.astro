@@ -17,6 +17,12 @@
     & > :global(a) {
       position: relative;
 
+      &:focus-visible {
+        border-radius: var(--rounded-sm);
+        outline: var(--outline-width) solid var(--color-text-highlight);
+        outline-offset: var(--size-px);
+      }
+
       &::before {
         color: var(--color-text-dimmed);
         color: var(--color-gray-600);

@@ -61,7 +61,7 @@ The plugin is configurable using various [options](https://github.com/rehypejs/r
 
 The plugin does not add any styling to the links by default so you will need to add some yourself.
 
-The goal of this section is to see how to generate links after the heading text containing the `#` character that will be invisible by default and only visible when the user hovers over the heading (or touches the heading on mobile) like the following example:
+The goal of this section is to see how to generate links wrapping the heading text like the following example:
 
 import Example from './examples/_starlight-heading-links.astro'
 
@@ -69,7 +69,7 @@ import Example from './examples/_starlight-heading-links.astro'
 
 Start by editing the plugin configuration in your `astro.config.mjs` file to update its various options and also define a custom CSS file that will contain the styling for the links:
 
-```js {5-8,14-29}
+```js {5-8,14-20}
 export default defineConfig({
   integrations: [
     starlight({
@@ -86,17 +86,8 @@ export default defineConfig({
       [
         rehypeAutolinkHeadings,
         {
-          // Inject the link after the heading text.
-          behavior: 'append',
-          // Remove any content from the link.
-          content: [],
-          properties: {
-            // Add a CSS class to the link.
-            class: 'heading-link',
-            // Add back the default accessibility attributes.
-            ariaHidden: 'true',
-            tabIndex: -1,
-          },
+          // Wrap the heading text in a link.
+          behavior: 'wrap',
         },
       ],
     ],
@@ -107,24 +98,17 @@ export default defineConfig({
 Add a `headings.css` file in your `src/styles/` directory with the following content:
 
 ```css
-/* src/styles/headings.css */
-/* Hide the heading links by default. */
-.heading-link {
-  opacity: 0;
-  padding-inline-start: 0.5rem;
+/* Style the Markdown heading links. */
+.sl-markdown-content :is(h1, h2, h3, h4, h5, h6) > a {
+  color: var(--sl-color-white);
   text-decoration: none;
 
-  &::before {
-    content: '#';
+  &:hover {
+    text-decoration: underline;
   }
-}
-
-/* Show the heading links when hovering over the headings in Markdown. */
-.sl-markdown-content :is(h1, h2, h3, h4, h5, h6):hover .heading-link {
-  opacity: 1;
 }
 ```
 
-Up to you to customize the plugin options and the CSS to match your needs!
+Up to you to customize the plugin options and the CSS to match your needs! You may also want to check out this great [article](https://amberwilson.co.uk/blog/are-your-anchor-links-accessible/) to make sure your anchor links are accessible.
 
 You can find the complete source code of this guide in this [StackBlitz example](https://stackblitz.com/edit/github-sxid7t?file=astro.config.mjs).
