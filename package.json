@@ -50,6 +50,7 @@
     "rehype-autolink-headings": "7.1.0",
     "remark-directive": "3.0.0",
     "schema-dts": "1.1.2",
+    "sharp": "0.33.1",
     "tinyduration": "3.3.0",
     "typescript": "5.3.2",
     "unist-util-remove": "4.0.0",
