@@ -2,6 +2,7 @@
 title: Add custom social links to Starlight
 description: Learn how to add custom social links to a Starlight website header.
 publishDate: 2023-11-27
+updateDate: 2023-12-19
 ---
 
 [Starlight](https://starlight.astro.build) has built-in support for displaying many social links to the website header using the Starlight [`social`](https://starlight.astro.build/reference/configuration/#social) configuration option.
@@ -90,6 +91,8 @@ import Default from '@astrojs/starlight/components/SocialIcons.astro'
 <style>
   a {
     color: var(--sl-color-text-accent);
+    margin: -0.5em;
+    padding: 0.5em;
   }
 
   a:hover {
