@@ -17,7 +17,7 @@ import StarlightHeaderExample from '@components/example/StarlightHeaderExample.a
         </path>
       </svg>
     </a>
-    <a href="https://hideoo.dev" rel="me" class="sl-flex">
+    <a href="https://hideoo.dev" rel="me">
       <span class="sr-only">HiDeoo</span>
       <svg aria-hidden="true" fill="currentColor" height="16" width="16" viewBox="0 0 24 24">
         <path
@@ -45,11 +45,16 @@ import StarlightHeaderExample from '@components/example/StarlightHeaderExample.a
 
   .sl-social-icons {
     display: flex;
-    gap: var(--size-3);
+    gap: var(--size-5);
     justify-content: flex-end;
 
-    & a:hover {
-      opacity: 0.66;
+    & a {
+      margin: -0.5em;
+      padding: 0.5em;
+
+      &:hover {
+        opacity: 0.66;
+      }
     }
   }
 
