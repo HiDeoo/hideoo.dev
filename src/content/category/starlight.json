@@ -5,6 +5,7 @@
     "starlight-head-generator",
     "starlight-i18n",
     "starlight-links-validator",
+    "starlight-obsidian",
     "starlight-openapi",
     "starlight-package-managers",
     "starlight-typedoc"
