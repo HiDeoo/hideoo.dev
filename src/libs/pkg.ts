@@ -1,7 +1,3 @@
-import { markdown } from '@astropub/md'
-
-import { processCommandsHtml, PKG_TAB_TAG_NAME } from '@libs/rehype'
-
 const pkgManagers = ['npm', 'pnpm', 'yarn', 'bun', 'ni'] as const
 
 const commands = {
@@ -27,22 +23,21 @@ const commands = {
   },
 } satisfies Record<PackageManager, Record<CommandType | 'devOption', string>>
 
-export async function getCommandsHtml(type: CommandType, pkg: string | undefined, options: CommandOptions) {
-  const commands = await markdown.inline(
-    getSupportedPkgManagers(type)
-      .map(
-        (pkgManager) => `<${PKG_TAB_TAG_NAME} data-label="${pkgManager}">
+let id = 0
 
-\`\`\`shell frame="none"
-${getCommand(pkgManager, type, pkg, options)}
-\`\`\`
+export function getCommands(type: CommandType, pkg: string | undefined, options: CommandOptions): Command[] {
+  const pkgManagers = getSupportedPkgManagers(type)
 
-</${PKG_TAB_TAG_NAME}>`,
-      )
-      .join('\n'),
-  )
+  return pkgManagers.map((pkgManager) => {
+    const commandId = id++
 
-  return processCommandsHtml(commands.toString())
+    return {
+      content: getCommandContent(pkgManager, type, pkg, options),
+      label: pkgManager,
+      panelID: `pkg-panel-${commandId}`,
+      tabID: `pkg-tab-${commandId}`,
+    }
+  })
 }
 
 function getSupportedPkgManagers(type: CommandType) {
@@ -50,7 +45,12 @@ function getSupportedPkgManagers(type: CommandType) {
   return pkgManagers.filter((pkgManager) => commands[pkgManager][type] !== undefined)
 }
 
-function getCommand(pkgManager: PackageManager, type: CommandType, pkg: string | undefined, options: CommandOptions) {
+function getCommandContent(
+  pkgManager: PackageManager,
+  type: CommandType,
+  pkg: string | undefined,
+  options: CommandOptions,
+) {
   let command = commands[pkgManager][type]
 
   if (!command) {
@@ -75,4 +75,11 @@ export type CommandType = 'add'
 
 export interface CommandOptions {
   dev?: boolean
+}
+
+interface Command {
+  content: string
+  label: string
+  panelID: string
+  tabID: string
 }

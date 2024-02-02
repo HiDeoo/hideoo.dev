@@ -1,7 +1,9 @@
 ---
 // https://github.com/withastro/starlight/blob/main/packages/starlight/user-components/Tabs.astro
 
-import { type CommandOptions, type CommandType, getCommandsHtml } from '@libs/pkg'
+import { Code } from 'astro-expressive-code/components'
+
+import { type CommandOptions, type CommandType, getCommands } from '@libs/pkg'
 
 interface Props extends CommandOptions {
   pkg?: string | undefined
@@ -10,13 +12,13 @@ interface Props extends CommandOptions {
 
 const { pkg, type = 'add', ...options } = Astro.props
 
-const { html, panels } = await getCommandsHtml(type, pkg, options)
+const commands = getCommands(type, pkg, options)
 ---
 
 <pkg-tabs class="not-prose">
   <ul role="tablist">
     {
-      panels.map(({ label, panelID, tabID }, index) => (
+      commands.map(({ label, panelID, tabID }, index) => (
         <li role="presentation">
           <a role="tab" href={`#${panelID}`} id={tabID} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1}>
             {label}
@@ -25,7 +27,13 @@ const { html, panels } = await getCommandsHtml(type, pkg, options)
       ))
     }
   </ul>
-  <Fragment set:html={html} />
+  {
+    commands.map(({ content, panelID, tabID }, index) => (
+      <section role="tabpanel" id={panelID} aria-labelledby={tabID} hidden={index > 0}>
+        <Code code={content} frame="none" lang="shell" />
+      </section>
+    ))
+  }
 </pkg-tabs>
 
 <style>
