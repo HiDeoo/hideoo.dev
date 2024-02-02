@@ -1,11 +1,10 @@
-import type { RemarkPlugin } from '@astrojs/markdown-remark'
 import { h, type Properties } from 'hastscript'
 import type { Paragraph, PhrasingContent, Root, Text } from 'mdast'
 import type { Node } from 'unist'
 import { remove } from 'unist-util-remove'
 import { visit } from 'unist-util-visit'
 
-export function remarkAdmonitions(): RemarkPlugin {
+export function remarkAdmonitions() {
   return function remarkAdmonitionTransformer(tree: Root) {
     visit(tree, (node, index, parent) => {
       if (!index || !parent || !isContainerDirective(node) || node.name !== 'note') {
