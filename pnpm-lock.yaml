@@ -57,11 +57,11 @@ devDependencies:
     specifier: 0.32.3
     version: 0.32.3(astro@4.3.1)
   astro-og-canvas:
-    specifier: 0.4.0
-    version: 0.4.0(astro@4.3.1)
+    specifier: 0.4.2
+    version: 0.4.2(astro@4.3.1)
   astro-seo-schema:
-    specifier: 3.2.1
-    version: 3.2.1(astro@4.3.1)(schema-dts@1.1.2)
+    specifier: 4.0.0
+    version: 4.0.0(astro@4.3.1)(schema-dts@1.1.2)
   autoprefixer:
     specifier: 10.4.16
     version: 10.4.16(postcss@8.4.33)
@@ -2339,11 +2339,11 @@ packages:
       remark-expressive-code: 0.32.3
     dev: true
 
-  /astro-og-canvas@0.4.0(astro@4.3.1):
-    resolution: {integrity: sha512-WIRBwX3mVPLeo6SQFoQZ36GgmQPWEc6u5qSPTJkWvWpZP8jiK6xWnLdl/7Kt4Y9I4q1kup8hnRW4X6acyHXyNg==}
+  /astro-og-canvas@0.4.2(astro@4.3.1):
+    resolution: {integrity: sha512-OQsH6Gr2HX9ZRHdVy2OcXVBIPI65WvEtLG/60krnphh8d3ldhuAFunymYaNGcrdSZcYgXkHWejbPt//3qaRidA==}
     engines: {node: '>=18.14.1'}
     peerDependencies:
-      astro: ^3.0.0
+      astro: ^3.0.0 || ^4.0.0
     dependencies:
       astro: 4.3.1(typescript@5.3.2)
       canvaskit-wasm: 0.37.2
@@ -2351,10 +2351,10 @@ packages:
       entities: 4.5.0
     dev: true
 
-  /astro-seo-schema@3.2.1(astro@4.3.1)(schema-dts@1.1.2):
-    resolution: {integrity: sha512-wNhnMEdwqDNrI2HzQXfLUldMhgQaHOtoXQqV2OlGEULyBXHq9V/VwoW3l/YWi3ZMiIJYC41iatXL3yWCLzCxfw==}
+  /astro-seo-schema@4.0.0(astro@4.3.1)(schema-dts@1.1.2):
+    resolution: {integrity: sha512-ZcpxuQWSlyOVru+sN5LwUHqfrQpOEyv6Ksxq6WBNhycEHE0AEgGdiHkfhAmQbVqT4HXM8bmZOZlYlwwsYkfPAw==}
     peerDependencies:
-      astro: ^3.0.0
+      astro: ^4.0.0
       schema-dts: ^1.1.0
     dependencies:
       astro: 4.3.1(typescript@5.3.2)
