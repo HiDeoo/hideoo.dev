@@ -1,0 +1,132 @@
+---
+title: Add diagrams to your Starlight documentation using D2
+description: Learn how to use D2 to add diagrams to your Starlight documentation.
+publishDate: 2024-02-08
+---
+
+Multiple solutions exist to embed diagrams declaratively in your Markdown content and render them on your documentation website.
+They usually involve leveraging diagramming tools like [Mermaid](https://mermaid.js.org/), [PlantUML](https://plantuml.com/), or [Graphviz](https://graphviz.org/).
+Most of the time, rendering such diagrams comes with various trade-offs, like embedding JavaScript on your pages to render the diagrams, using fairly slow solutions to render the diagrams at build time, e.g. [Playwright](https://playwright.dev/), or not having proper dark mode support.
+
+This guide will show you one possible way to add diagrams to your [Starlight](https://starlight.astro.build/) documentation using [D2](https://d2lang.com/), a Declarative Diagramming tool.
+
+## Why D2?
+
+D2 is a declarative diagramming tool that allows you to turn text into diagrams.
+
+The default output format of D2 is an SVG file containing the diagram and its associated CSS styles.
+This file is meant to be used in a web context, which makes it a perfect fit for documentation websites on top of being vector-based, scalable, and can also be animated.
+
+D2 also includes a lot of powerful features out of the box, such as [themes](https://d2lang.com/tour/themes/), an [adaptative dark mode](https://d2lang.com/tour/themes/#dark-theme), [sketching](https://d2lang.com/tour/sketch/), [animations](https://d2lang.com/tour/composition/), and much more.
+The D2 command-line tool which is the most common way to use D2 is also very fast which makes it a great fit for build-time rendering.
+
+Learn more about D2 by visiting the [official website](https://d2lang.com/).
+
+## Prerequisites
+
+You will need to have an existing Starlight website.
+
+## Install D2
+
+The D2 CLI will be used to render diagrams and will need to be installed on your machine.
+It can be installed on many platforms, including Windows, macOS, and Linux using different methods such as various package managers, Docker, or manually.
+
+You can learn how to install D2 by visiting the [official installation guide](https://github.com/terrastruct/d2/blob/master/docs/INSTALL.md).
+For example, on macOS, you can install D2 using [Homebrew](https://brew.sh/):
+
+```sh
+brew install d2
+```
+
+## Install `astro-d2`
+
+Start by installing the [`astro-d2`](https://astro-d2.vercel.app/) package which is an Astro integration and remark plugin to transform D2 Markdown code blocks into diagrams relying on the D2 CLI.
+
+import Pkg from '@components/Pkg.astro'
+
+<Pkg type="exec" pkg="astro" args="add astro-d2" />
+
+:::note[Disclaimer]
+I am the author of the Astro D2 integration.
+:::
+
+## Add diagrams
+
+To declare a diagram, you can use a Markdown code block which is indicated by a block with three backticks <code>```</code> at the start and end and by specifying the `d2` language after the opening backticks.
+
+````md {10-12}
+---
+// src/content/docs/example.md
+title: My content page
+---
+
+## My heading
+
+The content of my Starlight page.
+
+```d2
+Documentation -> Website: Starlight
+```
+````
+
+The above example will render the following content:
+
+import Example from './examples/_starlight-add-diagrams-using-d2.astro'
+
+<Example>
+  <img
+    alt="Diagram"
+    decoding="async"
+    loading="lazy"
+    src="/starlight-add-diagrams-using-d2/documentation-website.svg"
+    width="356"
+    height="455"
+  />
+</Example>
+
+The Astro D2 integration can be [globally configured](https://astro-d2.vercel.app/configuration/) in your `astro.config.mjs` file to change the behavior and appearance of all diagrams.
+Various [attributes](https://astro-d2.vercel.app/attributes/) can also be used to customize the appearance of individual diagrams.
+
+````md "sketch pad=50"
+---
+// src/content/docs/example.md
+title: My content page
+---
+
+## My heading
+
+The content of my Starlight page.
+
+```d2 sketch pad=50
+direction: right
+
+Documentation -> Starlight -> Website: {style.animated: true}
+```
+````
+
+The above example will render the following content:
+
+<Example>
+  <img
+    alt="Diagram"
+    decoding="async"
+    loading="lazy"
+    src="/starlight-add-diagrams-using-d2/documentation-starlight-website.svg"
+    width="696"
+    height="168"
+  />
+</Example>
+
+You can learn more about the various features and options of Astro D2 by visiting the [official documentation](https://astro-d2.vercel.app/).
+
+## Deployments
+
+Under the hood, the Astro D2 integration will use the D2 CLI to render the diagrams and output the resulting SVG files in the `public/d2/` [^1] directory of your Astro project.
+
+When deploying your Starlight website, the same process will by default be used to render the diagrams which means that the D2 CLI will need to be installed on the deployment environment.
+
+If for some reason you cannot easily install D2 on your deployment environment, you can use the [`skipGeneration`](https://astro-d2.vercel.app/configuration/#skipgeneration) configuration option to disable the generation of diagrams on specific platforms.
+This will require you to build your website and commit diagrams before deploying your site.
+To read more about this approach, you can check the [deployment guide](https://astro-d2.vercel.app/guides/how-astro-d2-works/#deployment) in the Astro D2 documentation.
+
+[^1]: The `d2` directory can be configured using the [`output` configuration option](https://astro-d2.vercel.app/configuration/#output).

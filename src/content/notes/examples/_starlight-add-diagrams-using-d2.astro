@@ -1,0 +1,15 @@
+---
+import StarlightMdExample from '@components/example/StarlightMdExample.astro'
+---
+
+<StarlightMdExample description="Example of a Starlight content with a diagram generated using D2.">
+  <h2>My heading</h2>
+  <p>The content of my Starlight page.</p>
+  <slot />
+</StarlightMdExample>
+
+<style>
+  p + :global(img) {
+    margin-top: 1rem;
+  }
+</style>
