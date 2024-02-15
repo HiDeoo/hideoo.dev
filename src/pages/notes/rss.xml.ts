@@ -1,7 +1,6 @@
 import rss from '@astrojs/rss'
-import type { APIRoute } from 'astro'
-
 import { getNotes } from '@libs/note'
+import type { APIRoute } from 'astro'
 
 export const GET: APIRoute = async ({ site }) => {
   if (!site) {

@@ -21,7 +21,7 @@
     "@astrojs/sitemap": "3.0.5",
     "@axe-core/playwright": "4.8.4",
     "@csstools/postcss-global-data": "2.1.1",
-    "@hideoo/eslint-config": "2.0.2",
+    "@hideoo/eslint-config": "3.0.0",
     "@hideoo/prettier-config": "2.0.0",
     "@hideoo/tsconfig": "2.0.1",
     "@octokit/graphql-schema": "14.53.0",
@@ -71,7 +71,9 @@
   },
   "bugs": "https://github.com/HiDeoo/hideoo.dev/issues",
   "lint-staged": {
-    "**/*": "prettier -w -u --cache",
-    "**/*.{js,jsx,ts,tsx,cjs,mjs,astro}": "eslint --max-warnings=0"
+    "*": [
+      "prettier -w -u --cache",
+      "eslint --cache --no-warn-ignored --max-warnings=0"
+    ]
   }
 }

@@ -1,9 +1,8 @@
 ---
 // https://github.com/withastro/starlight/blob/main/packages/starlight/user-components/Tabs.astro
 
-import { Code } from 'astro-expressive-code/components'
-
 import { type CommandOptions, type CommandType, getCommands } from '@libs/pkg'
+import { Code } from 'astro-expressive-code/components'
 
 interface Props extends CommandOptions {
   pkg?: string | undefined
