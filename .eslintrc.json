@@ -1,6 +1,0 @@
-{
-  "extends": ["@hideoo"],
-  "globals": {
-    "ThemeProvider": "readonly"
-  }
-}
