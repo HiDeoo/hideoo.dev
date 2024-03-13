@@ -186,6 +186,7 @@ function normalizeContributions(
       rawContribution.repository.owner.login === 'HiDeoo' ||
       rawContribution.repository.isFork ||
       rawContribution.contributions.nodes?.length === 0 ||
+      rawContribution.contributions.nodes?.at(0) === null ||
       repoBanList.some((regex) => regex.test(rawContribution.repository.name))
     ) {
       continue
