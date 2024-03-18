@@ -6,7 +6,13 @@ import type {
   User,
 } from '@octokit/graphql-schema'
 
-const repoBanList: RegExp[] = [/\.github/, /-repro/, /^edge-developer\.fr-FR$/, /-test$/]
+const repoBanList: RegExp[] = [
+  /\.github/,
+  /-repro/,
+  /^edge-developer\.fr-FR$/,
+  /-test$/,
+  /^astro-db-starlight-showcase$/,
+]
 
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
