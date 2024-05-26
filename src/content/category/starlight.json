@@ -9,6 +9,7 @@
     "starlight-obsidian",
     "starlight-openapi",
     "starlight-package-managers",
+    "starlight-showcases",
     "starlight-typedoc"
   ]
 }
