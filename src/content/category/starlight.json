@@ -10,6 +10,7 @@
     "starlight-openapi",
     "starlight-package-managers",
     "starlight-showcases",
-    "starlight-typedoc"
+    "starlight-typedoc",
+    "starlight-versions"
   ]
 }
