@@ -1,14 +1,15 @@
 ---
 export interface ExampleProps {
+  class?: string
   description: string
 }
 
 export type Props = ExampleProps
 
-const { description } = Astro.props
+const { class: className, description } = Astro.props
 ---
 
-<figure aria-label={description} class="not-prose">
+<figure aria-label={description} class={className ?? 'not-prose'}>
   <slot />
 </figure>
 

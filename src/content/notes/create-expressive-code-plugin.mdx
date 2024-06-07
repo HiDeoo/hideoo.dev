@@ -1,0 +1,199 @@
+---
+title: Create an Expressive Code plugin to report incorrect code
+description: Learn how to create a custom Expressive Code plugin to report incorrect code blocks by adding a link after them to create a new issue on GitHub.
+publishDate: 2024-06-07
+---
+
+[Expressive Code](https://expressive-code.com/) is an amazing library for creating beautiful and accessible code blocks with ease.
+It provides a lot of features out-of-the-box, such as syntax highlighting, editor and terminal frames, text and line markers, a code component, and a lot more.
+
+Expressive Code also provides integrations with many popular frameworks such as [Astro](https://astro.build/) or [Next.js](https://nextjs.org/), making it easy to use it in your projects.
+[Starlight](https://starlight.astro.build/), the fully-featured documentation theme built on top of the Astro framework, also uses Expressive Code to render code blocks by default.
+
+You can learn more about Expressive Code in the [official documentation](https://expressive-code.com/).
+
+## Expressive Code plugins
+
+Expressive Code process code blocks using plugins and supports the creation of [custom plugins](https://expressive-code.com/guides/developing-plugins/) to extend its capabilities.
+Plugins can add new features or markup around various parts of a code block, or even a range of characters.
+
+This guide will walk you through creating a simple Expressive Code plugin to report incorrect code blocks.
+To do so, the plugin will add a link after each code block pointing to a pre-filled issue on GitHub including the code block content.
+
+## Prerequisites
+
+You will need to have an existing project using Expressive Code.
+You can check the Expressive Code [installation guide](https://expressive-code.com/installation/) to get started.
+
+## Plugin architecture
+
+An Expressive Code plugin can be created using the `definePlugin()` helper provided by the library.
+This function takes as an argument a single configuration object that will define the plugin behavior.
+
+```js {6-10}
+// src/ec-report-plugin.mjs
+import { definePlugin } from '@expressive-code/core'
+
+export function reportCodeBlockPlugin() {
+  return definePlugin({
+    name: 'Report',
+    hooks: {
+      // Hooks that can attach custom behavior to various steps of a code
+      // block lifecycle.
+    },
+  })
+}
+```
+
+The [`hooks`](https://expressive-code.com/reference/plugin-hooks/) property of the configuration object contains the different events the plugin can listen to to attach custom behavior for every step of a code block lifecycle.
+
+To use a plugin, add it to the [`plugins`](https://expressive-code.com/reference/configuration/#plugins) array in the Expressive Code configuration object.
+The following example shows how to add the custom plugin created above in the Expressive Code configuration inside an Astro project.
+
+```js ins={4} ins={9-12}
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import astroExpressiveCode from 'astro-expressive-code'
+import { reportCodeBlockPlugin } from './src/ec-report-plugin.mjs'
+
+export default defineConfig({
+  integrations: [
+    astroExpressiveCode({
+      plugins: [
+        // Add the report plugin to the Expressive Code configuration.
+        reportCodeBlockPlugin(),
+      ],
+    }),
+  ],
+})
+```
+
+## Add a new element after code blocks
+
+To add a new element after each code block, the [`postprocessRenderedBlock`](https://expressive-code.com/reference/plugin-hooks/#postprocessrenderedblock) hook can be used.
+This hook allows for modifying the rendered code block after it has been processed by Expressive Code using the [`renderData`](https://expressive-code.com/reference/plugin-hooks/#renderdata) object.
+
+This hook gives us access to the code block using a [Hypertext Abstract Syntax Tree](https://github.com/syntax-tree/hast) (HAST) representation.
+This tree can be modified to customize a code block, add new elements, or update existing ones.
+
+To add a new element after each code block, a custom plugin can wrap the rendered code block in a new element and add the desired content after it.
+The [`h()`](https://github.com/syntax-tree/hastscript#hselector-properties-children) helper function is provided to create new HAST nodes.
+
+```js {9-17}
+// src/ec-report-plugin.mjs
+import { definePlugin } from '@expressive-code/core'
+import { h } from '@expressive-code/core/hast'
+
+export function reportCodeBlockPlugin() {
+  return definePlugin({
+    name: 'Report',
+    hooks: {
+      postprocessRenderedBlock: ({ renderData }) => {
+        // Wrap the rendered code block in a new div element.
+        renderData.blockAst = h('div', [
+          // Add the rendered code block as a child of the new div element.
+          renderData.blockAst,
+          // Add custom content after the code block.
+          h('div', 'Custom content'),
+        ])
+      },
+    },
+  })
+}
+```
+
+The code above would generate the following code block:
+
+import Example from './examples/_create-expressive-code-plugin.astro'
+
+<Example step={1} />
+
+## Add a link to report code blocks
+
+The same approach can be used to add a link to report an incorrect code block.
+GitHub provides a way to create a new issue using a URL with some pre-filled information using query parameters such as `title` and `body`.
+
+The body of the issue can be pre-filled with the content of the code block using the [`codeBlock.code`](https://expressive-code.com/reference/core-api/#code) and [`codeBlock.language`](https://expressive-code.com/reference/core-api/#language) properties provided to the `postprocessRenderedBlock` hook.
+
+```js {6-21} {25-26}
+export function reportCodeBlockPlugin() {
+  return definePlugin({
+    name: 'Report',
+    hooks: {
+      postprocessRenderedBlock: ({ codeBlock, renderData }) => {
+        // Create a new URL object with the issue creation URL.
+        const url = new URL(`https://github.com/HiDeoo/hideoo.dev/issues/new`)
+        // Set the title and body of the issue.
+        url.searchParams.set('title', 'Incorrect code block')
+        url.searchParams.set(
+          'body',
+          `The following code block is incorrect:
+
+\`\`\`${codeBlock.language}
+${codeBlock.code}
+\`\`\`
+
+Additional context:
+
+<!-- Please provide any additional context here. -->`,
+        )
+
+        renderData.blockAst = h('div', [
+          renderData.blockAst,
+          // Create a new div element with a link to the issue creation URL.
+          h('div', h('a', { href: url.toString() }, 'Report incorrect code')),
+        ])
+      },
+    },
+  })
+}
+```
+
+The code above would generate the following code block:
+
+<Example step={2} />
+
+## Style the report link
+
+An Expressive Code plugin can also provide custom CSS to style the new elements added to the code block.
+To do so, the [`baseStyles`](https://expressive-code.com/reference/plugin-api/#basestyles) property of the plugin configuration object can be used.
+
+```js {4-12} {21-22}
+export function reportCodeBlockPlugin() {
+  return definePlugin({
+    name: 'Report',
+    // Add custom CSS to style the new link.
+    baseStyles: `
+      .actions {
+        display: flex;
+        font-size: 0.875rem;
+        justify-content: flex-end;
+        padding-inline: 0.5em;
+      }
+    `,
+    hooks: {
+      postprocessRenderedBlock: ({ codeBlock, renderData }) => {
+        // URL generation logic…
+
+        renderData.blockAst = h('div', [
+          renderData.blockAst,
+          h(
+            'div',
+            // Add a class to the new element to style its content.
+            { class: 'actions' },
+            h('a', { href: url.toString() }, 'Report incorrect code'),
+          ),
+        ])
+      },
+    },
+  })
+}
+```
+
+The CSS styles will need to be updated to match the design of your website, but the above example will now start to look like this:
+
+<Example step={3} />
+
+The plugin can be further improved by adding more features such as adding a reference to the page containing the code block in the new issue body, using a button to open a modal to report the issue, sending the issue to a different platform, etc.
+
+You can find the complete source code of this guide in the context of a Starlight project in this [StackBlitz example](https://stackblitz.com/edit/github-ax2ewe?file=src%2Fec-report-plugin.mjs).

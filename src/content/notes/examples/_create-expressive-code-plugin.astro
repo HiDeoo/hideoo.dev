@@ -1,0 +1,75 @@
+---
+import Example from '@components/example/Example.astro'
+import { Code } from 'astro-expressive-code/components'
+
+interface Props {
+  step: 1 | 2 | 3
+}
+
+const { step } = Astro.props
+
+if (!step) {
+  throw new Error('Missing example step.')
+}
+
+const lang = 'js'
+const code = `console.log('Hello, world!')`
+
+const url = new URL(`https://github.com/HiDeoo/hideoo.dev/issues/new`)
+url.searchParams.set('title', 'Incorrect code block')
+url.searchParams.set(
+  'body',
+  `The following code block is incorrect:
+
+\`\`\`${lang}
+${code}
+\`\`\`
+
+Additional context:
+
+<!-- Please provide any additional context here. -->`,
+)
+---
+
+<Example class="code-plugin-demo" description="Example of an Expressive Code plugin to report incorrect code blocks.">
+  <Code {code} {lang} />
+  {step === 1 && <div>Custom content</div>}
+  {
+    step === 2 && (
+      <div>
+        <a href={url}>Report incorrect code</a>
+      </div>
+    )
+  }
+  {
+    step === 3 && (
+      <div class="actions">
+        <a href={url}>Report incorrect code</a>
+      </div>
+    )
+  }
+</Example>
+
+<style>
+  :global(.code-plugin-demo) {
+    padding: var(--size-6);
+
+    & > :global(.expressive-code.expressive-code) {
+      margin-block: 0;
+    }
+  }
+
+  .actions {
+    display: flex;
+    font-size: var(--text-xs);
+    justify-content: flex-end;
+    padding-inline: var(--size-2);
+  }
+
+  .actions :global(a) {
+    color: var(--color-text-dimmed);
+    font-weight: var(--font-normal);
+    text-decoration: none;
+    z-index: 2;
+  }
+</style>
