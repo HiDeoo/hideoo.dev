@@ -197,6 +197,11 @@
   .prose :global(.expressive-code) {
     margin-block: var(--size-6) var(--size-7);
 
+    & :global(pre:focus-visible) {
+      outline-offset: calc(var(--outline-width) * -1);
+      outline-width: var(--outline-width);
+    }
+
     & :global(.copy button:focus-visible) {
       outline: var(--outline-width) solid var(--color-text-highlight);
       outline-offset: var(--outline-offset);
