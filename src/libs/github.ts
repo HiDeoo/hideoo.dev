@@ -14,6 +14,8 @@ const repoBanList: RegExp[] = [
   /^astro-db-starlight-showcase$/,
 ]
 
+const contributionOwnerBanList = new Set(['sarah11918'])
+
 const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
     description
@@ -193,6 +195,7 @@ function normalizeContributions(
       rawContribution.repository.isFork ||
       rawContribution.contributions.nodes?.length === 0 ||
       rawContribution.contributions.nodes?.at(0) === null ||
+      contributionOwnerBanList.has(rawContribution.repository.owner.login) ||
       repoBanList.some((regex) => regex.test(rawContribution.repository.name))
     ) {
       continue
