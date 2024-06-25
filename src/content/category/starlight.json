@@ -1,6 +1,7 @@
 {
   "name": "Starlight",
   "repos": [
+    "sjt",
     "starlight-blog",
     "starlight-head-generator",
     "starlight-i18n",
