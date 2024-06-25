@@ -10,6 +10,7 @@
     "starlight-obsidian",
     "starlight-openapi",
     "starlight-package-managers",
+    "starlight-plugins-docs-components",
     "starlight-showcases",
     "starlight-theme-rapide",
     "starlight-typedoc",
