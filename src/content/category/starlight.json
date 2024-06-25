@@ -1,6 +1,7 @@
 {
-  "name": "Starlight Plugins",
+  "name": "Starlight",
   "repos": [
+    "sjt",
     "starlight-blog",
     "starlight-head-generator",
     "starlight-i18n",
@@ -9,7 +10,9 @@
     "starlight-obsidian",
     "starlight-openapi",
     "starlight-package-managers",
+    "starlight-plugins-docs-components",
     "starlight-showcases",
+    "starlight-theme-rapide",
     "starlight-typedoc",
     "starlight-versions"
   ]
