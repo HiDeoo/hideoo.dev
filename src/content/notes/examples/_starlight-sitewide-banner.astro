@@ -1,0 +1,34 @@
+---
+import StarlightHeaderExample from '@components/example/StarlightHeaderExample.astro'
+---
+
+<StarlightHeaderExample description="Example of a Starlight header with a sitewide banner">
+  <div class="banner" slot="after"><slot /></div>
+</StarlightHeaderExample>
+
+<style>
+  div.banner {
+    --preview-color-sl-banner-bg: hsl(234 90% 60%);
+    --preview-color-sl-banner-text: hsl(0 0% 100%);
+
+    :global(:root[data-theme='dark']) & {
+      --preview-color-sl-banner-bg: hsl(224 100% 85%);
+      --preview-color-sl-banner-text: hsl(224 54% 20%);
+    }
+
+    background-color: var(--preview-color-sl-banner-bg);
+    color: var(--preview-color-sl-banner-text);
+    line-height: 1.2;
+    padding: var(--size-3) var(--size-6);
+    text-align: center;
+    text-wrap: balance;
+  }
+
+  div.banner :global(p) {
+    margin-top: 0;
+  }
+
+  div.banner :global(a) {
+    text-decoration: underline;
+  }
+</style>
