@@ -15,6 +15,7 @@
     "starlight-showcases",
     "starlight-theme-rapide",
     "starlight-typedoc",
+    "starlight-ui-strings-cli",
     "starlight-versions"
   ]
 }
