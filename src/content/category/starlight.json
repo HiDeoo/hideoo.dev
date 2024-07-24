@@ -10,6 +10,7 @@
     "starlight-links-validator",
     "starlight-obsidian",
     "starlight-openapi",
+    "starlight-overrides-map",
     "starlight-package-managers",
     "starlight-plugins-docs-components",
     "starlight-showcases",
