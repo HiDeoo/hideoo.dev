@@ -1,6 +1,7 @@
 {
   "name": "Starlight",
   "repos": [
+    "generator-starlight-plugin",
     "sjt",
     "starlight-blog",
     "starlight-head-generator",
@@ -13,6 +14,7 @@
     "starlight-overrides-map",
     "starlight-package-managers",
     "starlight-plugins-docs-components",
+    "starlight-server-islands-hyperping",
     "starlight-showcases",
     "starlight-theme-rapide",
     "starlight-typedoc",
