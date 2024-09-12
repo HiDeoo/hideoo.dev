@@ -5,12 +5,42 @@ export type Props = ExampleProps
 ---
 
 <Example {...Astro.props}>
+  {
+    Astro.slots.has('title') && (
+      <div class="sl-page-title">
+        <slot name="title" />
+      </div>
+    )
+  }
   <div class="sl-markdown-content">
     <slot />
   </div>
 </Example>
 
 <style>
+  .sl-page-title {
+    --preview-color-sl-page-title-bg: hsl(0 0% 100%);
+    --preview-color-sl-page-title-text: hsl(224 10% 10%);
+    --preview-color-sl-page-title-border: hsl(224, 20%, 94%);
+
+    :global(:root[data-theme='dark']) & {
+      --preview-color-sl-page-title-bg: hsl(224 10% 10%);
+      --preview-color-sl-page-title-text: hsl(0 0% 100%);
+      --preview-color-sl-page-title-border: hsl(224, 14%, 16%);
+    }
+
+    background-color: var(--preview-color-sl-page-title-bg);
+    border-bottom: 1px solid var(--preview-color-sl-page-title-border);
+    padding: var(--size-6);
+
+    & :global(h1) {
+      color: var(--preview-color-sl-page-title-text);
+      font-size: 2.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+    }
+  }
+
   .sl-markdown-content {
     --preview-color-sl-markdown-bg: hsl(0 0% 100%);
     --preview-color-sl-markdown-text: hsl(224 10% 23%);
@@ -34,6 +64,18 @@ export type Props = ExampleProps
       font-size: 1.5rem;
       font-weight: 600;
       line-height: 1.2;
+    }
+
+    & :global(h3) {
+      color: var(--preview-color-sl-markdown-heading);
+      font-size: 1.25rem;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-top: 1rem;
+    }
+
+    & :global(h2 + h2) {
+      margin-top: var(--size-4);
     }
 
     & :global(a) {
