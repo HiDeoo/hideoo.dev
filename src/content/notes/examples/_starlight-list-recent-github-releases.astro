@@ -1,0 +1,25 @@
+---
+import StarlightMdExample from '@components/example/StarlightMdExample.astro'
+
+interface Props {
+  title?: string
+}
+
+const { title } = Astro.props
+---
+
+<StarlightMdExample description="Example of a Starlight content with a diagram generated using D2.">
+  {title && <h1 slot={title && 'title'}>{title}</h1>}
+  <slot />
+</StarlightMdExample>
+
+<style>
+  :global(figure ul) {
+    list-style-type: disc;
+    padding-inline-start: 1.5em;
+  }
+
+  :global(figure li > p) {
+    display: inline;
+  }
+</style>

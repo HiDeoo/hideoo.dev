@@ -1,0 +1,192 @@
+---
+title: List recent GitHub releases in Starlight using the Astro Content Layer API
+description: Learn how to use the experimental Astro Content Layer API to list the recent GitHub releases in a Starlight project.
+publishDate: 2024-09-12
+---
+
+Announced in June 2024, the Astro [Content Layer API](https://astro.build/blog/future-of-astro-content-layer/) is a new approach to working with local and remote content sources in Astro.
+Built upon the [Content Collections API](https://docs.astro.build/en/guides/content-collections/), the Content Layer API is designed to be more flexible and powerful and is available behind an experimental flag starting with Astro 4.14.
+
+At the time of writing, [Starlight](https://starlight.astro.build) does not yet support the Content Layer API for documentation pages but you can still use it in a Starlight project.
+
+This guide will show you how to use this new experimental feature to create a page in your Starlight documentation website listing the recent GitHub releases for a specific repository.
+To do so, we will use the Astro [feed loader](https://github.com/ascorbic/astro-loaders/tree/main/packages/feed) to fetch the latest releases from an Atom feed and display them on a custom page.
+
+## Prerequisites
+
+You will need to have an existing Starlight website using Astro 4.14 or later.
+
+## Install the feed loader
+
+Start by installing the `@ascorbic/feed-loader` package:
+
+import Pkg from '@components/Pkg.astro'
+
+<Pkg pkg="@ascorbic/feed-loader" />
+
+## Enable the Content Layer API
+
+To get started with the Content Layer API, you will need to enable the experimental flag in your `astro.config.mjs` file:
+
+```js ins={6-8}
+// astro.config.mjs
+import { defineConfig } from 'astro/config'
+import starlight from '@astrojs/starlight'
+
+export default defineConfig({
+  experimental: {
+    contentLayer: true,
+  },
+  integrations: [starlight({ title: 'My Docs' })],
+})
+```
+
+## Load recent GitHub releases
+
+To load content with the Content Layer API, the Astro feed loader can be used when defining a collection in the `src/content/config.ts` file.
+
+The loader takes a URL as input which will be fetched and parsed as an Atom feed. GitHub provides an Atom feed for the releases of a repository using the following URL format: `https://github.com/OWNER/REPO/releases.atom`.
+
+The following example defines a new collection named `releases` that fetches the latest releases of the Starlight repository:
+
+```ts ins={4,8-12}
+// src/content/config.ts
+import { defineCollection } from 'astro:content'
+import { docsSchema } from '@astrojs/starlight/schema'
+import { feedLoader } from '@ascorbic/feed-loader'
+
+export const collections = {
+  docs: defineCollection({ schema: docsSchema() }),
+  releases: defineCollection({
+    loader: feedLoader({
+      url: 'https://github.com/withastro/starlight/releases.atom',
+    }),
+  }),
+}
+```
+
+## List recent releases
+
+To list the recent releases, [Astro’s file-based routing](https://docs.astro.build/en/basics/astro-pages/#file-based-routing) can be used to create a new page in the `src/pages/` directory.
+
+The new page will use the [`<StarlightPage />`](https://starlight.astro.build/guides/pages/#using-starlights-design-in-custom-pages) component to render the content using the default Starlight layout and the [`getCollection()`](https://docs.astro.build/en/reference/api-reference/#getcollection) function to query the `releases` collection created earlier.
+
+```astro
+---
+// src/pages/releases.astro
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import { getCollection } from 'astro:content'
+
+// Query the releases collection to get the recent releases.
+const releases = await getCollection('releases')
+---
+
+<StarlightPage frontmatter={{ title: 'Recent Releases' }}>
+  {
+    releases.map((release) => {
+      // Loop over the releases to display their titles.
+      return <h2>{release.data.title}</h2>
+    })
+  }
+</StarlightPage>
+```
+
+The above example will render the following content:
+
+import Example from './examples/_starlight-list-recent-github-releases.astro'
+
+<Example title="Recent Releases">
+  <h2>@astrojs/starlight@0.27.1</h2>
+  <h2>@astrojs/starlight-markdoc@0.1.0</h2>
+  <h2>@astrojs/starlight@0.27.0</h2>
+  <h2>@astrojs/starlight@0.26.4</h2>
+  <h2>@astrojs/starlight@0.26.3</h2>
+  <h2>@astrojs/starlight@0.26.2</h2>
+  <h2>@astrojs/starlight@0.26.1</h2>
+  <h2>@astrojs/starlight@0.26.0</h2>
+  <h2>@astrojs/starlight@0.25.5</h2>
+  <h2>@astrojs/starlight@0.25.4</h2>
+</Example>
+
+## Display release details
+
+Instead of only listing the release titles, we can render a custom [Astro component](https://docs.astro.build/en/basics/astro-components/) to display more information about each release.
+
+```astro
+---
+// src/components/Release.astro
+import { render, type CollectionEntry } from 'astro:content'
+
+interface Props {
+  release: CollectionEntry<'releases'>
+}
+
+// Render the release content.
+const { release } = Astro.props
+const { Content } = await render(release)
+---
+
+<article>
+  <h2 id={release.id}>{release.data.title}</h2>
+  <Content />
+</article>
+```
+
+The above example will render the following content:
+
+<Example>
+  <h2>@astrojs/starlight@0.25.5</h2>
+  <h3>Patch Changes</h3>
+  <ul>
+    <li>
+      <p>
+        <a href="https://github.com/withastro/starlight/pull/2171">#2171</a>{' '}
+        <a href="https://github.com/withastro/starlight/commit/c8258d7ef9264a0f85710d463a83d16013dc1934">
+          <code>c8258d7</code>
+        </a>{' '}
+        <span>
+          Thanks <a href="https://github.com/delucis">@delucis</a>! - Improves
+          build performance slightly for bigger sites
+        </span>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a href="https://github.com/withastro/starlight/pull/2199">#2199</a>{' '}
+        <a href="https://github.com/withastro/starlight/commit/91557fd73a43ab596f0fefb7c9aa0218b9a0b208">
+          <code>91557fd</code>
+        </a>{' '}
+        Thanks <a href="https://github.com/connorjs">@connorjs</a>! - Adds Azure
+        DevOps (<code>azureDevOps</code>) icon for use in social links.
+      </p>
+    </li>
+  </ul>
+</Example>
+
+## Fill in the table of contents
+
+When using the `<StarlightPage />` component, the table of contents will not be automatically filled with the content of the page.
+To do so, the [`headings`](https://starlight.astro.build/guides/pages/#headings) property can be used to specify an array of headings to include in the table of contents.
+
+```astro {8-13} "{headings}"
+---
+// src/pages/releases.astro
+import StarlightPage from '@astrojs/starlight/components/StarlightPage.astro'
+import { getCollection } from 'astro:content'
+import Release from '../components/Release.astro'
+
+const releases = await getCollection('releases')
+// Loop over the releases to create the table of contents.
+const headings = releases.map((release) => ({
+  slug: release.id,
+  text: release.data.title,
+  depth: 2,
+}))
+---
+
+<StarlightPage frontmatter={{ title: 'Recent Releases' }} {headings}>
+  {releases.map((release) => <Release {release} />)}
+</StarlightPage>
+```
+
+You can find the complete source code of this guide in this [StackBlitz example](https://stackblitz.com/edit/github-k3v5rv?file=src%2Fpages%2Freleases.astro).
