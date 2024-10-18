@@ -3,6 +3,7 @@
   "repos": [
     "generator-starlight-plugin",
     "sjt",
+    "starlight-better-auth-example",
     "starlight-blog",
     "starlight-head-generator",
     "starlight-heading-badges",
@@ -16,6 +17,7 @@
     "starlight-plugins-docs-components",
     "starlight-server-islands-hyperping",
     "starlight-showcases",
+    "starlight-sidebar-topics",
     "starlight-theme-rapide",
     "starlight-typedoc",
     "starlight-ui-strings-cli",
