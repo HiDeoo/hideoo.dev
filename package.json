@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "playwright install --with-deps chromium && playwright test",
-    "lint": "prettier -c --cache . '**/*.astro' && eslint . --cache --max-warnings=0 && astro check && tsc --noEmit",
+    "lint": "prettier -c --cache . '**/*.astro' && eslint . --cache --max-warnings=0 && astro check",
     "prepare": "husky"
   },
   "devDependencies": {
