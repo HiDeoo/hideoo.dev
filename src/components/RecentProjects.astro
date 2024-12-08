@@ -1,9 +1,10 @@
 ---
+import { getCollection } from 'astro:content'
+
 import Repos from '@components/repo/Repos.astro'
 import Section from '@components/ui/Section.astro'
-import { fetchGitHubRecentRepos } from '@libs/github'
 
-const recentRepos = await fetchGitHubRecentRepos()
+const recentRepos = await getCollection('recentRepos')
 ---
 
 <Section title="Recent Projects">

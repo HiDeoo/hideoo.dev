@@ -1,6 +1,8 @@
 import { file, glob } from 'astro/loaders'
 import { defineCollection, z } from 'astro:content'
 
+import { gitHubRecentContributionsLoader, gitHubRecentReposLoader, gitHubReposLoader } from '@libs/loaders'
+
 const notes = defineCollection({
   loader: glob({ pattern: '**/[^_]*.{md,mdx}', base: './src/content/notes' }),
   schema: z.object({
@@ -19,4 +21,16 @@ const projects = defineCollection({
   }),
 })
 
-export const collections = { notes, projects }
+const recentContributions = defineCollection({
+  loader: gitHubRecentContributionsLoader(),
+})
+
+const recentRepos = defineCollection({
+  loader: gitHubRecentReposLoader(),
+})
+
+const repos = defineCollection({
+  loader: gitHubReposLoader(),
+})
+
+export const collections = { notes, projects, recentContributions, recentRepos, repos }

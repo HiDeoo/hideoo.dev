@@ -1,9 +1,10 @@
 ---
+import { getCollection } from 'astro:content'
+
 import RepoLink from '@components/repo/RepoLink.astro'
 import Section from '@components/ui/Section.astro'
-import { fetchGitHubRecentContributions } from '@libs/github'
 
-let recentContributions = await fetchGitHubRecentContributions()
+let recentContributions = await getCollection('recentContributions')
 
 if (recentContributions.length < 8) {
   recentContributions = recentContributions.splice(0, 4)
@@ -12,7 +13,7 @@ if (recentContributions.length < 8) {
 
 <Section title="Recent Contributions">
   <div>
-    {recentContributions.map((contribution) => <RepoLink href={contribution.url} name={contribution.name} />)}
+    {recentContributions.map((contribution) => <RepoLink href={contribution.data.url} name={contribution.data.name} />)}
   </div>
 </Section>
 

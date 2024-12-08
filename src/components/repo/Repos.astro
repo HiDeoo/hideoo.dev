@@ -1,9 +1,10 @@
 ---
+import type { CollectionEntry } from 'astro:content'
+
 import Repo from '@components/repo/Repo.astro'
-import type { GitHubRepo } from '@libs/github'
 
 export interface Props {
-  repos: GitHubRepo[]
+  repos: (CollectionEntry<'repos'> | CollectionEntry<'recentRepos'>)[]
 }
 
 const { repos } = Astro.props
