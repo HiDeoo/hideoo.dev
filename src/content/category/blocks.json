@@ -1,4 +1,0 @@
-{
-  "name": "GitHub Blocks",
-  "repos": ["issue-form-block", "npm-install-block", "prisma-schema-block", "ts-playground-block"]
-}

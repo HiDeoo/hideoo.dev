@@ -1,5 +1,5 @@
 ---
-import { getEntry } from 'astro:content'
+import { getCollection } from 'astro:content'
 
 import Repos from '@components/repo/Repos.astro'
 import Section from '@components/ui/Section.astro'
@@ -7,24 +7,21 @@ import { fetchGitHubRepos, type GitHubRepo } from '@libs/github'
 
 const repos = await fetchGitHubRepos()
 
-const projectCategories = await getEntry('categories', 'projects')
-const categories = await Promise.all(
-  projectCategories.data.map((categoryReference) => getEntry('category', categoryReference.id)),
-)
+const projectsCategories = await getCollection('projects')
 
 const reposByCategories = new Map<string, GitHubRepo[]>()
 const uncategorizedRepos: GitHubRepo[] = []
 
-for (const category of categories) {
+for (const projectsCategory of projectsCategories) {
   const categoryRepos: GitHubRepo[] = []
 
   for (const repo of repos) {
-    if (category.data.repos.includes(repo.name.toLowerCase())) {
+    if (projectsCategory.data.repos.includes(repo.name.toLowerCase())) {
       categoryRepos.push(repo)
     }
   }
 
-  reposByCategories.set(category.data.name, categoryRepos)
+  reposByCategories.set(projectsCategory.data.id, categoryRepos)
 }
 
 for (const repo of repos) {

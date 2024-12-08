@@ -1,4 +1,0 @@
-{
-  "name": "Configurations",
-  "repos": ["create-app", "dotfiles", "eslint-config", "prettier-config", "tsconfig"]
-}
