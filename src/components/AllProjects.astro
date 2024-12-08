@@ -1,8 +1,9 @@
 ---
+import { getEntry } from 'astro:content'
+
 import Repos from '@components/repo/Repos.astro'
 import Section from '@components/ui/Section.astro'
 import { fetchGitHubRepos, type GitHubRepo } from '@libs/github'
-import { getEntry } from 'astro:content'
 
 const repos = await fetchGitHubRepos()
 
