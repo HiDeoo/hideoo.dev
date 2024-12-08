@@ -8,6 +8,7 @@ const postCssConfig = {
       files: ['src/styles/media.css'],
     }),
     postcssPresetEnv({
+      browsers: 'defaults, not op_mini all',
       stage: 2,
     }),
     autoprefixer(),
