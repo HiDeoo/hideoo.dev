@@ -40,3 +40,5 @@ jobs:
 
       - name: Lint
         run: pnpm lint
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
