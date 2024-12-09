@@ -10,8 +10,8 @@
     "build": "astro build",
     "preview": "astro preview",
     "test": "playwright install --with-deps chromium && playwright test",
-    "lint": "prettier -c --cache . '**/*.astro' && eslint . --cache --max-warnings=0 && astro check",
-    "prepare": "husky"
+    "lint": "eslint . --cache --max-warnings=0 && astro check",
+    "format": "prettier -w --cache --ignore-unknown . '**/*.astro'"
   },
   "devDependencies": {
     "@astrojs/check": "0.9.4",
@@ -38,8 +38,6 @@
     "eslint": "9.16.0",
     "github-slugger": "2.0.0",
     "hastscript": "9.0.0",
-    "husky": "9.1.7",
-    "lint-staged": "15.2.10",
     "postcss-preset-env": "10.1.1",
     "prettier": "3.4.2",
     "prettier-plugin-astro": "0.14.1",
@@ -69,11 +67,5 @@
     "type": "git",
     "url": "https://github.com/HiDeoo/hideoo.dev.git"
   },
-  "bugs": "https://github.com/HiDeoo/hideoo.dev/issues",
-  "lint-staged": {
-    "*": [
-      "prettier -w -u --cache",
-      "eslint --cache --no-warn-ignored --max-warnings=0"
-    ]
-  }
+  "bugs": "https://github.com/HiDeoo/hideoo.dev/issues"
 }
