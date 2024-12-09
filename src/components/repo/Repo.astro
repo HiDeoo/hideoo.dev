@@ -1,15 +1,16 @@
 ---
+import type { CollectionEntry } from 'astro:content'
+
 import RepoLink from '@components/repo/RepoLink.astro'
 import Icon from '@components/ui/Icon.astro'
 import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
-import type { GitHubRepo } from '@libs/github'
 import { pluralize } from '@libs/string'
 
 export interface Props {
-  repo: GitHubRepo
+  repo: CollectionEntry<'repos'> | CollectionEntry<'recentRepos'>
 }
 
-const { repo } = Astro.props
+const { data: repo } = Astro.props.repo
 
 const shouldShowStars = repo.stars > 0
 

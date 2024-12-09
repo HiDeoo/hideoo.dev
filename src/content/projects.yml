@@ -1,0 +1,52 @@
+- id: Starlight
+  repos:
+    - generator-starlight-plugin
+    - sjt
+    - starlight-better-auth-example
+    - starlight-blog
+    - starlight-head-generator
+    - starlight-heading-badges
+    - starlight-i18n
+    - starlight-image-zoom
+    - starlight-links-validator
+    - starlight-obsidian
+    - starlight-openapi
+    - starlight-overrides-map
+    - starlight-package-managers
+    - starlight-plugins-docs-components
+    - starlight-server-islands-hyperping
+    - starlight-showcases
+    - starlight-sidebar-topics
+    - starlight-theme-rapide
+    - starlight-typedoc
+    - starlight-ui-strings-cli
+    - starlight-versions
+- id: Editor Extensions
+  repos:
+    - autocomplete-lodash
+    - create
+    - starlight-i18n
+    - toggler
+    - toggler-nova
+    - toggler-vscode
+    - trailing
+    - typedown
+- id: Configurations
+  repos:
+    - create-app
+    - dotfiles
+    - eslint-config
+    - prettier-config
+    - tsconfig
+- id: GitHub Blocks
+  repos:
+    - issue-form-block
+    - npm-install-block
+    - prisma-schema-block
+    - ts-playground-block
+- id: Themes
+  repos:
+    - alfred-theme-vitesse
+    - insomnia-plugin-vitesse-theme
+    - iterm2-theme-vitesse
+    - warp-theme-vitesse

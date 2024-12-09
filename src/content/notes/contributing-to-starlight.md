@@ -56,7 +56,9 @@ If you are not sure where to start, here are a few potential ideas:
 - [Discuss](https://github.com/withastro/starlight/discussions/categories/feature-requests) and share your ideas for new features [^3]
 
 [^1]: The ["Translating Astro docs"](https://contribute.docs.astro.build/guides/i18n/) page from the "Astro Docs Docs" (and everything else in this documentation) is a mine of amazing and well-written information and tips I highly recommend for anyone interested in contributing to the Astro or Starlight documentation.
+
 [^2]: You can also review translation pull requests for languages you don't speak using the ["Astro Docs Translation Review Checklist"](https://hackmd.io/1KYnrpUQR0SAGTzHIUoUDg?view).
+
 [^3]: It is always a good idea to discuss your ideas before starting to work on them to make sure they are aligned with the project goals and to avoid wasting time on something that might not be accepted.
 
 If you have any questions or need some guidance or help, you can also join the `#starlight` channel in the [Astro Discord](https://astro.build/chat) where you will find many friendly community members happy to help you.

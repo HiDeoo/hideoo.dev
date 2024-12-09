@@ -1,5 +1,6 @@
-import { getNotes } from '@libs/note'
 import { OGImageRoute } from 'astro-og-canvas'
+
+import { getNotes } from '@libs/note'
 
 const notes = await getNotes()
 const pages: Record<string, OgPage> = Object.fromEntries(notes.map(({ data, href }) => [href.replace(/^\//, ''), data]))

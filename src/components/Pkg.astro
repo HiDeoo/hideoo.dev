@@ -1,8 +1,9 @@
 ---
 // https://github.com/withastro/starlight/blob/main/packages/starlight/user-components/Tabs.astro
 
-import { type CommandOptions, type CommandType, getCommands } from '@libs/pkg'
 import { Code } from 'astro-expressive-code/components'
+
+import { type CommandOptions, type CommandType, getCommands } from '@libs/pkg'
 
 interface Props extends CommandOptions {
   pkg?: string | undefined
@@ -73,7 +74,7 @@ const commands = getCommands(type, pkg, options)
     }
   }
 
-  a[aria-selected] {
+  a[aria-selected='true'] {
     --color-text: hsl(70 5% 22%);
 
     :global(:root[data-theme='dark']) & {

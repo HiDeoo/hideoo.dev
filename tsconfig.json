@@ -5,8 +5,10 @@
     "paths": {
       "@components/*": ["src/components/*"],
       "@layouts/*": ["src/layouts/*"],
-      "@libs/*": ["src/libs/*"],
+      "@libs/*": ["src/libs/*"]
     },
-    "types": ["astro/client"],
+    "types": ["astro/client"]
   },
+  "exclude": ["dist"],
+  "include": [".astro/types.d.ts", "**/*"]
 }

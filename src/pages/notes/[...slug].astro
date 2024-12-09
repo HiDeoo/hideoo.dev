@@ -1,4 +1,6 @@
 ---
+import { render } from 'astro:content'
+
 import NoteMeta from '@components/note/NoteMeta.astro'
 import NotePagination from '@components/note/NotePagination.astro'
 import NoteSchema from '@components/note/NoteSchema.astro'
@@ -10,13 +12,13 @@ export async function getStaticPaths() {
   const notes = await getNotes()
 
   return notes.map((note) => ({
-    params: { slug: note.slug },
+    params: { slug: note.id },
     props: { note },
   }))
 }
 
 const { note } = Astro.props
-const { Content } = await note.render()
+const { Content } = await render(note)
 ---
 
 <Page

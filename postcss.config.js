@@ -8,6 +8,9 @@ const postCssConfig = {
       files: ['src/styles/media.css'],
     }),
     postcssPresetEnv({
+      features: {
+        'is-pseudo-class': ['auto', { onComplexSelector: 'nothing' }],
+      },
       stage: 2,
     }),
     autoprefixer(),

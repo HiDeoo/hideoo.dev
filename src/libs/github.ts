@@ -16,7 +16,7 @@ const repoBanList: RegExp[] = [
 
 const contributionOwnerBanList = new Set(['sarah11918'])
 
-const GithubRepoFragment = `fragment Repo on RepositoryConnection {
+const GitHubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
     description
     id
@@ -30,7 +30,7 @@ const GithubRepoFragment = `fragment Repo on RepositoryConnection {
 export async function fetchGitHubRecentRepos(count = 6) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
     query: `
-    ${GithubRepoFragment}
+    ${GitHubRepoFragment}
     query Repos($count: Int) {
       viewer {
         repositories(
@@ -60,6 +60,7 @@ export async function fetchGitHubRecentContributions(count = 8) {
         contributionsCollection {
           pullRequestContributionsByRepository(maxRepositories: 100) {
             repository {
+              id
               isFork
               name
               nameWithOwner
@@ -108,7 +109,7 @@ export async function fetchGitHubRepos() {
 async function fetchGitHubPaginatedRepos(after?: string) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'repositories'> }>({
     query: `
-    ${GithubRepoFragment}
+    ${GitHubRepoFragment}
     query Repos($after: String) {
       viewer {
         repositories(
@@ -216,6 +217,7 @@ function normalizeContributions(
 
   return sanitizedRawContributions
     .map((rawContribution) => ({
+      id: rawContribution.repository.id,
       name: rawContribution.repository.nameWithOwner,
       url: String(rawContribution.repository.url),
     }))
@@ -227,7 +229,7 @@ interface GitHubApiRequestBody {
   variables?: Record<string, string | number | undefined>
 }
 
-export interface GitHubRepo {
+interface GitHubRepo {
   description: string | null
   id: string
   name: string
@@ -236,6 +238,7 @@ export interface GitHubRepo {
 }
 
 interface GitHubContribution {
+  id: string
   name: string
   url: string
 }

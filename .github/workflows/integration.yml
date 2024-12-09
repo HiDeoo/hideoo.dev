@@ -35,6 +35,10 @@ jobs:
 
       - name: Generates TypeScript types
         run: pnpm astro sync
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Lint
         run: pnpm lint
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
