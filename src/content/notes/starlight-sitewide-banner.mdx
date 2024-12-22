@@ -2,6 +2,7 @@
 title: Add a sitewide banner to Starlight
 description: Learn how to add a sitewide banner to your Starlight documentation website.
 publishDate: 2024-06-27
+updateDate: 2024-12-22
 ---
 
 [Starlight](https://starlight.astro.build) provides an out-of-the-box feature to display an announcement banner at the top of a specific page.
@@ -47,19 +48,21 @@ banner:
 The `content` value can include HTML to add links or style the banner.
 :::
 
-Starlight is built on top of Astro’s [content collections](https://docs.astro.build/en/guides/content-collections/) and the frontmatter schema used for your documentation can be [configured](https://starlight.astro.build/reference/frontmatter/#customize-frontmatter-schema) in the `src/content/config.ts` file.
+Starlight is built on top of Astro’s [content collections](https://docs.astro.build/en/guides/content-collections/) and the frontmatter schema used for your documentation can be [configured](https://starlight.astro.build/reference/frontmatter/#customize-frontmatter-schema) in the `src/content.config.ts` file.
 The default frontmatter schema can be [extended](https://starlight.astro.build/reference/frontmatter/#extend) to add support for additional fields or tweak the existing ones.
 
 By using such a mechanism, it is possible to add a default value for the existing `banner` field which would automatically be used when a page does not specify a banner and thus provide a sitewide banner.
 
-```diff lang="ts" {8-13} ins=", z"
-// src/content/config.ts
+```diff lang="ts" ins=", z"
+// src/content.config.ts
 import { defineCollection, z } from 'astro:content'
+import { docsLoader } from '@astrojs/starlight/loaders'
 import { docsSchema } from '@astrojs/starlight/schema'
 
 export const collections = {
   docs: defineCollection({
     schema: docsSchema({
+      loader: docsLoader(),
 +      extend: z.object({
 +        // Add a default value to the built-in `banner` field.
 +        banner: z.object({ content: z.string() }).default({
@@ -75,4 +78,4 @@ The code above would add the following banner to all pages not explicitly specif
 
 <Example>This documentation is in construction.</Example>
 
-You can find the complete source code of this guide in this [StackBlitz example](https://stackblitz.com/edit/github-gho3nw?file=src%2Fcontent%2Fconfig.ts).
+You can find the complete source code of this guide in this [StackBlitz example](https://stackblitz.com/edit/github-gho3nw?file=src%2Fcontent.config.ts).
