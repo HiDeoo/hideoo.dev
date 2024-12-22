@@ -1,20 +1,19 @@
 ---
 title: List recent GitHub releases in Starlight using the Astro Content Layer API
-description: Learn how to use the experimental Astro Content Layer API to list the recent GitHub releases in a Starlight project.
+description: Learn how to use the Astro Content Layer API to list the recent GitHub releases in a Starlight project.
 publishDate: 2024-09-12
+updateDate: 2024-12-22
 ---
 
 Announced in June 2024, the Astro [Content Layer API](https://astro.build/blog/future-of-astro-content-layer/) is a new approach to working with local and remote content sources in Astro.
-Built upon the [Content Collections API](https://docs.astro.build/en/guides/content-collections/), the Content Layer API is designed to be more flexible and powerful and is available behind an experimental flag starting with Astro 4.14.
+Built upon the [Content Collections API](https://docs.astro.build/en/guides/content-collections/), the Content Layer API is designed to be more flexible and powerful and is generally available in Astro 5.0 and later.
 
-At the time of writing, [Starlight](https://starlight.astro.build) does not yet support the Content Layer API for documentation pages but you can still use it in a Starlight project.
-
-This guide will show you how to use this new experimental feature to create a page in your Starlight documentation website listing the recent GitHub releases for a specific repository.
+This guide will show you how to use this new feature to create a page in your Starlight documentation website listing the recent GitHub releases for a specific repository.
 To do so, we will use the Astro [feed loader](https://github.com/ascorbic/astro-loaders/tree/main/packages/feed) to fetch the latest releases from an Atom feed and display them on a custom page.
 
 ## Prerequisites
 
-You will need to have an existing Starlight website using Astro 4.14 or later.
+You will need to have an existing Starlight website.
 
 ## Install the feed loader
 
@@ -24,39 +23,23 @@ import Pkg from '@components/Pkg.astro'
 
 <Pkg pkg="@ascorbic/feed-loader" />
 
-## Enable the Content Layer API
-
-To get started with the Content Layer API, you will need to enable the experimental flag in your `astro.config.mjs` file:
-
-```js ins={6-8}
-// astro.config.mjs
-import { defineConfig } from 'astro/config'
-import starlight from '@astrojs/starlight'
-
-export default defineConfig({
-  experimental: {
-    contentLayer: true,
-  },
-  integrations: [starlight({ title: 'My Docs' })],
-})
-```
-
 ## Load recent GitHub releases
 
-To load content with the Content Layer API, the Astro feed loader can be used when defining a collection in the `src/content/config.ts` file.
+To load content with the Content Layer API, the Astro feed loader can be used when defining a collection in the `src/content.config.ts` file.
 
 The loader takes a URL as input which will be fetched and parsed as an Atom feed. GitHub provides an Atom feed for the releases of a repository using the following URL format: `https://github.com/OWNER/REPO/releases.atom`.
 
 The following example defines a new collection named `releases` that fetches the latest releases of the Starlight repository:
 
-```ts ins={4,8-12}
-// src/content/config.ts
+```ts ins={5,9-13}
+// src/content.config.ts
 import { defineCollection } from 'astro:content'
+import { docsLoader } from '@astrojs/starlight/loaders'
 import { docsSchema } from '@astrojs/starlight/schema'
 import { feedLoader } from '@ascorbic/feed-loader'
 
 export const collections = {
-  docs: defineCollection({ schema: docsSchema() }),
+  docs: defineCollection({ loader: docsLoader(), schema: docsSchema() }),
   releases: defineCollection({
     loader: feedLoader({
       url: 'https://github.com/withastro/starlight/releases.atom',
@@ -69,7 +52,7 @@ export const collections = {
 
 To list the recent releases, [Astro’s file-based routing](https://docs.astro.build/en/basics/astro-pages/#file-based-routing) can be used to create a new page in the `src/pages/` directory.
 
-The new page will use the [`<StarlightPage />`](https://starlight.astro.build/guides/pages/#using-starlights-design-in-custom-pages) component to render the content using the default Starlight layout and the [`getCollection()`](https://docs.astro.build/en/reference/api-reference/#getcollection) function to query the `releases` collection created earlier.
+The new page will use the [`<StarlightPage />`](https://starlight.astro.build/guides/pages/#using-starlights-design-in-custom-pages) component to render the content using the default Starlight layout and the [`getCollection()`](https://docs.astro.build/en/reference/modules/astro-content/#getcollection) function to query the `releases` collection created earlier.
 
 ```astro
 ---
