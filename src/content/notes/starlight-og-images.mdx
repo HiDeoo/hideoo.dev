@@ -2,7 +2,7 @@
 title: Add Open Graph images to Starlight
 description: Learn how to add Open Graph images to your Starlight documentation website using astro-og-canvas.
 publishDate: 2023-12-18
-updateDate: 2024-10-03
+updateDate: 2024-12-22
 ---
 
 [Open Graph Data](https://ogp.me/) can be used by social media platforms like Facebook, X (formerly called Twitter), or Discord to add an image to your [Starlight](https://starlight.astro.build) page links when sharing them.
@@ -94,12 +94,9 @@ Create a custom Astro component to replace the existing `<Head/>` built-in compo
 import type { Props } from '@astrojs/starlight/props'
 import Default from '@astrojs/starlight/components/Head.astro'
 
-// Get the URL of the generated image for the current page using its
-// ID and replace the file extension with `.png`.
-const ogImageUrl = new URL(
-  `/og/${Astro.props.id.replace(/\.\w+$/, '.png')}`,
-  Astro.site,
-)
+// Get the URL of the generated image for the current page using its ID and
+// append the `.png` file extension.
+const ogImageUrl = new URL(`/og/${Astro.props.id || 'index'}.png`, Astro.site)
 ---
 
 <!-- Render the default <Head/> component. -->
