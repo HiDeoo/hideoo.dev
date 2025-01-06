@@ -21,6 +21,7 @@
     - starlight-typedoc
     - starlight-ui-strings-cli
     - starlight-versions
+    - starlight-videos
 - id: Editor Extensions
   repos:
     - autocomplete-lodash
