@@ -8,6 +8,7 @@
     - starlight-heading-badges
     - starlight-i18n
     - starlight-image-zoom
+    - starlight-kbd
     - starlight-links-validator
     - starlight-obsidian
     - starlight-openapi
