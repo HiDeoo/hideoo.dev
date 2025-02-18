@@ -2,6 +2,7 @@
 title: Edit the HTML head of Starlight pages
 description: Learn how to customize the HTML head of Starlight pages to add custom meta tags, styles, or scripts.
 publishDate: 2023-12-03
+updateDate: 2025-02-18
 ---
 
 The [HTML head](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) is the contents of the `<head>` element of an HTML document.
@@ -157,7 +158,6 @@ Create a custom Astro component to replace the existing `<SkipLink/>` built-in c
 ```astro
 ---
 // src/components/SkipLink.astro
-import type { Props } from '@astrojs/starlight/props'
 import Default from '@astrojs/starlight/components/SkipLink.astro'
 ---
 
@@ -173,7 +173,7 @@ import Default from '@astrojs/starlight/components/SkipLink.astro'
 </noscript>
 
 <!-- Render the default <SkipLink/> component. -->
-<Default {...Astro.props}><slot /></Default>
+<Default><slot /></Default>
 ```
 
 Configure Starlight to use this new component instead of the built-in one by specifying its path in the [`components`](https://starlight.astro.build/reference/configuration/#components) configuration option and also add the `<script>` tag to the HTML head:
