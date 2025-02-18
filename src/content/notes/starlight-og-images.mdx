@@ -2,13 +2,13 @@
 title: Add Open Graph images to Starlight
 description: Learn how to add Open Graph images to your Starlight documentation website using astro-og-canvas.
 publishDate: 2023-12-18
-updateDate: 2024-12-22
+updateDate: 2025-02-18
 ---
 
 [Open Graph Data](https://ogp.me/) can be used by social media platforms like Facebook, X (formerly called Twitter), or Discord to add an image to your [Starlight](https://starlight.astro.build) page links when sharing them.
 The image URL can be defined using the `og:image` and `twitter:image` meta tags.
 
-Starlight does not yet provide a built-in mechanism to automatically generate these images using all the available [page data](https://starlight.astro.build/reference/overrides/#props) and add the corresponding meta tags to your pages.
+Starlight does not provide a built-in mechanism to automatically generate these images using all the available [route data](https://starlight.astro.build/guides/route-data/) and add the corresponding meta tags to your pages.
 This guide will show one possible way to do so using [`astro-og-canvas`](https://github.com/delucis/astro-og-canvas) which uses an Astro [endpoint](https://docs.astro.build/en/core-concepts/endpoints/) to generate the images.
 The generated images can be customized using a large set of options including size, colors, fonts, logos, and more.
 
@@ -65,7 +65,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
   // as the file is named `[...slug].ts`.
   param: 'slug',
   // Define a function called for each page to customize the generated image.
-  getImageOptions: (_path, page: (typeof pages)[number]) => {
+  getImageOptions: (_id, page: (typeof pages)[number]) => {
     return {
       // Use the page title and description as the image title and description.
       title: page.data.title,
@@ -91,16 +91,18 @@ Create a custom Astro component to replace the existing `<Head/>` built-in compo
 ```astro
 ---
 // src/components/Head.astro
-import type { Props } from '@astrojs/starlight/props'
 import Default from '@astrojs/starlight/components/Head.astro'
 
 // Get the URL of the generated image for the current page using its ID and
 // append the `.png` file extension.
-const ogImageUrl = new URL(`/og/${Astro.props.id || 'index'}.png`, Astro.site)
+const ogImageUrl = new URL(
+  `/og/${Astro.locals.starlightRoute.id || 'index'}.png`,
+  Astro.site,
+)
 ---
 
 <!-- Render the default <Head/> component. -->
-<Default {...Astro.props}><slot /></Default>
+<Default><slot /></Default>
 
 <!-- Render the <meta/> tags for the Open Graph images. -->
 <meta property="og:image" content={ogImageUrl} />

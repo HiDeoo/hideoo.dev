@@ -2,7 +2,7 @@
 title: Add custom social links to Starlight
 description: Learn how to add custom social links to a Starlight website header.
 publishDate: 2023-11-27
-updateDate: 2023-12-19
+updateDate: 2025-02-18
 ---
 
 [Starlight](https://starlight.astro.build) has built-in support for displaying many social links to the website header using the Starlight [`social`](https://starlight.astro.build/reference/configuration/#social) configuration option.
@@ -25,12 +25,11 @@ Create a custom Astro component to replace the existing `<SocialIcons/>` built-i
 ```astro
 ---
 // src/components/SocialIcons.astro
-import type { Props } from '@astrojs/starlight/props'
 import Default from '@astrojs/starlight/components/SocialIcons.astro'
 ---
 
 <!-- Render the default social links. -->
-<Default {...Astro.props}><slot /></Default>
+<Default><slot /></Default>
 ```
 
 :::note
@@ -61,10 +60,9 @@ export default defineConfig({
 
 Update the custom component previously created in `src/components/SocialIcons.astro` to add a custom social link and render its SVG icon before or after the existing social links:
 
-```astro {7-22,26-37}
+```astro {6-21,25-36}
 ---
 //src/components/SocialIcons.astro
-import type { Props } from '@astrojs/starlight/props'
 import Default from '@astrojs/starlight/components/SocialIcons.astro'
 ---
 
