@@ -8,7 +8,7 @@ updateDate: 2025-02-18
 [Open Graph Data](https://ogp.me/) can be used by social media platforms like Facebook, X (formerly called Twitter), or Discord to add an image to your [Starlight](https://starlight.astro.build) page links when sharing them.
 The image URL can be defined using the `og:image` and `twitter:image` meta tags.
 
-Starlight does not yet provide a built-in mechanism to automatically generate these images using all the available [page data](https://starlight.astro.build/reference/overrides/#props) and add the corresponding meta tags to your pages.
+Starlight does not provide a built-in mechanism to automatically generate these images using all the available [route data](https://starlight.astro.build/guides/route-data/) and add the corresponding meta tags to your pages.
 This guide will show one possible way to do so using [`astro-og-canvas`](https://github.com/delucis/astro-og-canvas) which uses an Astro [endpoint](https://docs.astro.build/en/core-concepts/endpoints/) to generate the images.
 The generated images can be customized using a large set of options including size, colors, fonts, logos, and more.
 
