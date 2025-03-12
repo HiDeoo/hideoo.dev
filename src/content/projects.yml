@@ -2,6 +2,7 @@
   repos:
     - generator-starlight-plugin
     - sjt
+    - starlight-auto-sidebar
     - starlight-better-auth-example
     - starlight-blog
     - starlight-head-generator
