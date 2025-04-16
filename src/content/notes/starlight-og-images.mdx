@@ -2,7 +2,7 @@
 title: Add Open Graph images to Starlight
 description: Learn how to add Open Graph images to your Starlight documentation website using astro-og-canvas.
 publishDate: 2023-12-18
-updateDate: 2025-02-18
+updateDate: 2025-04-16
 ---
 
 [Open Graph Data](https://ogp.me/) can be used by social media platforms like Facebook, X (formerly called Twitter), or Discord to add an image to your [Starlight](https://starlight.astro.build) page links when sharing them.
@@ -82,41 +82,49 @@ export const { getStaticPaths, GET } = OGImageRoute({
 Visiting the endpoint will now generate an image for the page matching the `slug` parameter.
 For example, visiting `/og/getting-started.png` would generate an image for the `getting-started` page.
 
-## Override the `<Head/>` component
+## Customize `head` route data
 
-The next step is to [override](https://starlight.astro.build/guides/overriding-components/) the [`<Head/>`](https://starlight.astro.build/reference/overrides/#head-1) component used by Starlight to add the `og:image` and `twitter:image` meta tags containing the URL of the generated image for all documentation pages.
+The next step is to [customize](https://starlight.astro.build/guides/route-data/#how-to-customize-route-data) the [`head`](https://starlight.astro.build/reference/route-data/#head) route data which is an array of all tags to include in the `<head>` of a page used by Starlight when rendering a page to add the `og:image` and `twitter:image` meta tags containing the URL of the generated image.
 
-Create a custom Astro component to replace the existing `<Head/>` built-in component:
+Create a route data middleware which is a function that is called every time Starlight renders a page to modify values in the route data object.
 
-```astro
----
-// src/components/Head.astro
-import Default from '@astrojs/starlight/components/Head.astro'
+```ts
+// src/routeData.ts
+import { defineRouteMiddleware } from '@astrojs/starlight/route-data'
 
-// Get the URL of the generated image for the current page using its ID and
-// append the `.png` file extension.
-const ogImageUrl = new URL(
-  `/og/${Astro.locals.starlightRoute.id || 'index'}.png`,
-  Astro.site,
-)
----
+export const onRequest = defineRouteMiddleware((context) => {
+  // Get the URL of the generated image for the current page using its ID and
+  // append the `.png` file extension.
+  const ogImageUrl = new URL(
+    `/og/${context.locals.starlightRoute.id || 'index'}.png`,
+    context.site,
+  )
 
-<!-- Render the default <Head/> component. -->
-<Default><slot /></Default>
+  // Get the array of all tags to include in the `<head>` of the current page.
+  const { head } = context.locals.starlightRoute
 
-<!-- Render the <meta/> tags for the Open Graph images. -->
-<meta property="og:image" content={ogImageUrl} />
-<meta name="twitter:image" content={ogImageUrl} />
+  // Add the `<meta/>` tags for the Open Graph images.
+  head.push({
+    tag: 'meta',
+    attrs: { property: 'og:image', content: ogImageUrl.href },
+    content: '',
+  })
+  head.push({
+    tag: 'meta',
+    attrs: { name: 'twitter:image', content: ogImageUrl.href },
+    content: '',
+  })
+})
 ```
 
 ## Configure Starlight
 
-The last step is to configure Starlight to use the custom `<Head/>` component instead of the built-in one and define the `site` Astro option.
+The last step is to configure Starlight to use the route data middleware and to define the `site` Astro option.
 The `site` option contains the deploy URL of your documentation website as Open Graph images require a valid URL having the `http` or `https` scheme.
 
 The following example will configure Starlight in the `astro.config.mjs` file:
 
-```js ins={7-8,10-13}
+```js ins={7-8,10-11}
 // astro.config.mjs
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
@@ -126,10 +134,8 @@ export default defineConfig({
     // Define the deploy URL of the documentation website.
     site: 'https://example.com',
     starlight({
-      components: {
-        // Relative path to the custom component.
-        Head: './src/components/Head.astro',
-      },
+      // Use the route data middleware to add the Open Graph images.
+      routeMiddleware: './src/routeData.ts',
       title: 'My Docs',
     }),
   ],
