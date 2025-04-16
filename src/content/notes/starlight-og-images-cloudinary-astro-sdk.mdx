@@ -2,7 +2,7 @@
 title: Generate Open Graph images for Starlight using the Cloudinary Astro SDK
 description: Learn how to generate Open Graph images for your Starlight documentation website using the Cloudinary Astro SDK.
 publishDate: 2024-10-03
-updateDate: 2025-02-18
+updateDate: 2025-04-16
 ---
 
 When sharing a link to your [Starlight](https://starlight.astro.build) documentation website on social media platforms like Facebook, X (formerly called Twitter), or Discord, [Open Graph Data](https://ogp.me/) can be used to associate an image to the link using the `og:image` and `twitter:image` meta tags.
@@ -40,81 +40,86 @@ In the following example, a [`.env` file](https://docs.astro.build/en/guides/env
 PUBLIC_CLOUDINARY_CLOUD_NAME=abcdefghi
 ```
 
-## Override the `<Head/>` component
+## Customize `head` route data
 
-To add the `og:image` and `twitter:image` meta tags containing the URL of the generated Open Graph image to each documentation page, an [override](https://starlight.astro.build/guides/overriding-components/) for the [`<Head/>`](https://starlight.astro.build/reference/overrides/#head-1) component can be used.
+To add the `og:image` and `twitter:image` meta tags containing the URL of the generated Open Graph image to each documentation page, a [route data middleware](https://starlight.astro.build/guides/route-data/#how-to-customize-route-data) can be used.
+Such middleware can customize the [`head`](https://starlight.astro.build/reference/route-data/#head) route data which is an array of all tags to include in the `<head>` of a page used by Starlight when rendering a page.
 
-The override will use the Cloudinary Astro SDK [`getCldOgImageUrl`](https://astro.cloudinary.dev/getcldogimageurl/basic-usage) function to generate the image URL for the current page at the appropriate size and with the desired transformations.
+The route data middleware will use the Cloudinary Astro SDK [`getCldOgImageUrl`](https://astro.cloudinary.dev/getcldogimageurl/basic-usage) function to generate the image URL for the current page at the appropriate size and with the desired transformations.
 
-The following custom `<Head/>` component will replace the built-in one and generate the URL of the Open Graph image for the current page.
-The image referenced by its Cloudinary public ID will be transformed using a blur effect and text overlays for the title and description of the page.
+The following middleware generate the URL of the Open Graph image for the current page based on the Cloudinary public ID of the image and transform it using a blur effect and text overlays for the title and description of the page.
 
-```astro
----
-// src/components/Head.astro
-import Default from '@astrojs/starlight/components/Head.astro'
+```ts
+// src/routeData.ts
+import { defineRouteMiddleware } from '@astrojs/starlight/route-data'
 import { getCldOgImageUrl } from 'astro-cloudinary/helpers'
 
-// Grab the current page entry and site title from the page data.
-const { entry, siteTitle } = Astro.locals.starlightRoute
+export const onRequest = defineRouteMiddleware((context) => {
+  // Grab the current page entry and site title from the page data.
+  const { entry, siteTitle } = context.locals.starlightRoute
 
-// Get the URL of the generated image for the current page.
-const ogImageUrl = getCldOgImageUrl({
-  // The public ID of the image in Cloudinary.
-  src: 'og-background',
-  // A blur transformation to apply to the image.
-  blur: '1000',
-  // Text overlays to add to the image.
-  overlays: [
-    {
-      text: {
-        // Add the title of the current page as text.
-        text: entry.data.title,
-        // Style the title text.
-        color: '#020617',
-        fontFamily: 'Lato',
-        fontSize: 80,
-        fontWeight: 'bold',
+  // Get the URL of the generated image for the current page.
+  const ogImageUrl = getCldOgImageUrl({
+    // The public ID of the image in Cloudinary.
+    src: 'og-background',
+    // A blur transformation to apply to the image.
+    blur: '1000',
+    // Text overlays to add to the image.
+    overlays: [
+      {
+        text: {
+          // Add the title of the current page as text.
+          text: entry.data.title,
+          // Style the title text.
+          color: '#020617',
+          fontFamily: 'Lato',
+          fontSize: 80,
+          fontWeight: 'bold',
+        },
+        // Position the title with some padding.
+        crop: 'fit',
+        position: { y: -50 },
+        width: 1000,
       },
-      // Position the title with some padding.
-      crop: 'fit',
-      position: { y: -50 },
-      width: 1000,
-    },
-    {
-      text: {
-        // Add the description of the current page as text.
-        text: entry.data.description || siteTitle,
-        // Style the description.
-        color: '#020617',
-        fontFamily: 'Lato',
-        fontSize: 55,
-        fontWeight: 'bold',
+      {
+        text: {
+          // Add the description of the current page as text.
+          text: entry.data.description || siteTitle,
+          // Style the description.
+          color: '#020617',
+          fontFamily: 'Lato',
+          fontSize: 55,
+          fontWeight: 'bold',
+        },
+        // Position the description below the title.
+        position: { y: 50 },
+        crop: 'fit',
+        width: 1000,
       },
-      // Position the description below the title.
-      position: { y: 50 },
-      crop: 'fit',
-      width: 1000,
-    },
-  ],
+    ],
+  })
+
+  // Add the `<meta/>` tags for the Open Graph images.
+  head.push({
+    tag: 'meta',
+    attrs: { property: 'og:image', content: ogImageUrl.href },
+    content: '',
+  })
+  head.push({
+    tag: 'meta',
+    attrs: { name: 'twitter:image', content: ogImageUrl.href },
+    content: '',
+  })
 })
----
-
-<!-- Render the default <Head/> component. -->
-<Default><slot /></Default>
-
-<!-- Render the <meta/> tags for the Open Graph images. -->
-<meta property="og:image" content={ogImageUrl} />
-<meta name="twitter:image" content={ogImageUrl} />
 ```
 
 To learn more about all the available options and transformations, check out the [`getCldOgImageUrl` configuration reference](https://astro.cloudinary.dev/getcldogimageurl/configuration).
 
 ## Configure Starlight
 
-To use the custom `<Head/>` component, configure the override in the `astro.config.mjs` file.
+To use the route data middleware, configure it in the `astro.config.mjs` file.
 
-```js ins={8-11}
+```js ins={8-9}
 // astro.config.mjs
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
@@ -122,10 +127,8 @@ import starlight from '@astrojs/starlight'
 export default defineConfig({
   integrations: [
     starlight({
-      components: {
-        // Relative path to the custom component.
-        Head: './src/components/Head.astro',
-      },
+      // Use the route data middleware to add the Open Graph images.
+      routeMiddleware: './src/routeData.ts',
       title: 'My Docs',
     }),
   ],
