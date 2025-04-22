@@ -2,7 +2,15 @@
 title: Add links to Starlight headings
 description: Learn how to install a rehype plugin to add links to Starlight headings to make it easier to share a link to a specific section of your documentation.
 publishDate: 2023-11-26
+updateDate: 2025-04-22
 ---
+
+import Pkg from '@components/Pkg.astro'
+
+:::note[Heads up]
+[Starlight v0.34](https://astro.build/blog/starlight-034/#heading-anchor-links) added built-in support for automatically rendering clickable anchor links next to headings.
+This note describes how to add a similar feature that should only be needed if you are using an older version of Starlight or want to customize such links.
+:::
 
 Using a [rehype](https://github.com/rehypejs/rehype) plugin, you can add links to [Starlight](https://starlight.astro.build) headings to make it easier to share a link to a specific section of your documentation.
 
@@ -13,8 +21,6 @@ You will need to have an existing Starlight website.
 ## Add the plugin
 
 First, install the `rehype-autolink-headings` plugin and also the `@astrojs/markdown-remark` package:
-
-import Pkg from '@components/Pkg.astro'
 
 <Pkg pkg="rehype-autolink-headings @astrojs/markdown-remark" />
 
@@ -27,9 +33,11 @@ To learn more about Astro and heading IDs, check out the [Astro documentation](h
 
 ## Configure the plugin
 
-Import the plugins in your `astro.config.mjs` file to add them to the [`markdown.rehypePlugins`](https://docs.astro.build/en/reference/configuration-reference/#markdownrehypeplugins) array:
+Import the plugins in your `astro.config.mjs` file to add them to the [`markdown.rehypePlugins`](https://docs.astro.build/en/reference/configuration-reference/#markdownrehypeplugins) array.
 
-```js ins={4-5,9-11}
+If you are Starlight v0.34 or later, disable Starlight’s built-in heading anchor links by setting the [`markdown.headingLinks`](https://starlight.astro.build/reference/configuration/#headinglinks) option to `false`.
+
+```js ins={4-5,11-14,17-19}
 // astro.config.mjs
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
@@ -37,7 +45,15 @@ import { rehypeHeadingIds } from '@astrojs/markdown-remark'
 import rehypeAutolinkHeadings from 'rehype-autolink-headings'
 
 export default defineConfig({
-  integrations: [starlight({ title: 'My Docs' })],
+  integrations: [
+    starlight({
+      title: 'My Docs',
+      markdown: {
+        // Disable Starlight’s built-in heading anchor links.
+        headingLinks: false,
+      },
+    }),
+  ],
   markdown: {
     rehypePlugins: [rehypeHeadingIds, rehypeAutolinkHeadings],
   },
@@ -69,11 +85,15 @@ import Example from './examples/_starlight-heading-links.astro'
 
 Start by editing the plugin configuration in your `astro.config.mjs` file to update its various options and also define a custom CSS file that will contain the styling for the links:
 
-```js {5-8,14-20}
+```js {9-12,18-24}
 export default defineConfig({
   integrations: [
     starlight({
       title: 'My Docs',
+      markdown: {
+        // Disable Starlight’s built-in heading anchor links.
+        headingLinks: false,
+      },
       customCss: [
         // Load this additional CSS file using its relative path.
         './src/styles/headings.css',
