@@ -1,14 +1,14 @@
 ---
-title: Add custom social links to Starlight
-description: Learn how to add custom social links to a Starlight website header.
+title: Add social links with custom icons to Starlight
+description: Learn how to add social links with custom icons to a Starlight website header.
 publishDate: 2023-11-27
-updateDate: 2025-02-18
+updateDate: 2025-04-22
 ---
 
-[Starlight](https://starlight.astro.build) has built-in support for displaying many social links to the website header using the Starlight [`social`](https://starlight.astro.build/reference/configuration/#social) configuration option.
-But sometimes, you may want to add a custom social link that is not supported by Starlight or you cannot wait for it to be added.
+[Starlight](https://starlight.astro.build) has built-in support for displaying social links with an icon in the website header using the Starlight [`social`](https://starlight.astro.build/reference/configuration/#social) configuration option.
+But sometimes, you may want to add a social link with a custom icon that is not part of [Starlight's built-in icons](https://starlight.astro.build/reference/icons/#all-icons).
 
-Using [component overrides](https://starlight.astro.build/guides/overriding-components/), you can add custom social links to Starlight like the last one in the following example:
+Using [component overrides](https://starlight.astro.build/guides/overriding-components/), you can add social links with custom icons to Starlight like the last one in the following example:
 
 import Example from './examples/_starlight-custom-social-links.astro'
 
@@ -33,7 +33,7 @@ import Default from '@astrojs/starlight/components/SocialIcons.astro'
 ```
 
 :::note
-Importing and rendering the built-in `<SocialIcons/>` component allows you to display the default social links supported by Starlight in your custom component.
+Importing and rendering the built-in `<SocialIcons/>` component allows you to display the social links configured using Starlight's built-in option in your custom component.
 :::
 
 Configure Starlight to use this new component instead of the built-in one by specifying its path in the [`components`](https://starlight.astro.build/reference/configuration/#components) configuration option in your `astro.config.mjs` file:
@@ -56,9 +56,9 @@ export default defineConfig({
 })
 ```
 
-## Add a custom social link
+## Add a social link with a custom icon
 
-Update the custom component previously created in `src/components/SocialIcons.astro` to add a custom social link and render its SVG icon before or after the existing social links:
+Update the custom component previously created in `src/components/SocialIcons.astro` to add a new social link and render its custom SVG icon before or after the existing social links:
 
 ```astro {6-21,25-36}
 ---
@@ -66,9 +66,9 @@ Update the custom component previously created in `src/components/SocialIcons.as
 import Default from '@astrojs/starlight/components/SocialIcons.astro'
 ---
 
-<!-- Add custom social link with its SVG icon and a label. -->
+<!-- Add social link with its custom SVG icon and a label. -->
 <a href="https://example.com" rel="me" class="sl-flex">
-  <span class="sr-only">Custom Social</span>
+  <span class="sr-only">Social</span>
   <svg
     aria-hidden="true"
     fill="currentColor"

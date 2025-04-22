@@ -2,7 +2,7 @@
 title: Generate Open Graph images for Starlight using the Cloudinary Astro SDK
 description: Learn how to generate Open Graph images for your Starlight documentation website using the Cloudinary Astro SDK.
 publishDate: 2024-10-03
-updateDate: 2025-04-16
+updateDate: 2025-04-22
 ---
 
 When sharing a link to your [Starlight](https://starlight.astro.build) documentation website on social media platforms like Facebook, X (formerly called Twitter), or Discord, [Open Graph Data](https://ogp.me/) can be used to associate an image to the link using the `og:image` and `twitter:image` meta tags.
@@ -103,12 +103,10 @@ export const onRequest = defineRouteMiddleware((context) => {
   head.push({
     tag: 'meta',
     attrs: { property: 'og:image', content: ogImageUrl.href },
-    content: '',
   })
   head.push({
     tag: 'meta',
     attrs: { name: 'twitter:image', content: ogImageUrl.href },
-    content: '',
   })
 })
 ```
