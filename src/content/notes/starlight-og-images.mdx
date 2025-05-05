@@ -2,7 +2,7 @@
 title: Add Open Graph images to Starlight
 description: Learn how to add Open Graph images to your Starlight documentation website using astro-og-canvas.
 publishDate: 2023-12-18
-updateDate: 2025-04-22
+updateDate: 2025-05-04
 ---
 
 [Open Graph Data](https://ogp.me/) can be used by social media platforms like Facebook, X (formerly called Twitter), or Discord to add an image to your [Starlight](https://starlight.astro.build) page links when sharing them.
@@ -122,15 +122,15 @@ The `site` option contains the deploy URL of your documentation website as Open 
 
 The following example will configure Starlight in the `astro.config.mjs` file:
 
-```js ins={7-8,10-11}
+```js ins={6-7,10-11}
 // astro.config.mjs
 import { defineConfig } from 'astro/config'
 import starlight from '@astrojs/starlight'
 
 export default defineConfig({
+  // Define the deploy URL of the documentation website.
+  site: 'https://example.com',
   integrations: [
-    // Define the deploy URL of the documentation website.
-    site: 'https://example.com',
     starlight({
       // Use the route data middleware to add the Open Graph images.
       routeMiddleware: './src/routeData.ts',
