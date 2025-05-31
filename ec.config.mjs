@@ -28,4 +28,5 @@ export default defineEcConfig({
   themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
   themes: ['vitesse-dark', 'vitesse-light'],
   useDarkModeMediaQuery: false,
+  useStyleReset: false,
 })
