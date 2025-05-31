@@ -1,11 +1,13 @@
 ---
 import NoteHeader from '@components/note/NoteHeader.astro'
-import NoteMeta from '@components/note/NoteMeta.astro'
+import Notes from '@components/note/Notes.astro'
 import NotesSchema from '@components/note/NotesSchema.astro'
 import Page from '@layouts/Page.astro'
 import { getNotes } from '@libs/note'
+import { getNotebooks } from '@libs/notebook'
 
 const notes = await getNotes()
+const notebooks = await getNotebooks()
 ---
 
 <Page metaDescription="HiDeoo's Personal Notes" metaTitle="Notes" title="All Notes" titleVisibility="visible">
@@ -13,47 +15,13 @@ const notes = await getNotes()
   <NoteHeader slot="content-header" tag="header">
     <a href="/notes/rss.xml">RSS Feed</a>
   </NoteHeader>
-  <ul>
-    {
-      notes.map((note) => (
-        <li>
-          <article>
-            <p>
-              <a href={note.href}>{note.data.title}</a>
-            </p>
-            <NoteMeta {note} />
-          </article>
-        </li>
-      ))
-    }
-  </ul>
+  <Notes {notes} />
+  <h2>Notebooks</h2>
+  <Notes notes={notebooks} />
 </Page>
 
 <style>
-  ul {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-3);
-
-    @media (--md-n-above) {
-      gap: var(--size-1);
-    }
-  }
-
-  article {
-    display: flex;
-    flex-direction: column;
-    gap: var(--size-1);
-
-    @media (--md-n-above) {
-      align-items: center;
-      flex-direction: row;
-      gap: var(--size-2);
-    }
-  }
-
-  p {
-    font-size: var(--text-lg);
-    line-height: 1.6;
+  h2 {
+    margin-top: var(--size-8);
   }
 </style>

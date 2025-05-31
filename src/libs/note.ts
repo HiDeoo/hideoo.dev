@@ -3,8 +3,7 @@ import readingTime from 'reading-time'
 import type { Blog, BlogPosting, Person } from 'schema-dts'
 import { serialize } from 'tinyduration'
 
-const dateFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'medium' })
-const datetimeFormat = new Intl.DateTimeFormat('en-US', { dateStyle: 'short' })
+import { formatDateMeta, type Meta } from '@libs/meta'
 
 const schemaAuthor: Person = {
   '@type': 'Person',
@@ -27,18 +26,22 @@ export async function getNotes(count?: number): Promise<Note[]> {
       readingTimeMinutes = 1
     }
 
+    const pDate = formatDateMeta(aNote.data.publishDate)
+
     const note: Note = {
       ...aNote,
       href: getNoteHref(aNote),
-      publishDate: dateFormat.format(aNote.data.publishDate),
-      publishDatetime: datetimeFormat.format(aNote.data.publishDate),
+      publishDate: pDate.date,
+      publishDatetime: pDate.datetime,
       readingDatetime: serialize({ minutes: readingTimeMinutes }),
       readingTime: `${readingTimeMinutes}min`,
     }
 
     if (aNote.data.updateDate) {
-      note.updateDate = dateFormat.format(aNote.data.updateDate)
-      note.updateDatetime = datetimeFormat.format(aNote.data.updateDate)
+      const uDate = formatDateMeta(aNote.data.updateDate)
+
+      note.updateDate = uDate.date
+      note.updateDatetime = uDate.datetime
     }
 
     const prevNote = sortedNotes[index + 1]
@@ -105,17 +108,12 @@ function getNoteHref(note: CollectionEntry<'notes'>) {
   return `/notes/${note.id}`
 }
 
-export type Note = CollectionEntry<'notes'> & {
-  href: string
-  next?: PrevNextNote
-  prev?: PrevNextNote
-  publishDate: string
-  publishDatetime: string
-  readingDatetime: string
-  readingTime: string
-  updateDate?: string
-  updateDatetime?: string
-}
+export type Note = CollectionEntry<'notes'> &
+  Meta & {
+    href: string
+    next?: PrevNextNote
+    prev?: PrevNextNote
+  }
 
 interface PrevNextNote {
   href: string

@@ -2,6 +2,7 @@
 import { render } from 'astro:content'
 
 import NoteMeta from '@components/note/NoteMeta.astro'
+import NoteNotebook from '@components/note/NoteNotebook.astro'
 import NotePagination from '@components/note/NotePagination.astro'
 import NoteSchema from '@components/note/NoteSchema.astro'
 import Prose from '@components/ui/Prose.astro'
@@ -28,8 +29,9 @@ const { Content } = await render(note)
   titleVisibility="visible"
 >
   <NoteSchema {note} slot="head" />
-  <NoteMeta {note} showUpdates slot="content-header" tag="header" />
+  <NoteMeta meta={note} showUpdates slot="content-header" tag="header" />
   <Prose>
+    {note.data.notebook && <NoteNotebook {note} />}
     <Content />
   </Prose>
   <NotePagination {note} />

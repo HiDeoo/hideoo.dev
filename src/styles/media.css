@@ -1,5 +1,6 @@
 @custom-media --xxs-n-above (width >= 360px);
 @custom-media --sm-n-above (width >= 640px);
 @custom-media --md-n-above (width >= 768px);
+@custom-media --lg-n-above (width >= 850px);
 
 @custom-media --motionSafe (prefers-reduced-motion: no-preference);

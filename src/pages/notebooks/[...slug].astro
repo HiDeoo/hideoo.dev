@@ -1,0 +1,34 @@
+---
+import { render } from 'astro:content'
+
+import NoteMeta from '@components/note/NoteMeta.astro'
+import NotesSchema from '@components/note/NotesSchema.astro'
+import Prose from '@components/ui/Prose.astro'
+import Page from '@layouts/Page.astro'
+import { getNotebooks } from '@libs/notebook'
+
+export async function getStaticPaths() {
+  const notebooks = await getNotebooks()
+
+  return notebooks.map((notebook) => ({
+    params: { slug: notebook.id },
+    props: { notebook },
+  }))
+}
+
+const { notebook } = Astro.props
+const { Content } = await render(notebook)
+---
+
+<Page
+  metaDescription={notebook.data.description}
+  metaTitle={notebook.data.title}
+  title={notebook.data.title}
+  titleVisibility="visible"
+>
+  <NotesSchema notes={notebook.notes} slot="head" />
+  <NoteMeta meta={notebook} showUpdates slot="content-header" tag="header" />
+  <Prose>
+    <Content />
+  </Prose>
+</Page>

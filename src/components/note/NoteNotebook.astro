@@ -1,0 +1,18 @@
+---
+import type { Note } from '@libs/note'
+import { getNotebookInfos } from '@libs/notebook'
+
+interface Props {
+  note: Note
+}
+
+const { note } = Astro.props
+const notebook = await getNotebookInfos(note)
+---
+
+<aside class="admonition">
+  <p>
+    <strong>Spotlight</strong> — This note is part of the <a href={notebook.href}>“{notebook.title}”</a> notebook. Explore
+    the complete series for related content.
+  </p>
+</aside>

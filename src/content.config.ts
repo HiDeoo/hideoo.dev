@@ -1,5 +1,5 @@
 import { file, glob } from 'astro/loaders'
-import { defineCollection, z } from 'astro:content'
+import { defineCollection, reference, z } from 'astro:content'
 
 import { gitHubRecentContributionsLoader, gitHubRecentReposLoader, gitHubReposLoader } from '@libs/loaders'
 
@@ -10,6 +10,21 @@ const notes = defineCollection({
     publishDate: z.date(),
     title: z.string(),
     updateDate: z.date().optional(),
+    notebook: z
+      .object({
+        name: reference('notebooks'),
+        section: z.string().optional(),
+        order: z.number().optional(),
+      })
+      .optional(),
+  }),
+})
+
+const notebooks = defineCollection({
+  loader: glob({ pattern: '**/[^_]*.mdx', base: './src/content/notebooks' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
   }),
 })
 
@@ -33,4 +48,4 @@ const repos = defineCollection({
   loader: gitHubReposLoader(),
 })
 
-export const collections = { notes, projects, recentContributions, recentRepos, repos }
+export const collections = { notes, notebooks, projects, recentContributions, recentRepos, repos }

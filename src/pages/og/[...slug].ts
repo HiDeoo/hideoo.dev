@@ -1,9 +1,13 @@
 import { OGImageRoute } from 'astro-og-canvas'
 
 import { getNotes } from '@libs/note'
+import { getNotebooks } from '@libs/notebook'
 
 const notes = await getNotes()
-const pages: Record<string, OgPage> = Object.fromEntries(notes.map(({ data, href }) => [href.replace(/^\//, ''), data]))
+const notebooks = await getNotebooks()
+const pages: Record<string, OgPage> = Object.fromEntries(
+  [...notes, ...notebooks].map(({ data, href }) => [href.replace(/^\//, ''), data]),
+)
 
 pages['index'] = { title: "HiDeoo's projects and notes" }
 pages['notes'] = { title: "HiDeoo's Personal Notes" }
