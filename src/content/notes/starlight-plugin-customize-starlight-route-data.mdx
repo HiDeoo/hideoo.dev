@@ -1,0 +1,84 @@
+---
+title: Customize Starlight's route data in a Starlight plugin
+description: // TODO(HiDeoo)
+publishDate: 2025-06-02 02:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 7
+  section: examples
+---
+
+Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of customizing Starlight's [route data](https://starlight.astro.build/guides/route-data/) in a Starlight plugin, which is an object containing all the information used to render a page.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Customize route data
+
+To [customize](https://starlight.astro.build/guides/route-data/#how-to-customize-route-data) route data, route data middlewares can be used to modify the route data object before it is used to render a page.
+A [`routeMiddleware`](https://starlight.astro.build/reference/configuration/#routemiddleware) configuration option is available to add route data middlewares to a Starlight project by referencing their paths.
+Starlight plugins can [read and update](/notes/starlight-plugin-read-and-update-starlight-configuration) this configuration option to add their own route data middlewares to customize Starlight's route data.
+
+This option supports local files relative to the root of the project, e.g. `'./src/routeData.ts'` which is an approach that would not work in a Starlight plugin, as the route data middlewares would be part of the plugin package and not the Starlight project.
+To support this use case, Starlight plugins can [export](https://nodejs.org/api/packages.html#package-entry-points) a route data middleware from the plugin package, and reference the associated identifier in the `routeMiddleware` option.
+
+### Export a route data middleware
+
+To export a route data middleware file from a Starlight plugin, you can add a new entry in the [`exports`](https://nodejs.org/api/packages.html#exports) field of the plugin's `package.json` file.
+
+The following example adds a new entry point name `./middleware.ts` that points to a `middleware.ts` file in the plugin's root directory:
+
+```diff lang=json title="package.json" /"starlight-plugin-example"/
+{
+  "name": "starlight-plugin-example",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+-    ".": "./plugin.ts"
++    ".": "./plugin.ts",
++    "./middleware.ts": "./middleware.ts"
+  },
+  "peerDependencies": {
+    "@astrojs/starlight": ">=0.34"
+  }
+}
+```
+
+### Add the route data middleware to the Starlight configuration
+
+To reference the previously exported route data middleware file in the Starlight configuration, the `starlight-plugin-example/middleware.ts` identifier can be used in the [`routeMiddleware`](https://starlight.astro.build/reference/configuration/#routemiddleware) option of the Starlight configuration.
+
+To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`addRouteMiddleware`](https://starlight.astro.build/reference/plugins/#addroutemiddleware) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
+
+This function takes an object with an `entrypoint` property that references the route data middleware file to add as its first argument.
+
+The following example updates the `routeMiddleware` option in the user-supplied Starlight configuration to add the `middleware.ts` route data middleware exported from the `starlight-plugin-example` package:
+
+```ts / (addRouteMiddleware) /  {10-12}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ addRouteMiddleware }) {
+        // Add plugin-specific route data middleware.
+        addRouteMiddleware({
+          entrypoint: 'starlight-plugin-example/middleware.ts',
+        })
+      },
+    },
+  }
+}
+```
+
+After creating the `middleware.ts` file in the plugin's root directory, you can add your [custom route data middleware logic](https://starlight.astro.build/guides/route-data/#how-to-customize-route-data) to it.
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />
