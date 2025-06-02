@@ -33,7 +33,7 @@ export default function starlightPluginExample(): StarlightPlugin {
     name: 'starlight-plugin-example',
     hooks: {
       'config:setup'({ config, logger }) {
-        // Read the title from the config and log it.
+        // Read the title from the Starlight config and log it.
         logger.info(`The title of the site is "${config.title}".`)
       },
     },
@@ -45,7 +45,8 @@ export default function starlightPluginExample(): StarlightPlugin {
 
 To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`updateConfig`](https://starlight.astro.build/reference/plugins/#updateconfig) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
 
-This function takes a partial Starlight configuration object containing the root-level properties you want to update as its first argument. Any provided values will override the existing ones in the user-supplied Starlight configuration.
+This function takes a partial Starlight configuration object containing the root-level properties you want to update as its first argument.
+Any provided values will override the existing ones in the user-supplied Starlight configuration.
 
 The following example updates the [description](https://starlight.astro.build/reference/configuration/#description) of the website in the user-supplied Starlight configuration:
 
@@ -58,7 +59,7 @@ export default function starlightPluginExample(): StarlightPlugin {
     name: 'starlight-plugin-example',
     hooks: {
       'config:setup'({ updateConfig }) {
-        // Update the description in the config.
+        // Update the description in the Starlight config.
         updateConfig({ description: 'The updated description of the website.' })
       },
     },
@@ -72,7 +73,7 @@ To extend a root-level configuration value without overriding it, you can spread
 
 The following example extends the [sidebar](https://starlight.astro.build/reference/configuration/#sidebar) configuration by adding a new [link](https://starlight.astro.build/guides/sidebar/#other-links) at the end of the sidebar entries:
 
-```ts {10,13-18}
+```ts {11,14-19}
 // plugin.ts
 import type { StarlightPlugin } from '@astrojs/starlight/types'
 
@@ -81,7 +82,8 @@ export default function starlightPluginExample(): StarlightPlugin {
     name: 'starlight-plugin-example',
     hooks: {
       'config:setup'({ config, updateConfig }) {
-        // Get the user-supplied sidebar from the config or a fallback if not provided.
+        // Get the user-supplied sidebar from the Starlight config or an empty array
+        // if not provided.
         const currentSidebar = config.sidebar ?? []
 
         // Append a link to the existing sidebar entries.

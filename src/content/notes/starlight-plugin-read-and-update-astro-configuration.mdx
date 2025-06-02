@@ -1,0 +1,86 @@
+---
+title: Read and update the Astro configuration in a Starlight plugin
+description: // TODO(HiDeoo)
+publishDate: 2025-06-01 18:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 2
+  section: examples
+---
+
+Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of reading and updating the [Astro configuration](https://docs.astro.build/en/reference/configuration-reference/) in a Starlight plugin.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Read the Astro configuration
+
+The [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function called when Starlight is initialized, is called with many options, including the [Astro configuration](https://docs.astro.build/en/reference/configuration-reference/).
+
+The [`astroConfig`](https://starlight.astro.build/reference/plugins/#astroconfig) option is a read-only copy of the user-supplied Astro configuration.
+
+The following example reads the [deployment URL](https://docs.astro.build/en/reference/configuration-reference/#site) of the website from the user-supplied Astro configuration and logs a message with it using the provided [`logger`](https://starlight.astro.build/reference/plugins/#logger) function:
+
+```ts /(astroConfig),/ {10}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ astroConfig, logger }) {
+        // Read the deployment URL from the Astro config and log it.
+        logger.info(`Deployment URL: ${astroConfig.site}`)
+      },
+    },
+  }
+}
+```
+
+## Update the Astro configuration
+
+To update the user-supplied Astro configuration in a Starlight plugin, you can use the [`addIntegration`](https://starlight.astro.build/reference/plugins/#addintegration) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/).
+
+Using a similar API to Starlight plugins, Astro integrations can update the user-supplied Astro configuration using an [`updateConfig`](https://docs.astro.build/en/reference/integrations-reference/#updateconfig-option) function provided in the [`astro:config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Astro integration configuration setup function.
+
+This function takes a partial Astro configuration object containing the properties you want to update as its first argument.
+Any provided values will be merged with the user-supplied Astro configuration and any other integration Astro configuration updates.
+
+The following example disables the [SmartyPants formatter](https://docs.astro.build/en/reference/configuration-reference/#markdownsmartypants) in the user-supplied Astro configuration:
+
+```ts / (addIntegration) / / (updateConfig) / {10-18}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ addIntegration }) {
+        // Add an Astro integration to update the Astro config.
+        addIntegration({
+          name: 'starlight-plugin-example-integration',
+          hooks: {
+            'astro:config:setup'({ updateConfig }) {
+              // Disable the SmartyPants formatter in the Astro config.
+              updateConfig({ markdown: { smartypants: false } })
+            },
+          },
+        })
+      },
+    },
+  }
+}
+```
+
+:::note[Tip]
+Being able to add an Astro integration in a Starlight plugin allows you to use any [API](https://docs.astro.build/en/reference/integrations-reference/) accessible in an Astro integration.
+:::
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />
