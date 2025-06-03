@@ -21,6 +21,7 @@
     "@astrojs/sitemap": "3.4.0",
     "@axe-core/playwright": "4.10.1",
     "@csstools/postcss-global-data": "3.0.0",
+    "@expressive-code/plugin-collapsible-sections": "^0.41.2",
     "@hideoo/eslint-config": "4.0.0",
     "@hideoo/prettier-config": "2.0.0",
     "@hideoo/tsconfig": "2.0.1",

@@ -26,6 +26,9 @@ devDependencies:
   '@csstools/postcss-global-data':
     specifier: 3.0.0
     version: 3.0.0(postcss@8.5.4)
+  '@expressive-code/plugin-collapsible-sections':
+    specifier: ^0.41.2
+    version: 0.41.2
   '@hideoo/eslint-config':
     specifier: 4.0.0
     version: 4.0.0(eslint@9.28.0)(typescript@5.8.3)
@@ -1200,6 +1203,12 @@ packages:
       postcss-nested: 6.2.0(postcss@8.5.4)
       unist-util-visit: 5.0.0
       unist-util-visit-parents: 6.0.1
+    dev: true
+
+  /@expressive-code/plugin-collapsible-sections@0.41.2:
+    resolution: {integrity: sha512-gyg864xlkLFYLDlOoO5wyZVmuFOc2vi6b/tJjEfXDj/xc8//ttuRLZ0EjuLIkch1hEhEQc9XF6agmiNYUCzeww==}
+    dependencies:
+      '@expressive-code/core': 0.41.2
     dev: true
 
   /@expressive-code/plugin-frames@0.41.2:
