@@ -1,0 +1,193 @@
+---
+title: Use custom translation strings in a Starlight plugin
+description: // TODO(HiDeoo)
+publishDate: 2025-06-02 06:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 11
+  section: examples
+---
+
+Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of adding and using custom [translation strings](https://starlight.astro.build/guides/i18n/#using-ui-translations) in a Starlight plugin, allowing you to provide localized text for your plugin's features.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Add custom translation strings
+
+Starlight provides [built-in support](https://starlight.astro.build/guides/i18n/) for multilingual sites, including routing, fallback content, and full right-to-left (RTL) language support.
+Translation strings, used to provide localized text for various UI elements, can be customized and extended in Starlight plugins using an [i18next-based API](https://www.i18next.com).
+
+### Create translation strings
+
+The first step in adding custom translation strings in a Starlight plugin is to create a TypeScript file that will export all the available translation strings for the plugin.
+
+The following example creates a `translations.ts` file in the plugin's root directory that exports an object containing the translation strings for the `examplePlugin.action` translation key in the English (`en`) and French (`fr`) languages:
+
+```ts
+// translations.ts
+export const Translations = {
+  en: {
+    'examplePlugin.action': 'Do the thing',
+  },
+  fr: {
+    'examplePlugin.action': 'Faire le truc',
+  },
+}
+```
+
+### Register translation strings
+
+To register custom translation strings in a Starlight plugin, you can use the [`injectTranslations()`](https://starlight.astro.build/reference/plugins/#injecttranslations) function provided in the [`i18n:setup`](https://starlight.astro.build/reference/plugins/#i18nsetup) Starlight plugin internationalization setup function.
+
+This function takes an object containing the translation strings as its first argument.
+
+The following example registers the previously created `Translations` object in the `i18n:setup` function of the Starlight plugin:
+
+```ts / (injectTranslations) / {3,11}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+import { Translations } from './translations'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'i18n:setup'({ injectTranslations }) {
+        // Register the custom translation strings.
+        injectTranslations(Translations)
+      },
+      'config:setup'() {
+        // Do the default tasks of the plugin.
+        // ...
+      },
+    },
+  }
+}
+```
+
+### Type translation strings
+
+The [Starlight translation strings API](https://starlight.astro.build/guides/i18n/#using-ui-translations), available as part of the [global `Astro` object](https://docs.astro.build/en/reference/api-reference/#locals) using `Astro.locals.t` in Astro components or the [endpoint context](https://docs.astro.build/en/reference/api-reference/#locals) using `context.locals.t` in [endpoints](https://docs.astro.build/en/guides/endpoints/), is entirely type-safe.
+Such types are automatically generated in a user’s project but need to be declared in the context of a Starlight plugin.
+
+A [TypeScript declaration file](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) can be used to type the `locals.t` object in the context of a Starlight plugin.
+
+The following example creates a `plugin.d.ts` file in the plugin's root directory that defines the `locals.t` object in the context of a plugin and also uses the previously created `translations.ts` file to infer the types of all the English keys available:
+
+```ts
+// plugin.d.ts
+declare namespace App {
+  type StarlightLocals = import('@astrojs/starlight').StarlightLocals
+  // Define the `locals.t` object in the context of a plugin.
+  interface Locals extends StarlightLocals {}
+}
+
+declare namespace StarlightApp {
+  // Define the additional plugin translation strings in the `I18n` interface
+  // based on all the English keys available in the `Translations` object.
+  type UIStrings = (typeof import('./translations').Translations)['en']
+  interface I18n extends UIStrings {}
+}
+```
+
+## Use custom translation strings
+
+### Use translation in an Astro context
+
+After registering the custom translation strings in the Starlight plugin, you can use them in any Astro context, such as in an Astro component or an endpoint using the [`locals.t()` function](https://starlight.astro.build/guides/i18n/#rendering-a-ui-string).
+
+The following example uses the `examplePlugin.action` translation string in an Astro component:
+
+```astro
+---
+// PluginComponent.astro
+---
+
+<p>{Astro.locals.t('examplePlugin.action')}</p>
+```
+
+### Use translation in a different context
+
+To use custom translation strings in a different context, you can use the [`useTranslations()`](https://starlight.astro.build/reference/plugins/#usetranslations) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
+A common use case is to use the custom translation strings in a [remark](https://github.com/remarkjs/remark) or [rehype](https://github.com/rehypejs/rehype) plugin.
+
+The [virtual file format](https://github.com/vfile/vfile) used by these plugins includes the [absolute path](https://github.com/vfile/vfile#filepath) of the file being processed, which can be used to determine the language of the file using the [`absolutePathToLang()`](https://starlight.astro.build/reference/plugins/#absolutepathtolang) function also provided in the `config:setup` function.
+
+:::note[Related]
+[Use a remark or rehype plugin in a Starlight plugin](/notes/starlight-plugin-use-remark-rehype-plugin).
+:::
+
+The following example adds an Astro integration that updates the user-supplied Astro configuration to include a custom remark plugin defined in the Starlight plugin itself.
+The `useTranslations()` and `absolutePathToLang()` functions are passed to the custom remark plugin, which uses them to retrieve the translation strings for the language of the file being processed.
+
+```ts / (useTranslations, absolutePathToLang)/ {48,51,54}
+// plugin.ts
+import type { StarlightPlugin, HookParameters } from '@astrojs/starlight/types'
+import type { Plugin } from 'unified'
+import type { Root } from 'mdast'
+import { Translations } from './translations'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'i18n:setup'({ injectTranslations }) {
+        // Register the custom translation strings.
+        injectTranslations(Translations)
+      },
+      'config:setup'({ addIntegration, useTranslations, absolutePathToLang }) {
+        // Add an Astro integration to update the Astro config.
+        addIntegration({
+          name: 'starlight-plugin-example-integration',
+          hooks: {
+            'astro:config:setup'({ updateConfig }) {
+              // Update the Astro config to include a custom remark plugin.
+              updateConfig({
+                markdown: {
+                  remarkPlugins: [
+                    [
+                      remarkStarlightPluginExample,
+                      // Pass the `useTranslations` and `absolutePathToLang` functions
+                      // to the plugin.
+                      { useTranslations, absolutePathToLang },
+                    ],
+                  ],
+                },
+              })
+            },
+          },
+        })
+      },
+    },
+  }
+}
+
+const remarkStarlightPluginExample: Plugin<
+  [RemarkStarlightPluginExampleOptions],
+  Root
+> = function ({ useTranslations, absolutePathToLang }) {
+  return function (tree, file) {
+    // Get the language of the file being processed.
+    const lang = absolutePathToLang(file.path)
+
+    // Generate a function that provides access to UI strings for that language.
+    const t = useTranslations(lang)
+
+    // Use the translation function `t` to get a custom translation string.
+    const text = t('examplePlugin.action')
+  }
+}
+
+interface RemarkStarlightPluginExampleOptions {
+  useTranslations: HookParameters<'config:setup'>['useTranslations']
+  absolutePathToLang: HookParameters<'config:setup'>['absolutePathToLang']
+}
+```
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />
