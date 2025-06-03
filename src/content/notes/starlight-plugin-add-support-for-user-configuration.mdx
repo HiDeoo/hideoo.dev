@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of adding support for user configuration in a Starlight plugin, allowing users to customize the plugin's behavior through their Starlight configuration.
 
@@ -36,7 +36,7 @@ export default function starlightPluginExample(
     name: 'starlight-plugin-example',
     hooks: {
       'config:setup'() {
-        // Do the default tasks of the plugin.
+        // Plugin logic goes here.
         // ...
 
         // Read the user-supplied plugin configuration, if provided.
@@ -60,6 +60,24 @@ export interface StarlightPluginExampleUserConfig {
 In the example above, the `userConfig` argument is optional, allowing users to use the plugin without providing any configuration options.
 Up to you to decide whether to make the user configuration mandatory or optional.
 :::
+
+A user can now provide a configuration option to the plugin in their Starlight configuration file to customize the plugin's behavior.
+
+```ts "{ useConfetti: true }"
+// astro.config.mjs
+import starlight from '@astrojs/starlight'
+import { defineConfig } from 'astro/config'
+import starlightPluginExample from 'starlight-plugin-name'
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [starlightPluginExample({ useConfetti: true })],
+      title: 'My Docs',
+    }),
+  ],
+})
+```
 
 ## Validate user configuration
 

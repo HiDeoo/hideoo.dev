@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of reading and updating the [Astro configuration](https://docs.astro.build/en/reference/configuration-reference/) in a Starlight plugin.
 
@@ -43,9 +43,9 @@ export default function starlightPluginExample(): StarlightPlugin {
 
 ## Update the Astro configuration
 
-To update the user-supplied Astro configuration in a Starlight plugin, you can use the [`addIntegration`](https://starlight.astro.build/reference/plugins/#addintegration) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/).
+To update the user-supplied Astro configuration in a Starlight plugin, you can use the [`addIntegration()`](https://starlight.astro.build/reference/plugins/#addintegration) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/).
 
-Using a similar API to Starlight plugins, Astro integrations can update the user-supplied Astro configuration using an [`updateConfig`](https://docs.astro.build/en/reference/integrations-reference/#updateconfig-option) function provided in the [`astro:config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Astro integration configuration setup function.
+Using a similar API to Starlight plugins, Astro integrations can update the user-supplied Astro configuration using an [`updateConfig()`](https://docs.astro.build/en/reference/integrations-reference/#updateconfig-option) function provided in the [`astro:config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Astro integration configuration setup function.
 
 This function takes a partial Astro configuration object containing the properties you want to update as its first argument.
 Any provided values will be merged with the user-supplied Astro configuration and any other integration Astro configuration updates.

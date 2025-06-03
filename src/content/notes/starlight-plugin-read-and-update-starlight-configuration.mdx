@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of reading and updating the [Starlight configuration](https://starlight.astro.build/reference/configuration/) in a Starlight plugin.
 
@@ -43,7 +43,7 @@ export default function starlightPluginExample(): StarlightPlugin {
 
 ## Update the Starlight configuration
 
-To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`updateConfig`](https://starlight.astro.build/reference/plugins/#updateconfig) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
+To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`updateConfig()`](https://starlight.astro.build/reference/plugins/#updateconfig) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
 
 This function takes a partial Starlight configuration object containing the root-level properties you want to update as its first argument.
 Any provided values will override the existing ones in the user-supplied Starlight configuration.
@@ -73,7 +73,7 @@ To extend a root-level configuration value without overriding it, you can spread
 
 The following example extends the [sidebar](https://starlight.astro.build/reference/configuration/#sidebar) configuration by adding a new [link](https://starlight.astro.build/guides/sidebar/#other-links) at the end of the sidebar entries:
 
-```ts {11,14-19}
+```ts / (updateConfig) / {11,14-19}
 // plugin.ts
 import type { StarlightPlugin } from '@astrojs/starlight/types'
 

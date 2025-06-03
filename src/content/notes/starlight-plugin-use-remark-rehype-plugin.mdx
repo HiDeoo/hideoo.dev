@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of using a [remark](https://github.com/remarkjs/remark) or [rehype](https://github.com/rehypejs/rehype) plugin in a Starlight plugin, allowing you to extend the Markdown and HTML processing capabilities of Starlight.
 
@@ -27,8 +27,8 @@ Starlight plugins can [update](/notes/starlight-plugin-read-and-update-astro-con
 [Read and update the Astro configuration in a Starlight plugin](/notes/starlight-plugin-read-and-update-astro-configuration).
 :::
 
-The following example uses the [`addIntegration`](https://starlight.astro.build/reference/plugins/#addintegration) function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/).
-The integration updates the user-supplied Astro configuration using the [`updateConfig`](https://docs.astro.build/en/reference/integrations-reference/#updateconfig-option) function to add the [`remark-emoji`](https://github.com/rhysd/remark-emoji) plugin.
+The following example uses the [`addIntegration()`](https://starlight.astro.build/reference/plugins/#addintegration) function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/).
+The integration updates the user-supplied Astro configuration using the [`updateConfig()`](https://docs.astro.build/en/reference/integrations-reference/#updateconfig-option) function to add the [`remark-emoji`](https://github.com/rhysd/remark-emoji) plugin.
 
 ```ts {3} / (addIntegration) / {11-23}
 // plugin.ts
@@ -98,7 +98,7 @@ export default function starlightPluginExample(): StarlightPlugin {
 
 const remarkStarlightPluginExample: Plugin<[], Root> = function () {
   return function (tree) {
-    // Do the default tasks of the remark plugin.
+    // Remark plugin logic goes here.
     // ...
   }
 }

@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of [overriding](https://starlight.astro.build/guides/overriding-components/) a Starlight component in a Starlight plugin, allowing you to extend or completely replace its default components.
 
@@ -46,7 +46,7 @@ The following example adds a new entry point name `./SearchOverride.astro` that 
 
 Once the overriding Astro component is exported from the Starlight plugin, it can be used by the Starlight plugin to override a Starlight component using the [`components`](https://starlight.astro.build/reference/configuration/#components) option of the Starlight configuration.
 
-To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`updateConfig`](https://starlight.astro.build/reference/plugins/#updateconfig) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
+To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`updateConfig()`](https://starlight.astro.build/reference/plugins/#updateconfig) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
 
 :::note[Related]
 [Read and update the Starlight configuration in a Starlight plugin](/notes/starlight-plugin-read-and-update-starlight-configuration).
@@ -88,7 +88,7 @@ export default function starlightPluginExample(): StarlightPlugin {
 ```
 
 :::note[Should I check for existing overrides?]
-Yes, it is a good practice to check if the user has already overridden the component you want to override. If they have, you can log a warning and provide instructions on how to resolve the conflict either by removing the conflicting override or by exposing a different component in your plugin that they can manually import and use in their custom override.
+Yes, it is a good practice to check if the user has already overridden the component you want to override. If they have, you can log a warning and provide instructions on how to resolve the conflict either by removing the conflicting override or by exposing a different component in the plugin that they can manually import and use in their custom override.
 :::
 
 import Outro from './shared/_starlight-plugins-by-example-outro.astro'

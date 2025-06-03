@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of exposing Astro components in a Starlight plugin, allowing users to use them in their Starlight projects.
 
@@ -22,16 +22,16 @@ To export an Astro component from a Starlight plugin, you can add a new entry in
 
 The following example adds a new entry point name `./PluginComponent.astro` that points to a `PluginComponent.astro` file in the plugin's root directory:
 
-```diff lang=json title="package.json"
+```diff lang=json title="package.json" /"starlight-plugin-example"/
 {
   "name": "starlight-plugin-example",
   "version": "0.0.1",
   "license": "MIT",
   "type": "module",
   "exports": {
--    ".": "./index.ts"
-+    ".": "./index.ts",
-+    "./PluginComponent.astro": "./PluginComponent.astro",
+-    ".": "./plugin.ts"
++    ".": "./plugin.ts",
++    "./PluginComponent.astro": "./PluginComponent.astro"
   },
   "peerDependencies": {
     "@astrojs/starlight": ">=0.34"

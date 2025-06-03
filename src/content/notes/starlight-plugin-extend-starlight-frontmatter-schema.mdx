@@ -8,7 +8,7 @@ notebook:
   section: examples
 ---
 
-Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
 This guide will walk you through the process of extending Starlight’s [frontmatter schema](https://starlight.astro.build/reference/frontmatter/), built on top of Astro’s [content collections](https://docs.astro.build/en/guides/content-collections/), allowing you to use custom frontmatter properties in a Starlight plugin.
 
@@ -69,7 +69,7 @@ The following example updates the `extend` option in the content collections con
 import { defineCollection } from 'astro:content'
 import { docsLoader } from '@astrojs/starlight/loaders'
 import { docsSchema } from '@astrojs/starlight/schema'
-import { examplePluginSchema } from 'starlight-plugin-name/schema'
+import { examplePluginSchema } from 'starlight-plugin-example/schema'
 
 export const collections = {
   docs: defineCollection({
