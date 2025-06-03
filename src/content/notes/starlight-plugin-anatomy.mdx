@@ -1,0 +1,70 @@
+---
+title: Anatomy of a Starlight plugin
+description: // TODO(HiDeoo)
+publishDate: 2025-06-01 15:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 1
+  section: getting-started
+---
+
+Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+
+## What is a Starlight plugin?
+
+A Starlight plugin in its simplest form is a JavaScript object with a `name` and a `hooks` property.
+Plugins are referenced in the [Starlight configuration](https://starlight.astro.build/reference/configuration/) in the [`plugins`](https://starlight.astro.build/reference/configuration/#plugins) option, which is an array of plugin objects.
+
+The [`name`](https://starlight.astro.build/reference/plugins/#name) property of a plugin is a string that uniquely identifies the plugin, while the [`hooks`](https://starlight.astro.build/reference/plugins/#hooks) property is an object that contains functions that Starlight calls to run plugin code at specific times.
+
+The following example shows a minimal Starlight plugin that logs a message when the plugin is loaded:
+
+```ts {9-17}
+// astro.config.mjs
+import starlight from '@astrojs/starlight'
+import { defineConfig } from 'astro/config'
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [
+        {
+          name: 'starlight-plugin-example',
+          hooks: {
+            'config:setup'({ logger }) {
+              // Log a message when the plugin is loaded.
+              logger.info('Starlight Plugin Example has been loaded.')
+            },
+          },
+        },
+      ],
+      title: 'My Docs',
+    }),
+  ],
+})
+```
+
+## Plugin hooks
+
+Multiple hooks are available in Starlight plugins, allowing you to define the plugin's behavior, inject custom translation strings, and more.
+Check out the [Starlight plugin reference](https://starlight.astro.build/reference/plugins/) for a complete list of available hooks.
+
+### `config:setup`
+
+The mandatory `config:setup` plugin configuration setup function is called when Starlight is initialized.
+This hook is called with many useful parameters to define the plugin's behavior, from [reading and updating the Starlight configuration](/notes/starlight-plugin-read-and-update-starlight-configuration) to [overriding Starlight's default components](/notes/starlight-plugin-override-starlight-component).
+
+### `i18n:setup`
+
+The optional `i18n:setup` plugin internationalization setup function can be used to [inject custom translation strings](/notes/starlight-plugin-use-custom-translation-strings), allowing you to provide localized text for your plugin's features.
+
+## Create a Starlight plugin
+
+As showcased in the previous sections, writing a Starlight plugin is as simple as creating a JavaScript object in your Starlight configuration.
+Even though this is a great way to get started with Starlight plugins, you will most likely want to create a dedicated package for your plugin, allowing you to share it with others and reuse it in multiple Starlight projects.
+
+Check out the [“How to create a Starlight plugin”](/notes/starlight-plugin-how-to-create) note for more information on how to create and set up a Starlight plugin package.
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />
