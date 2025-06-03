@@ -10,7 +10,12 @@ notebook:
 
 Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
-This guide will walk you through the process of creating a Starlight plugin using [`generator-starlight-plugin`](https://github.com/HiDeoo/generator-starlight-plugin), a Yeoman generator to help create Starlight plugins.
+This guide will walk you through the process of creating a Starlight plugin using [`generator-starlight-plugin`](https://github.com/HiDeoo/generator-starlight-plugin), a Yeoman generator to help create Starlight plugins and themes.
+
+:::note[Heads up]
+Are you looking to create a theme for Starlight instead?
+Check out the [“How to create a Starlight theme”](/notes/starlight-plugin-how-to-create-theme) note to get started immediately.
+:::
 
 ## Create a Starlight plugin
 
@@ -48,7 +53,7 @@ The generated project uses a monorepo structure with different pnpm workspaces:
 - `docs/`: A Starlight documentation project to document your plugin that also acts as a playground.
 - `packages/plugin-name/`: A package containing your Starlight plugin.
 
-To start creating your Starlight plugin, edit the `packages/plugin-name/index.ts` file which will be the entry point of your plugin.
+To start developing your Starlight plugin, edit the `packages/plugin-name/index.ts` file which will be the entry point of your plugin.
 
 To test your plugin, run the following command from the `docs/` directory:
 
