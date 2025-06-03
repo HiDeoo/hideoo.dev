@@ -1,0 +1,61 @@
+---
+title: How to create a Starlight plugin
+description: // TODO(HiDeoo)
+publishDate: 2025-06-01 16:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 2
+  section: getting-started
+---
+
+Starlight plugins provide an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of creating a Starlight plugin using [`generator-starlight-plugin`](https://github.com/HiDeoo/generator-starlight-plugin), a Yeoman generator to help create Starlight plugins.
+
+## Create a Starlight plugin
+
+The `generator-starlight-plugin` Yeoman generator is an opinionated but still lightweight Yeoman generator to help create Starlight plugins:
+
+- **Opinionated**: [Git](https://git-scm.com/) and [pnpm](https://pnpm.io/) are required to generate a [monorepo](https://pnpm.io/workspaces) containing a Starlight plugin package and a Starlight documentation project acting at the same time as a playground to test your plugin. The plugin is expected to be written in TypeScript, hosted on GitHub, and licensed under the MIT license.
+- **Lightweight**: Formatting, linting, testing, bundling, publishing, and deploying the documentation, which are all optional for a Starlight plugin, are not enforced by the generator. You are free to add them to your project as you see fit using the tools and services you prefer.
+
+To run the generator, run the following command in your terminal from the directory where you want to work on your plugin:
+
+```bash title="Terminal"
+npx -p yo -p @hideoo/generator-starlight-plugin -- yo @hideoo/starlight-plugin
+```
+
+A series of prompts will guide you through the process of creating a Starlight plugin.
+
+```ansi title="Terminal"
+Welcome to the Starlight plugin generator!
+
+[32m?[0m [1mIs your plugin a theme?[0m [2m(Use arrow keys)[0m
+  Yes
+[34m❯ No[0m
+[32m?[0m [1mWhat is the name of your Starlight plugin?[0m [2m(starlight-plugin-name)[0m
+[32m?[0m [1mWhat is the description of your Starlight plugin?[0m [2m(My awesome Starlight plugin)[0m
+[32m?[0m [1mWhat single emoji represents your Starlight plugin?[0m [2m(used in the documentation) ([0m🔋[2m)[0m
+[32m?[0m [1mWhat is your GitHub username?[0m [2m(ghost)[0m
+```
+
+After answering the prompts, the generator will scaffold a new monorepo containing a Starlight plugin package and a Starlight documentation project acting as a playground to test your plugin.
+
+## Start the development
+
+The generated project uses a monorepo structure with different pnpm workspaces:
+
+- `docs/`: A Starlight documentation project to document your plugin that also acts as a playground.
+- `packages/plugin-name/`: A package containing your Starlight plugin.
+
+To start creating your Starlight plugin, edit the `packages/plugin-name/index.ts` file which will be the entry point of your plugin.
+
+To test your plugin, run the following command from the `docs/` directory:
+
+```bash title="Terminal"
+pnpm dev
+```
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />
