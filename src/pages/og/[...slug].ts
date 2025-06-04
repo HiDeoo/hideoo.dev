@@ -9,9 +9,12 @@ const pages: Record<string, OgPage> = Object.fromEntries(
   [...notes, ...notebooks].map(({ data, href }) => [href.replace(/^\//, ''), data]),
 )
 
-pages['index'] = { title: "HiDeoo's projects and notes" }
-pages['notes'] = { title: "HiDeoo's Personal Notes" }
-pages['projects'] = { title: "HiDeoo's Open Source Portfolio" }
+pages['index'] = { title: "HiDeoo's projects and notes", description: 'Mostly TypeScript, Astro, React and some Go.' }
+pages['notes'] = {
+  title: "HiDeoo's Personal Notes",
+  description: 'Guides, code, and thoughts from my personal journey.',
+}
+pages['projects'] = { title: "HiDeoo's Open Source Portfolio", description: 'All my projects are available on GitHub.' }
 
 export const { getStaticPaths, GET } = OGImageRoute({
   getImageOptions: (_, page: OgPage) => {
