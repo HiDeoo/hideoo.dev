@@ -32,12 +32,14 @@ export const { getStaticPaths, GET } = OGImageRoute({
         description: {
           color: [213, 213, 216],
           families: ['Inter'],
+          size: 36,
           weight: 'Normal',
         },
         title: {
           color: [250, 250, 250],
           families: ['Inter'],
           lineHeight: 1.2,
+          size: 60,
           weight: 'ExtraBold',
         },
       },
@@ -47,7 +49,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       ],
       logo: {
         path: './src/images/og.png',
-        size: [198, 31],
+        size: [265, 46],
       },
       title: page.title,
     }
