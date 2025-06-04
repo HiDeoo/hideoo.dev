@@ -71,7 +71,7 @@ export default defineConfig({
 ## Add a new element after code blocks
 
 To add a new element after each code block, the [`postprocessRenderedBlock`](https://expressive-code.com/reference/plugin-hooks/#postprocessrenderedblock) hook can be used.
-This hook allows for modifying the rendered code block after it has been processed by Expressive Code using the [`renderData`](https://expressive-code.com/reference/plugin-hooks/#renderdata) object.
+This hook let you modify the rendered code block after it has been processed by Expressive Code using the [`renderData`](https://expressive-code.com/reference/plugin-hooks/#renderdata) object.
 
 This hook gives us access to the code block using a [Hypertext Abstract Syntax Tree](https://github.com/syntax-tree/hast) (HAST) representation.
 This tree can be modified to customize a code block, add new elements, or update existing ones.

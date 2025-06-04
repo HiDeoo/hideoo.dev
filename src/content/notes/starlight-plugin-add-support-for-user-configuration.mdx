@@ -1,6 +1,6 @@
 ---
 title: Add support for user configuration in a Starlight plugin
-description: Learn how to create a configurable Starlight plugin allowing users to customize its behavior.
+description: Learn how to create a configurable Starlight plugin enabling users to customize its behavior.
 publishDate: 2025-06-01 19:00:00
 notebook:
   name: starlight-plugins-by-example
@@ -10,7 +10,7 @@ notebook:
 
 Starlight plugins offer an easy-to-share and reusable way to customize and extend Starlight, the fully-featured documentation theme built on top of the Astro framework.
 
-This guide will walk you through the process of adding support for user configuration in a Starlight plugin, allowing users to customize the plugin's behavior through their Starlight configuration.
+This guide will walk you through the process of adding support for user configuration in a Starlight plugin, enabling users to customize the plugin's behavior through their Starlight configuration.
 
 import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
 
@@ -20,7 +20,7 @@ import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.
 
 While a Starlight plugin is defined as an [object with a specific shape](https://starlight.astro.build/reference/plugins/#quick-api-reference), a common pattern used to add support for user configuration in a Starlight plugin is to use a plugin-creator function that returns such an object.
 
-Using a function allows you to accept user-supplied configuration options as arguments, which can then be used to customize the plugin's behavior.
+Using a function enables you to accept user-supplied configuration options as arguments, which can then be used to customize the plugin's behavior.
 
 The following example adds an option `userConfig` argument to the plugin-creator function, which is an object containing the user-supplied configuration options for the plugin.
 This object accepts an optional `useConfetti` boolean property that is read to determine whether to enable a confetti effect in the plugin.
@@ -41,7 +41,7 @@ export default function starlightPluginExample(
 
         // Read the user-supplied plugin configuration, if provided.
         if (userConfig?.useConfetti) {
-          // Enable confetti effect if the user has enabled it.
+          // Add confetti effect if the user has enabled it.
           // ...
         }
       },
@@ -57,7 +57,7 @@ export interface StarlightPluginExampleUserConfig {
 ```
 
 :::note
-In the example above, the `userConfig` argument is optional, allowing users to use the plugin without providing any configuration options.
+In the example above, the `userConfig` argument is optional, enabling users to use the plugin without providing any configuration options.
 Up to you to decide whether to make the user configuration mandatory or optional.
 :::
 
@@ -125,7 +125,7 @@ export default function starlightPluginExample(
 
         // Read the validated plugin configuration.
         if (config?.useConfetti) {
-          // Enable confetti effect…
+          // Add confetti effect…
           // …
         }
       },
@@ -154,7 +154,7 @@ Expected boolean, received string
     If you believe this is a bug, please file an issue at https://example.com[0m
 ```
 
-Using Zod to validate user configuration options not only provides data validation and type safety but also allows you to define custom error messages and hints, making it easier for users to understand what went wrong and how to fix the issue.
+Using Zod to validate user configuration options not only provides data validation and type safety but also let you define custom error messages and hints, making it easier for users to understand what went wrong and how to fix the issue.
 Make sure to check out the [Zod documentation](https://v3.zod.dev/) for more information on how to use it effectively.
 
 import Outro from './shared/_starlight-plugins-by-example-outro.astro'
