@@ -49,6 +49,7 @@
     "sharp": "0.34.2",
     "tinyduration": "3.4.1",
     "typescript": "5.8.3",
+    "ultrahtml": "^1.6.0",
     "unist-util-remove": "4.0.0",
     "unist-util-visit": "5.0.0"
   },
