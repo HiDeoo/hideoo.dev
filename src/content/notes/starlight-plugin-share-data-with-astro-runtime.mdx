@@ -67,11 +67,11 @@ The plugin's `username` option is a string that should be provided by the user a
 
 To share the `username` data with Astro's runtime, the Starlight plugin can add a Vite plugin to the user-supplied Astro configuration using the [`vite`](https://docs.astro.build/en/reference/configuration-reference/#vite) option of the Astro configuration.
 
-The following example updates the Astro configuration to add a Vite plugin using a `viteStarlightPluginExample()` function that returns a [Vite plugin](https://vite.dev/guide/api-plugin). The `username` value is passed to this function so it can be used in the Vite plugin to create a virtual module that exports the data.
-
 :::note[Related]
 [Read and update the Astro configuration in a Starlight plugin](/notes/starlight-plugin-read-and-update-astro-configuration).
 :::
+
+The following example updates the Astro configuration to add a Vite plugin using a `viteStarlightPluginExample()` function that returns a [Vite plugin](https://vite.dev/guide/api-plugin). The `username` value is passed to this function so it can be used in the Vite plugin to create a virtual module that exports the data.
 
 ```ts {15-25}
 // plugin.ts

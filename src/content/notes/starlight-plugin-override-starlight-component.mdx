@@ -54,7 +54,7 @@ To update the user-supplied Starlight configuration in a Starlight plugin, you c
 
 The following example updates the `components` option in the user-supplied Starlight configuration to override the default Starlight [`Search`](https://starlight.astro.build/reference/overrides/#search) component with the `SearchOverride.astro` component exported from the `starlight-plugin-example` package:
 
-```ts / (updateConfig),/  {11,20-25}
+```ts /(config),/ / (updateConfig),/  {11,20-25}
 // plugin.ts
 import type { StarlightPlugin } from '@astrojs/starlight/types'
 
@@ -88,7 +88,7 @@ export default function starlightPluginExample(): StarlightPlugin {
 ```
 
 :::note[Should I check for existing overrides?]
-Yes, it is a good practice to check if the user has already overridden the component you want to override. If they have, you can log a warning and provide instructions on how to resolve the conflict either by removing the conflicting override or by exposing a different component in the plugin that they can manually import and use in their custom override.
+Yes, it is a good practice to check if the user has already overridden the component you want to override. If they have, you can log a warning and provide instructions on how to resolve the conflict either by removing the conflicting override or by [exposing](/notes/starlight-plugin-expose-astro-components) a different component in the plugin that they can manually import and use in their custom override.
 :::
 
 import Outro from './shared/_starlight-plugins-by-example-outro.astro'

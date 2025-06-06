@@ -72,7 +72,7 @@ export default function starlightPluginExample(): StarlightPlugin {
 ### Type translation strings
 
 The [Starlight translation strings API](https://starlight.astro.build/guides/i18n/#using-ui-translations), available as part of the [global `Astro` object](https://docs.astro.build/en/reference/api-reference/#locals) using `Astro.locals.t` in Astro components or the [endpoint context](https://docs.astro.build/en/reference/api-reference/#locals) using `context.locals.t` in [endpoints](https://docs.astro.build/en/guides/endpoints/), is entirely type-safe.
-Such types are automatically generated in a user’s project but need to be declared in the context of a Starlight plugin.
+Such types are automatically generated in a user’s project but need to be explicitly defined in the context of a Starlight plugin.
 
 A [TypeScript declaration file](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) can be used to type the `locals.t` object in the context of a Starlight plugin.
 
@@ -115,11 +115,11 @@ The following example uses the `examplePlugin.action` translation string in an A
 To use custom translation strings in a different context, you can use the [`useTranslations()`](https://starlight.astro.build/reference/plugins/#usetranslations) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
 A common use case is to use the custom translation strings in a [remark](https://github.com/remarkjs/remark) or [rehype](https://github.com/rehypejs/rehype) plugin.
 
-The [virtual file format](https://github.com/vfile/vfile) used by these plugins includes the [absolute path](https://github.com/vfile/vfile#filepath) of the file being processed, which can be used to determine the language of the file using the [`absolutePathToLang()`](https://starlight.astro.build/reference/plugins/#absolutepathtolang) function also provided in the `config:setup` function.
-
 :::note[Related]
 [Use a remark or rehype plugin in a Starlight plugin](/notes/starlight-plugin-use-remark-rehype-plugin).
 :::
+
+The [virtual file format](https://github.com/vfile/vfile) used by these plugins includes the [absolute path](https://github.com/vfile/vfile#filepath) of the file being processed, which can be used to determine the language of the file using the [`absolutePathToLang()`](https://starlight.astro.build/reference/plugins/#absolutepathtolang) function also provided in the `config:setup` function.
 
 The following example adds an Astro integration that updates the user-supplied Astro configuration to include a custom remark plugin defined in the Starlight plugin itself.
 The `useTranslations()` and `absolutePathToLang()` functions are passed to the custom remark plugin, which uses them to retrieve the translation strings for the language of the file being processed.
