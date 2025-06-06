@@ -1,0 +1,162 @@
+---
+title: Add support for user configuration in a Starlight plugin
+description: Learn how to create a configurable Starlight plugin enabling users to customize its behavior.
+publishDate: 2025-06-02 17:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 3
+  section: examples
+---
+
+Starlight plugins offer an easy-to-share and reusable way to customize and extend [Starlight](https://starlight.astro.build/), the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of adding support for user configuration in a Starlight plugin, enabling users to customize the plugin's behavior through their Starlight configuration.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Add user configuration support
+
+While a Starlight plugin is defined as an [object with a specific shape](https://starlight.astro.build/reference/plugins/#quick-api-reference), a common pattern used to add support for user configuration in a Starlight plugin is to use a plugin-creator function that returns such an object.
+
+Using a function enables you to accept user-supplied configuration options as arguments, which can then be used to customize the plugin's behavior.
+
+The following example adds an option `userConfig` argument to the plugin-creator function, which is an object containing the user-supplied configuration options for the plugin.
+This object accepts an optional `useConfetti` boolean property that is read to determine whether to enable a confetti effect in the plugin.
+
+```ts {5,15-18,25-28}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(
+  userConfig?: StarlightPluginExampleUserConfig,
+): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'() {
+        // Plugin logic goes here.
+        // ...
+
+        // Read the user-supplied plugin configuration, if provided.
+        if (userConfig?.useConfetti) {
+          // Add confetti effect if the user has enabled it.
+          // ...
+        }
+      },
+    },
+  }
+}
+
+// Define the shape of the plugin's user configuration.
+export interface StarlightPluginExampleUserConfig {
+  // An optional boolean property to enable a confetti effect.
+  useConfetti?: boolean
+}
+```
+
+:::note
+In the example above, the `userConfig` argument is optional, enabling users to use the plugin without providing any configuration options.
+Up to you to decide whether to make the user configuration mandatory or optional.
+:::
+
+A user can now provide a configuration option to the plugin in their Starlight configuration file to customize the plugin's behavior.
+
+```ts "{ useConfetti: true }"
+// astro.config.mjs
+import starlight from '@astrojs/starlight'
+import { defineConfig } from 'astro/config'
+import starlightPluginExample from 'starlight-plugin-example'
+
+export default defineConfig({
+  integrations: [
+    starlight({
+      plugins: [starlightPluginExample({ useConfetti: true })],
+      title: 'My Docs',
+    }),
+  ],
+})
+```
+
+## Validate user configuration
+
+Validating user configuration options is an important step to ensure that the provided values are correct and also to provide helpful error messages to users when they are not.
+
+Astro, which Starlight is built on top of, ships with [Zod](https://github.com/colinhacks/zod), a TypeScript-first schema declaration and validation library, which can be used to define, type, and validate any data.
+To learn more about Zod, check out the [Zod documentation](https://v3.zod.dev/).
+
+The following example uses Zod to define the shape of the user configuration and validate it when the plugin is initialized.
+If the provided configuration is invalid, an error is thrown with a helpful message and a link to report the issue.
+If the configuration is valid, it is used to customize the plugin's behavior.
+
+```ts {3-4,10,13-21,24,44-50}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+import { z } from 'astro/zod'
+import { AstroError } from 'astro/errors'
+
+export default function starlightPluginExample(
+  userConfig?: StarlightPluginExampleUserConfig,
+): StarlightPlugin {
+  // Parse and validate the user configuration using Zod.
+  const parsedConfig = userConfigSchema.safeParse(userConfig)
+
+  // If the configuration is invalid, throw an helpful error.
+  if (!parsedConfig.success) {
+    throw new AstroError(
+      `The provided plugin configuration is invalid.\n${parsedConfig.error.issues
+        .map((issue) => issue.message)
+        .join('\n')}`,
+      'See the error report above for more informations.\n\n' +
+        'If you believe this is a bug, please file an issue at https://example.com',
+    )
+  }
+
+  // If the configuration is valid, extract the data.
+  const config = parsedConfig.data
+
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'() {
+        // Do something…
+        // …
+
+        // Read the validated plugin configuration.
+        if (config?.useConfetti) {
+          // Add confetti effect…
+          // …
+        }
+      },
+    },
+  }
+}
+
+// Define the shape of the plugin's user configuration with Zod.
+const userConfigSchema = z
+  .object({
+    // An optional boolean property to enable a confetti effect.
+    useConfetti: z.boolean().optional(),
+  })
+  .optional()
+export type StarlightPluginExampleUserConfig = z.input<typeof userConfigSchema>
+```
+
+When the user provides an invalid configuration, the plugin will throw an error with a message similar to the following:
+
+```ansi title="Terminal"
+[31m[AstroUserError][0m The provided plugin configuration is invalid.
+Expected boolean, received string
+  Hint:
+    [33mSee the error report above for more informations.
+
+    If you believe this is a bug, please file an issue at https://example.com[0m
+```
+
+Using Zod to validate user configuration options not only provides data validation and type safety but also let you define custom error messages and hints, making it easier for users to understand what went wrong and how to fix the issue.
+Make sure to check out the [Zod documentation](https://v3.zod.dev/) for more information on how to use it effectively.
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />

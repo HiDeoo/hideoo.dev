@@ -1,6 +1,6 @@
 ---
 title: Add Open Graph images to Starlight
-description: Learn how to add Open Graph images to your Starlight documentation website using astro-og-canvas.
+description: Learn how to use astro-og-canvas to generate Open Graph images for your Starlight documentation website.
 publishDate: 2023-12-18
 updateDate: 2025-05-04
 ---
@@ -39,7 +39,7 @@ When using a [strict package manager](https://pnpm.io/pnpm-vs-npm#npms-flat-tree
 To do so, we need to do the following:
 
 1. Get a list of all documentation entries from the `docs` content collection used by Starlight.
-1. Map the entry array to an object with the [page ID](https://docs.astro.build/en/reference/api-reference/#id) as key and the [frontmatter data](https://starlight.astro.build/reference/frontmatter/) as value.
+1. Map the entry array to an object with the [page ID](https://docs.astro.build/en/reference/modules/astro-content/#id) as key and the [frontmatter data](https://starlight.astro.build/reference/frontmatter/) as value.
 1. Pass down the object to the `OGImageRoute` helper.
 1. Define a `param` option to match the name of the parameter used in the endpoint path.
 1. Define a `getImageOptions` function called for each page to customize the generated image.

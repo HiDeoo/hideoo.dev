@@ -1,0 +1,109 @@
+---
+title: Use a remark or rehype plugin in a Starlight plugin
+description: Learn how to extend the Markdown and HTML processing capabilities of Starlight by using a remark or rehype plugin in a Starlight plugin.
+publishDate: 2025-06-04 15:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 10
+  section: examples
+---
+
+Starlight plugins offer an easy-to-share and reusable way to customize and extend [Starlight](https://starlight.astro.build/), the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of using a [remark](https://github.com/remarkjs/remark) or [rehype](https://github.com/rehypejs/rehype) plugin in a Starlight plugin, enabling you to extend the Markdown and HTML processing capabilities of Starlight.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Use a remark or rehype plugin
+
+Astro, which Starlight is built on top of, supports [adding third-party remark and rehype plugins](https://docs.astro.build/en/guides/markdown-content/#adding-remark-and-rehype-plugins) to the Markdown and HTML processing pipelines, respectively.
+Such plugins can be defined in the Astro configuration using the [`markdown.remarkPlugins`](https://docs.astro.build/en/reference/configuration-reference/#markdownremarkplugins) and [`markdown.rehypePlugins`](https://docs.astro.build/en/reference/configuration-reference/#markdownrehypeplugins) options.
+
+Starlight plugins can [update](/notes/starlight-plugin-read-and-update-astro-configuration) these configuration options to add their own remark and rehype plugins.
+
+:::note[Related]
+[Read and update the Astro configuration in a Starlight plugin](/notes/starlight-plugin-read-and-update-astro-configuration).
+:::
+
+The following example uses the [`addIntegration()`](https://starlight.astro.build/reference/plugins/#addintegration) function to add an [Astro integration](https://docs.astro.build/en/reference/integrations-reference/).
+The integration updates the user-supplied Astro configuration using the [`updateConfig()`](https://docs.astro.build/en/reference/integrations-reference/#updateconfig-option) function to add the [`remark-emoji`](https://github.com/rhysd/remark-emoji) plugin.
+
+```ts {3} / (addIntegration) / {11-23}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+import remarkEmoji from 'remark-emoji'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ addIntegration }) {
+        // Add an Astro integration to update the Astro config.
+        addIntegration({
+          name: 'starlight-plugin-example-integration',
+          hooks: {
+            'astro:config:setup'({ updateConfig }) {
+              // Update the Astro config to include a new remark plugin.
+              updateConfig({
+                markdown: {
+                  remarkPlugins: [remarkEmoji],
+                },
+              })
+            },
+          },
+        })
+      },
+    },
+  }
+}
+```
+
+## Use a custom remark or rehype plugin
+
+If you want to use a custom remark or rehype plugin in a Starlight plugin, the same approach can be used.
+
+The following example adds an Astro integration that updates the user-supplied Astro configuration to include a custom remark plugin defined in the Starlight plugin itself.
+
+```ts {30-35} /(remarkStarlightPluginExample)]/
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+import type { Plugin } from 'unified'
+import type { Root } from 'mdast'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ addIntegration }) {
+        // Add an Astro integration to update the Astro config.
+        addIntegration({
+          name: 'starlight-plugin-example-integration',
+          hooks: {
+            'astro:config:setup'({ updateConfig }) {
+              // Update the Astro config to include a custom remark plugin.
+              updateConfig({
+                markdown: {
+                  remarkPlugins: [remarkStarlightPluginExample],
+                },
+              })
+            },
+          },
+        })
+      },
+    },
+  }
+}
+
+const remarkStarlightPluginExample: Plugin<[], Root> = function () {
+  return function (tree) {
+    // Remark plugin logic goes here.
+    // ...
+  }
+}
+```
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />

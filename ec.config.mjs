@@ -1,6 +1,8 @@
+import { pluginCollapsibleSections } from '@expressive-code/plugin-collapsible-sections'
 import { defineEcConfig } from 'astro-expressive-code'
 
 export default defineEcConfig({
+  plugins: [pluginCollapsibleSections()],
   styleOverrides: {
     borderColor: 'var(--color-gray-800)',
     borderRadius: 'var(--rounded)',
@@ -28,4 +30,5 @@ export default defineEcConfig({
   themeCssSelector: (theme) => `[data-theme='${theme.type}']`,
   themes: ['vitesse-dark', 'vitesse-light'],
   useDarkModeMediaQuery: false,
+  useStyleReset: false,
 })

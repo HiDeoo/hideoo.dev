@@ -74,12 +74,12 @@ const srDescription = `${repo.name} - ${
         animation: spin var(--duration-3000) linear infinite;
         animation-play-state: paused;
       }
+    }
+  }
 
-      :global(a:is(:hover, :focus)) & {
-        @media (--motionSafe) {
-          animation-play-state: running;
-        }
-      }
+  :global(a:is(:hover, :focus)) .stars :global(svg) {
+    @media (--motionSafe) {
+      animation-play-state: running;
     }
   }
 

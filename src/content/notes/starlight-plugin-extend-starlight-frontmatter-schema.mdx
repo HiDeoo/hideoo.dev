@@ -1,0 +1,87 @@
+---
+title: Extend Starlight’s frontmatter schema in a Starlight plugin
+description: Learn how to use custom frontmatter properties by extending Starlight's frontmatter schema in a Starlight plugin.
+publishDate: 2025-06-04 11:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 8
+  section: examples
+---
+
+Starlight plugins offer an easy-to-share and reusable way to customize and extend [Starlight](https://starlight.astro.build/), the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of extending Starlight’s [frontmatter schema](https://starlight.astro.build/reference/frontmatter/), built on top of Astro’s [content collections](https://docs.astro.build/en/guides/content-collections/), enabling you to use custom frontmatter properties in a Starlight plugin.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Extend frontmatter schema
+
+Starlight supports extending the frontmatter schema of content pages using the [`extend`](https://starlight.astro.build/reference/frontmatter/#extend) property in the `docsSchema()` options.
+
+This option accepts a [Zod schema](https://docs.astro.build/en/guides/content-collections/#defining-datatypes-with-zod) which in the case of Starlight plugins, can be [exported](https://nodejs.org/api/packages.html#package-entry-points) from the plugin package and referenced by users in their `src/content.config.ts` configuration file.
+
+### Export a Zod schema
+
+To export a Zod schema from a Starlight plugin, you can add a new entry in the [`exports`](https://nodejs.org/api/packages.html#exports) field of the plugin's `package.json` file.
+
+The following example adds a new entry point name `./schema` that points to a `schema.ts` file in the plugin's root directory:
+
+```diff lang=json title="package.json" /"starlight-plugin-example"/
+{
+  "name": "starlight-plugin-example",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+-    ".": "./plugin.ts"
++    ".": "./plugin.ts",
++    "./schema": "./schema.ts"
+  },
+  "peerDependencies": {
+    "@astrojs/starlight": ">=0.34"
+  }
+}
+```
+
+Next, you can create the `schema.ts` file in the plugin's root directory and export a Zod schema from it. The following example exports a simple Zod schema that adds an optional `tags` property field to the frontmatter schema:
+
+```ts {1}
+// schema.ts
+import { z } from 'astro/zod'
+
+// Export a Zod schema to extend the Starlight frontmatter schema.
+export const examplePluginSchema = z.object({
+  // Add an optional field accepting an array of strings.
+  tags: z.array(z.string()).optional(),
+})
+```
+
+### Use the Zod schema
+
+To reference and use the previously exported Zod schema in the content collections configuration file located at `src/content.config.ts`, users can import it from the plugin package and set it as the `extend` property in the `docsSchema()` options.
+
+The following example updates the `extend` option in the content collections configuration file to use a Zod schema exported from the `starlight-plugin-example` package:
+
+```ts {5} "{ extend: examplePluginSchema }"
+// src/content.config.ts
+import { defineCollection } from 'astro:content'
+import { docsLoader } from '@astrojs/starlight/loaders'
+import { docsSchema } from '@astrojs/starlight/schema'
+import { examplePluginSchema } from 'starlight-plugin-example/schema'
+
+export const collections = {
+  docs: defineCollection({
+    loader: docsLoader(),
+    schema: docsSchema({ extend: examplePluginSchema }),
+  }),
+}
+```
+
+Users can now use the `tags` property in their content page frontmatter, and the value will be validated against the Zod schema defined in the Starlight plugin.
+The plugin can also access the `tags` property in [route data](https://starlight.astro.build/guides/route-data/) using the `tags` property of the [`entry.data`](https://starlight.astro.build/reference/route-data/#entry) object which contains frontmatter values for the current page.
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />

@@ -1,0 +1,102 @@
+---
+title: Add custom CSS in a Starlight plugin
+description: Learn how to customize the styles applied to a Starlight project by adding custom CSS in a Starlight plugin.
+publishDate: 2025-06-03 12:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 4
+  section: examples
+---
+
+Starlight plugins offer an easy-to-share and reusable way to customize and extend [Starlight](https://starlight.astro.build/), the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of adding custom CSS in a Starlight plugin, enabling you to customize the styles applied to a Starlight project.
+
+:::note[Heads up]
+Are you looking to create a theme for Starlight instead?
+Check out the [“How to create a Starlight theme”](/notes/starlight-plugin-how-to-create-theme) note to get started immediately.
+:::
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Add custom CSS
+
+Starlight provides a [`customCss`](https://starlight.astro.build/reference/configuration/#customcss) configuration option to add additional CSS files to a Starlight website by referencing their paths.
+Starlight plugins can [read and update](/notes/starlight-plugin-read-and-update-starlight-configuration) this configuration option to add their own custom CSS files in order to customize the styles applied to a Starlight project.
+
+This option supports local CSS files relative to the root of the project, e.g. `'./src/custom.css'` which is an approach that would not work in a Starlight plugin, as the CSS files would be part of the plugin package and not the Starlight project.
+To support this use case, Starlight plugins can [export](https://nodejs.org/api/packages.html#package-entry-points) a CSS file from the plugin package, and reference the associated identifier in the `customCss` option.
+
+### Export a CSS file
+
+To export a CSS file from a Starlight plugin, you can add a new entry in the [`exports`](https://nodejs.org/api/packages.html#exports) field of the plugin's `package.json` file.
+
+The following example adds a new entry point name `./styles` that points to a `styles.css` file in the plugin's root directory:
+
+```diff lang=json title="package.json" /"starlight-plugin-example"/
+{
+  "name": "starlight-plugin-example",
+  "version": "0.0.1",
+  "license": "MIT",
+  "type": "module",
+  "exports": {
+-    ".": "./plugin.ts"
++    ".": "./plugin.ts",
++    "./styles": "./styles.css"
+  },
+  "peerDependencies": {
+    "@astrojs/starlight": ">=0.34"
+  }
+}
+```
+
+### Add the CSS file to the Starlight configuration
+
+To reference the previously exported CSS file in the Starlight configuration, the `starlight-plugin-example/styles` identifier can be used in the [`customCss`](https://starlight.astro.build/reference/configuration/#customcss) option of the Starlight configuration.
+
+To update the user-supplied Starlight configuration in a Starlight plugin, you can use the [`updateConfig()`](https://starlight.astro.build/reference/plugins/#updateconfig) function provided in the [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) Starlight plugin configuration setup function.
+
+:::note[Related]
+[Read and update the Starlight configuration in a Starlight plugin](/notes/starlight-plugin-read-and-update-starlight-configuration).
+:::
+
+The following example updates the `customCss` option in the user-supplied Starlight configuration to prepend the plugin's custom CSS file:
+
+```ts / (updateConfig) /  {11,14-19}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ config, updateConfig }) {
+        // Get the user-supplied custom CSS files from the Starlight config or an empty
+        // array if not provided.
+        const currentCustomCss = config.customCss ?? []
+
+        // Prepend a plugin-specific CSS file to the custom CSS files.
+        updateConfig({
+          customCss: ['starlight-plugin-example/styles', ...currentCustomCss],
+        })
+      },
+    },
+  }
+}
+```
+
+After creating the `styles.css` file in the plugin's root directory, you can add custom CSS styles to it.
+
+:::note[Should I prepend or append custom CSS files?]
+Prepending or appending custom CSS files in the Starlight configuration depends on the desired effect of the styles.
+
+- To ensure that user-defined styles take precedence over the plugin's styles, you should prepend the plugin's custom CSS files.
+- If the plugin's styles use [cascade layers](https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Styling_basics/Cascade_layers) and define an order of precedence for different layers, you should append the plugin's custom CSS files to ensure that users can still override the layer order.
+
+:::
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />

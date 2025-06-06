@@ -1,30 +1,30 @@
 ---
 import NoteHeader, { type NoteHeaderProps } from '@components/note/NoteHeader.astro'
 import VisuallyHidden from '@components/ui/VisuallyHidden.astro'
-import type { Note } from '@libs/note'
+import type { Meta } from '@libs/meta'
 
 export interface Props extends NoteHeaderProps {
-  note: Note
+  meta: Meta
   showUpdates?: boolean
 }
 
-const { note, showUpdates = false, tag } = Astro.props
+const { meta, showUpdates = false, tag } = Astro.props
 
-const hasUpdates = showUpdates && note.updateDate !== undefined
+const hasUpdates = showUpdates && meta.updateDate !== undefined
 ---
 
 <NoteHeader {tag}>
   <VisuallyHidden>Published on</VisuallyHidden>
-  <time datetime={note.publishDatetime}>{note.publishDate}</time>
+  <time datetime={meta.publishDatetime}>{meta.publishDate}</time>
   {
     hasUpdates && (
       <>
         {' - '}
-        Updated on <time datetime={note.updateDatetime}>{note.updateDate}</time>
+        Updated on <time datetime={meta.updateDatetime}>{meta.updateDate}</time>
       </>
     )
   }
   {' - '}
   <VisuallyHidden>Reading time</VisuallyHidden>
-  <time datetime={note.readingDatetime}>{note.readingTime}</time>
+  <time datetime={meta.readingDatetime}>{meta.readingTime}</time>
 </NoteHeader>

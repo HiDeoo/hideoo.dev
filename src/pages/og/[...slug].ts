@@ -1,13 +1,20 @@
 import { OGImageRoute } from 'astro-og-canvas'
 
 import { getNotes } from '@libs/note'
+import { getNotebooks } from '@libs/notebook'
 
 const notes = await getNotes()
-const pages: Record<string, OgPage> = Object.fromEntries(notes.map(({ data, href }) => [href.replace(/^\//, ''), data]))
+const notebooks = await getNotebooks()
+const pages: Record<string, OgPage> = Object.fromEntries(
+  [...notes, ...notebooks].map(({ data, href }) => [href.replace(/^\//, ''), data]),
+)
 
-pages['index'] = { title: "HiDeoo's projects and notes" }
-pages['notes'] = { title: "HiDeoo's Personal Notes" }
-pages['projects'] = { title: "HiDeoo's Open Source Portfolio" }
+pages['index'] = { title: "HiDeoo's projects and notes", description: 'Mostly TypeScript, Astro, React and some Go.' }
+pages['notes'] = {
+  title: "HiDeoo's Personal Notes",
+  description: 'Guides, code, and thoughts from my personal journey.',
+}
+pages['projects'] = { title: "HiDeoo's Open Source Portfolio", description: 'All my projects are available on GitHub.' }
 
 export const { getStaticPaths, GET } = OGImageRoute({
   getImageOptions: (_, page: OgPage) => {
@@ -25,12 +32,14 @@ export const { getStaticPaths, GET } = OGImageRoute({
         description: {
           color: [213, 213, 216],
           families: ['Inter'],
+          size: 36,
           weight: 'Normal',
         },
         title: {
           color: [250, 250, 250],
           families: ['Inter'],
           lineHeight: 1.2,
+          size: 60,
           weight: 'ExtraBold',
         },
       },
@@ -40,7 +49,7 @@ export const { getStaticPaths, GET } = OGImageRoute({
       ],
       logo: {
         path: './src/images/og.png',
-        size: [198, 31],
+        size: [265, 46],
       },
       title: page.title,
     }

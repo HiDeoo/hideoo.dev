@@ -1,0 +1,16 @@
+---
+import Notes from '@components/note/Notes.astro'
+import { getNotebookSectionNotes, type Notebook } from '@libs/notebook'
+
+interface Props {
+  notebook: Notebook['id']
+  section?: string
+}
+
+const { notebook, section } = Astro.props
+if (!notebook) throw new Error('Missing notebook ID to render notes.')
+
+const notes = await getNotebookSectionNotes(notebook, section)
+---
+
+<Notes {notes} />

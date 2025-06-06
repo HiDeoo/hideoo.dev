@@ -1,0 +1,206 @@
+---
+title: Share data between a Starlight plugin and Astro's runtime
+description: Learn how to use a Vite virtual modules to share data between a Starlight plugin and Astro's runtime.
+publishDate: 2025-06-04 13:00:00
+notebook:
+  name: starlight-plugins-by-example
+  order: 9
+  section: examples
+---
+
+Starlight plugins offer an easy-to-share and reusable way to customize and extend [Starlight](https://starlight.astro.build/), the fully-featured documentation theme built on top of the Astro framework.
+
+This guide will walk you through the process of sharing data between a Starlight plugin and Astro's runtime, such as re-using a user-supplied configuration option from a Starlight plugin in an Astro component.
+
+import Prerequisites from './shared/_starlight-plugins-by-example-prerequisites.astro'
+
+<Prerequisites />
+
+## Sharing data
+
+Data living in a Starlight plugin, e.g. a user-supplied configuration option or the result of some computation, only exists in the context of the plugin.
+Sometimes, you may want to share this data with Astro's runtime, e.g. to use it in an Astro component, a route data middleware, etc.
+To achieve this, one common pattern to share such data is to use [Vite virtual modules](https://vite.dev/guide/api-plugin.html#virtual-modules-convention).
+
+Virtual modules are an advanced feature of Vite and this guide will not cover them in detail, but you can read more about them in the [Vite documentation](https://vite.dev/guide/api-plugin.html#virtual-modules-convention).
+By convention, virtual modules are prefixed with `virtual:` and can be imported in the code like any other module.
+
+The following steps summarize the different steps involved in sharing data from a Starlight plugin to Astro's runtime:
+
+1. A Starlight project is configured to use a Starlight plugin accepting a [user-supplied configuration option](/notes/starlight-plugin-add-support-for-user-configuration).
+1. Starlight is initialized and the plugin [`config:setup`](https://starlight.astro.build/reference/plugins/#configsetup) hook is called.
+1. The Starlight plugin [updates the Astro configuration](/notes/starlight-plugin-read-and-update-astro-configuration) to add a new [Vite plugin](https://vite.dev/guide/api-plugin) using the [`vite`](https://docs.astro.build/en/reference/configuration-reference/#vite) option of the Astro configuration.
+1. The Vite plugin [creates a virtual module](https://vite.dev/guide/api-plugin.html#virtual-modules-convention) that exports the data you want to share, using the `virtual:starlight-plugin-example` identifier.
+
+At this point, the virtual module can be imported in any Astro component or route data middleware using the `virtual:starlight-plugin-example` identifier.
+
+## Setup a Starlight plugin
+
+The following example shows an example Starlight plugin that accepts a user-supplied `username` configuration option as its first argument.
+
+:::note[Related]
+[Add support for user configuration in a Starlight plugin](/notes/starlight-plugin-add-support-for-user-configuration).
+:::
+
+```ts {5}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(
+  username: string,
+): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'() {
+        // Plugin logic goes here.
+        // ...
+      },
+    },
+  }
+}
+```
+
+The plugin's `username` option is a string that should be provided by the user and that will be [used by the plugin in a Starlight component override](/notes/starlight-plugin-override-starlight-component) to display the provided value in the UI.
+
+## Add a Vite plugin
+
+To share the `username` data with Astro's runtime, the Starlight plugin can add a Vite plugin to the user-supplied Astro configuration using the [`vite`](https://docs.astro.build/en/reference/configuration-reference/#vite) option of the Astro configuration.
+
+:::note[Related]
+[Read and update the Astro configuration in a Starlight plugin](/notes/starlight-plugin-read-and-update-astro-configuration).
+:::
+
+The following example updates the Astro configuration to add a Vite plugin using a `viteStarlightPluginExample()` function that returns a [Vite plugin](https://vite.dev/guide/api-plugin). The `username` value is passed to this function so it can be used in the Vite plugin to create a virtual module that exports the data.
+
+```ts {15-25}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+
+export default function starlightPluginExample(
+  username: string,
+): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ addIntegration }) {
+        // Plugin logic goes here.
+        // ...
+
+        // Add an Astro integration to update the Astro config.
+        addIntegration({
+          name: 'starlight-plugin-example-integration',
+          hooks: {
+            'astro:config:setup'({ updateConfig }) {
+              // Update the Astro config to include a new Vite plugin.
+              updateConfig({
+                vite: { plugins: [viteStarlightPluginExample(username)] },
+              })
+            },
+          },
+        })
+      },
+    },
+  }
+}
+```
+
+## Create a virtual module
+
+The `viteStarlightPluginExample()` function returns a Vite plugin that will create a virtual module that exports the `username` data provided by the user in the Starlight plugin configuration passed down as the first argument to the function.
+
+The following example creates a Vite plugin setting up a virtual module with the `virtual:starlight-plugin-example` identifier that exports the `username` data.
+To learn more about Vite plugins and virtual modules, you can refer to the [Vite documentation](https://vite.dev/guide/api-plugin.html#virtual-modules-convention).
+
+```ts collapse={8-29} collapseStyle=collapsible-start /(username): string/ "'virtual:starlight-plugin-example'" {47}
+// plugin.ts
+import type { StarlightPlugin } from '@astrojs/starlight/types'
+import type { ViteUserConfig } from 'astro'
+
+export default function starlightPluginExample(
+  username: string,
+): StarlightPlugin {
+  return {
+    name: 'starlight-plugin-example',
+    hooks: {
+      'config:setup'({ addIntegration }) {
+        // Plugin logic goes here.
+        // ...
+
+        // Add an Astro integration to update the Astro config.
+        addIntegration({
+          name: 'starlight-plugin-example-integration',
+          hooks: {
+            'astro:config:setup'({ updateConfig }) {
+              // Update the Astro config to include a new Vite plugin.
+              updateConfig({
+                vite: { plugins: [viteStarlightPluginExample(username)] },
+              })
+            },
+          },
+        })
+      },
+    },
+  }
+}
+
+function viteStarlightPluginExample(username: string) {
+  // Define the virtual module identifier.
+  const virtualModuleId = 'virtual:starlight-plugin-example'
+  const resolvedVirtualModuleId = '\0' + virtualModuleId
+
+  // Return a Vite plugin providing the virtual module.
+  return {
+    name: 'vite-starlight-plugin-example',
+    resolveId(id) {
+      return id === virtualModuleId ? resolvedVirtualModuleId : null
+    },
+    load(id) {
+      // When the virtual module is requested, return a module exporting the username.
+      // The content of the virtual module can be any valid JavaScript code.
+      return id === resolvedVirtualModuleId
+        ? `export const username = '${username}';`
+        : null
+    },
+  } satisfies NonNullable<ViteUserConfig['plugins']>[number]
+}
+```
+
+:::note[Should the resolved virtual module identifier start with \0 ?]
+Yes, this is a [convention](https://vite.dev/guide/api-plugin.html#virtual-modules-convention) used to differentiate virtual modules and regular modules.
+:::
+
+## Type the virtual module
+
+If you were to import the virtual module in an Astro component at this point, using `import { username }  from 'virtual:starlight-plugin-example'`, TypeScript would complain that it cannot find the module or its corresponding type declarations.
+This is because TypeScript does not know about the virtual module and its exports which is defined in a virtual module using a string literal in the Vite plugin.
+
+A [TypeScript declaration file](https://www.typescriptlang.org/docs/handbook/declaration-files/introduction.html) can be created to declare the virtual module and its exports.
+
+The following example creates a `plugin.d.ts` file in the plugin's root directory that declares the `virtual:starlight-plugin-example` module and its `username` export.
+
+```ts
+// plugin.d.ts
+declare module 'virtual:starlight-plugin-example' {
+  export const username: string
+}
+```
+
+## Use the shared data
+
+Now that the Starlight plugin has been set up to share data with Astro's runtime, you can use the user-supplied `username` value in an Astro component or a route data middleware.
+
+The following example shows how to use the `username` value in an Astro component by importing it from the virtual module previously created:
+
+```astro
+---
+// PluginComponent.astro
+import { username } from 'virtual:starlight-plugin-example'
+---
+
+<p>Name: {username}</p>
+```
+
+import Outro from './shared/_starlight-plugins-by-example-outro.astro'
+
+<Outro />

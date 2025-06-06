@@ -1,0 +1,69 @@
+---
+import NoteMeta from '@components/note/NoteMeta.astro'
+import type { Meta } from '@libs/meta'
+
+interface Props {
+  notes: (Meta & {
+    href: string
+    data: {
+      title: string
+    }
+  })[]
+}
+
+const { notes } = Astro.props
+---
+
+<ul>
+  {
+    notes.map((note) => (
+      <li>
+        <article>
+          <p>
+            <a href={note.href}>{note.data.title}</a>
+          </p>
+          <NoteMeta meta={note} />
+        </article>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-3);
+
+    @media (--md-n-above) {
+      gap: var(--size-1);
+    }
+  }
+
+  ul li {
+    padding-left: initial;
+    position: initial;
+  }
+
+  ul li::before {
+    display: none;
+  }
+
+  article {
+    display: flex;
+    flex-direction: column;
+    gap: var(--size-1);
+
+    @media (--lg-n-above) {
+      align-items: center;
+      flex-direction: row;
+      gap: var(--size-2);
+    }
+  }
+
+  ul p {
+    font-size: var(--text-lg);
+    line-height: 1.6;
+    margin-top: 0;
+  }
+</style>

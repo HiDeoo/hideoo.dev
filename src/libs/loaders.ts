@@ -1,7 +1,7 @@
 import type { Loader } from 'astro/loaders'
 import { z } from 'astro:content'
 
-import { fetchGitHubRecentContributions, fetchGitHubRecentRepos, fetchGitHubRepos } from './github'
+import { fetchGitHubRecentContributions, fetchGitHubRecentRepos, fetchGitHubRepos } from '@libs/github'
 
 const contributionSchema = z.object({
   id: z.string(),
