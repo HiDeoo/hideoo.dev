@@ -13,6 +13,7 @@
     - starlight-i18n
     - starlight-image-zoom
     - starlight-kbd
+    - starlight-links
     - starlight-links-validator
     - starlight-obsidian
     - starlight-openapi
@@ -32,6 +33,7 @@
     - autocomplete-lodash
     - create
     - starlight-i18n
+    - starlight-links
     - toggler
     - toggler-nova
     - toggler-vscode
