@@ -33,6 +33,7 @@
   repos:
     - autocomplete-lodash
     - create
+    - highlight
     - starlight-i18n
     - starlight-links
     - toggler
