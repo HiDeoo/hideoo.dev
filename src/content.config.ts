@@ -33,6 +33,7 @@ const projects = defineCollection({
   loader: file('src/content/projects.yml'),
   schema: z.object({
     id: z.string(),
+    position: z.number(),
     repos: z.array(z.string()),
   }),
 })

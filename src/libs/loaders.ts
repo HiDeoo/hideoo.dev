@@ -5,14 +5,15 @@ import { fetchGitHubRecentContributions, fetchGitHubRecentRepos, fetchGitHubRepo
 
 const contributionSchema = z.object({
   id: z.string(),
+  index: z.number(),
   name: z.string(),
   url: z.url(),
 })
 
 const repoSchema = z.object({
+  createdAt: z.date(),
   description: z.string().nullable(),
   id: z.string(),
-  index: z.number(),
   name: z.string(),
   stars: z.number(),
   url: z.url(),
@@ -60,3 +61,6 @@ interface GitHubLoaderEntry {
   id: string
   [key: string]: unknown
 }
+
+export type ContributionData = z.output<typeof contributionSchema>
+export type RepositoryData = z.output<typeof repoSchema>

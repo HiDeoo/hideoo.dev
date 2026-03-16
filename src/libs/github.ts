@@ -19,6 +19,7 @@ const contributionOwnerBanList = new Set(['sarah11918'])
 
 const GitHubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
+    createdAt
     description
     id
     name
@@ -174,9 +175,10 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
     }
 
     repos.push({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      createdAt: new Date(node.createdAt),
       description: node.description,
       id: node.id,
-      index: repos.length,
       name: node.name,
       stars: node.stargazerCount,
       url: String(node.url),
@@ -218,8 +220,9 @@ function normalizeContributions(
   })
 
   return sanitizedRawContributions
-    .map((rawContribution) => ({
+    .map((rawContribution, index) => ({
       id: rawContribution.repository.id,
+      index,
       name: rawContribution.repository.nameWithOwner,
       url: String(rawContribution.repository.url),
     }))
@@ -232,9 +235,9 @@ interface GitHubApiRequestBody {
 }
 
 interface GitHubRepo {
+  createdAt: Date
   description: string | null
   id: string
-  index: number
   name: string
   stars: number
   url: string
@@ -242,6 +245,7 @@ interface GitHubRepo {
 
 interface GitHubContribution {
   id: string
+  index: number
   name: string
   url: string
 }

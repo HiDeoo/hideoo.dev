@@ -1,11 +1,12 @@
 ---
-import { getCollection, type CollectionEntry } from 'astro:content'
+import type { CollectionEntry } from 'astro:content'
 
 import Repos from '@components/repo/Repos.astro'
 import Section from '@components/ui/Section.astro'
+import { getProjectsCategories, getRepos } from '@libs/data'
 
-const repos = await getCollection('repos')
-const projectsCategories = await getCollection('projects')
+const repos = await getRepos()
+const projectsCategories = await getProjectsCategories()
 
 const reposByCategories = new Map<string, CollectionEntry<'repos'>[]>()
 const uncategorizedRepos: CollectionEntry<'repos'>[] = []
