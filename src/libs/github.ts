@@ -12,6 +12,7 @@ const repoBanList: RegExp[] = [
   /^edge-developer\.fr-FR$/,
   /-test$/,
   /^astro-db-starlight-showcase$/,
+  /^astro-\d-\w/,
 ]
 
 const contributionOwnerBanList = new Set(['sarah11918'])
