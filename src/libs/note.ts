@@ -13,7 +13,7 @@ const schemaAuthor: Person = {
 
 export async function getNotes(count?: number): Promise<Note[]> {
   const rawNotes = await getCollection('notes')
-  const sortedNotes = rawNotes.sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
+  const sortedNotes = rawNotes.toSorted((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime())
   const notes = sortedNotes.map((aNote, index) => {
     if (!aNote.body) {
       throw new Error(`Note ${aNote.id} has no body.`)

@@ -1,12 +1,12 @@
 import type { Loader } from 'astro/loaders'
-import { z } from 'astro:content'
+import { z } from 'astro/zod'
 
 import { fetchGitHubRecentContributions, fetchGitHubRecentRepos, fetchGitHubRepos } from '@libs/github'
 
 const contributionSchema = z.object({
   id: z.string(),
   name: z.string(),
-  url: z.string().url(),
+  url: z.url(),
 })
 
 const repoSchema = z.object({
@@ -14,14 +14,14 @@ const repoSchema = z.object({
   id: z.string(),
   name: z.string(),
   stars: z.number(),
-  url: z.string().url(),
+  url: z.url(),
 })
 
 export function gitHubRecentContributionsLoader(): Loader {
   return {
     name: 'github-recent-contributions-loader',
     load: createGitHubLoader(fetchGitHubRecentContributions),
-    schema: () => contributionSchema,
+    schema: contributionSchema,
   }
 }
 
@@ -29,7 +29,7 @@ export function gitHubRecentReposLoader(): Loader {
   return {
     name: 'github-recent-repos-loader',
     load: createGitHubLoader(fetchGitHubRecentRepos),
-    schema: () => repoSchema,
+    schema: repoSchema,
   }
 }
 
@@ -37,7 +37,7 @@ export function gitHubReposLoader(): Loader {
   return {
     name: 'github-repos-loader',
     load: createGitHubLoader(fetchGitHubRepos),
-    schema: () => repoSchema,
+    schema: repoSchema,
   }
 }
 
