@@ -1,4 +1,5 @@
 - id: Starlight
+  position: 0
   repos:
     - generator-starlight-plugin
     - sjt
@@ -31,6 +32,7 @@
     - starlight-versions
     - starlight-videos
 - id: Editor Extensions
+  position: 1
   repos:
     - autocomplete-lodash
     - create
@@ -43,6 +45,7 @@
     - trailing
     - typedown
 - id: Configurations
+  position: 2
   repos:
     - create-app
     - dotfiles
@@ -50,12 +53,14 @@
     - prettier-config
     - tsconfig
 - id: GitHub Blocks
+  position: 3
   repos:
     - issue-form-block
     - npm-install-block
     - prisma-schema-block
     - ts-playground-block
 - id: Themes
+  position: 4
   repos:
     - alfred-theme-vitesse
     - insomnia-plugin-vitesse-theme

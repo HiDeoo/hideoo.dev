@@ -12,12 +12,14 @@ const repoBanList: RegExp[] = [
   /^edge-developer\.fr-FR$/,
   /-test$/,
   /^astro-db-starlight-showcase$/,
+  /^astro-\d-\w/,
 ]
 
 const contributionOwnerBanList = new Set(['sarah11918'])
 
 const GitHubRepoFragment = `fragment Repo on RepositoryConnection {
 	nodes {
+    createdAt
     description
     id
     name
@@ -45,7 +47,7 @@ export async function fetchGitHubRecentRepos(count = 6) {
       }
     }`,
     variables: {
-      count: count + 10,
+      count: count + 20,
     },
   })
 
@@ -173,6 +175,8 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
     }
 
     repos.push({
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      createdAt: new Date(node.createdAt),
       description: node.description,
       id: node.id,
       name: node.name,
@@ -216,8 +220,9 @@ function normalizeContributions(
   })
 
   return sanitizedRawContributions
-    .map((rawContribution) => ({
+    .map((rawContribution, index) => ({
       id: rawContribution.repository.id,
+      index,
       name: rawContribution.repository.nameWithOwner,
       url: String(rawContribution.repository.url),
     }))
@@ -230,6 +235,7 @@ interface GitHubApiRequestBody {
 }
 
 interface GitHubRepo {
+  createdAt: Date
   description: string | null
   id: string
   name: string
@@ -239,6 +245,7 @@ interface GitHubRepo {
 
 interface GitHubContribution {
   id: string
+  index: number
   name: string
   url: string
 }

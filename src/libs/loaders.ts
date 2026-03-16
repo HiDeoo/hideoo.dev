@@ -1,27 +1,29 @@
 import type { Loader } from 'astro/loaders'
-import { z } from 'astro:content'
+import { z } from 'astro/zod'
 
 import { fetchGitHubRecentContributions, fetchGitHubRecentRepos, fetchGitHubRepos } from '@libs/github'
 
 const contributionSchema = z.object({
   id: z.string(),
+  index: z.number(),
   name: z.string(),
-  url: z.string().url(),
+  url: z.url(),
 })
 
 const repoSchema = z.object({
+  createdAt: z.date(),
   description: z.string().nullable(),
   id: z.string(),
   name: z.string(),
   stars: z.number(),
-  url: z.string().url(),
+  url: z.url(),
 })
 
 export function gitHubRecentContributionsLoader(): Loader {
   return {
     name: 'github-recent-contributions-loader',
     load: createGitHubLoader(fetchGitHubRecentContributions),
-    schema: () => contributionSchema,
+    schema: contributionSchema,
   }
 }
 
@@ -29,7 +31,7 @@ export function gitHubRecentReposLoader(): Loader {
   return {
     name: 'github-recent-repos-loader',
     load: createGitHubLoader(fetchGitHubRecentRepos),
-    schema: () => repoSchema,
+    schema: repoSchema,
   }
 }
 
@@ -37,7 +39,7 @@ export function gitHubReposLoader(): Loader {
   return {
     name: 'github-repos-loader',
     load: createGitHubLoader(fetchGitHubRepos),
-    schema: () => repoSchema,
+    schema: repoSchema,
   }
 }
 
@@ -59,3 +61,6 @@ interface GitHubLoaderEntry {
   id: string
   [key: string]: unknown
 }
+
+export type ContributionData = z.output<typeof contributionSchema>
+export type RepositoryData = z.output<typeof repoSchema>

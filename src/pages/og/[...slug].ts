@@ -16,7 +16,7 @@ pages['notes'] = {
 }
 pages['projects'] = { title: "HiDeoo's Open Source Portfolio", description: 'All my projects are available on GitHub.' }
 
-export const { getStaticPaths, GET } = OGImageRoute({
+export const { getStaticPaths, GET } = await OGImageRoute({
   getImageOptions: (_, page: OgPage) => {
     const options: OGImageOptions = {
       bgGradient: [[11, 12, 14]],

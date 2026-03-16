@@ -56,7 +56,7 @@ export async function getNotebooks(): Promise<Notebook[]> {
     }),
   )
 
-  return notebooks.sort((a, b) => b.date.getTime() - a.date.getTime())
+  return notebooks.toSorted((a, b) => b.date.getTime() - a.date.getTime())
 }
 
 export async function getNotebookSectionNotes(notebook: Notebook['id'], section?: string): Promise<Note[]> {
@@ -68,7 +68,7 @@ export async function getNotebookSectionNotes(notebook: Notebook['id'], section?
     })
   }
 
-  return notes.sort((a, b) => {
+  return notes.toSorted((a, b) => {
     const [aOrder, bOrder] = [getNotebookNoteOrder(a), getNotebookNoteOrder(b)]
     return aOrder === bOrder ? 0 : aOrder < bOrder ? -1 : 1
   })

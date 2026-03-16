@@ -1,5 +1,6 @@
 import { file, glob } from 'astro/loaders'
-import { defineCollection, reference, z } from 'astro:content'
+import { z } from 'astro/zod'
+import { defineCollection, reference } from 'astro:content'
 
 import { gitHubRecentContributionsLoader, gitHubRecentReposLoader, gitHubReposLoader } from '@libs/loaders'
 
@@ -32,6 +33,7 @@ const projects = defineCollection({
   loader: file('src/content/projects.yml'),
   schema: z.object({
     id: z.string(),
+    position: z.number(),
     repos: z.array(z.string()),
   }),
 })
