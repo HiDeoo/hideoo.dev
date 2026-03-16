@@ -46,7 +46,7 @@ export async function fetchGitHubRecentRepos(count = 6) {
       }
     }`,
     variables: {
-      count: count + 10,
+      count: count + 20,
     },
   })
 
