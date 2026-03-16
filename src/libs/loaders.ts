@@ -12,6 +12,7 @@ const contributionSchema = z.object({
 const repoSchema = z.object({
   description: z.string().nullable(),
   id: z.string(),
+  index: z.number(),
   name: z.string(),
   stars: z.number(),
   url: z.url(),

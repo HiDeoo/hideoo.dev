@@ -7,7 +7,7 @@ export interface Props {
   repos: (CollectionEntry<'repos'> | CollectionEntry<'recentRepos'>)[]
 }
 
-const { repos } = Astro.props
+const repos = Astro.props.repos.toSorted((a, b) => a.data.index - b.data.index)
 ---
 
 <div>

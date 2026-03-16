@@ -176,6 +176,7 @@ function getReposFromNodes(nodes: Maybe<Maybe<Repository>[]> | undefined) {
     repos.push({
       description: node.description,
       id: node.id,
+      index: repos.length,
       name: node.name,
       stars: node.stargazerCount,
       url: String(node.url),
@@ -233,6 +234,7 @@ interface GitHubApiRequestBody {
 interface GitHubRepo {
   description: string | null
   id: string
+  index: number
   name: string
   stars: number
   url: string
