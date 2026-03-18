@@ -2,7 +2,7 @@
 title: Edit the HTML head of Starlight pages
 description: Learn how to customize the HTML head of Starlight pages to add custom meta tags, styles, or scripts.
 publishDate: 2023-12-03
-updateDate: 2025-02-18
+updateDate: 2026-03-18
 ---
 
 The [HTML head](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/head) is the contents of the `<head>` element of an HTML document.
@@ -206,6 +206,10 @@ export default defineConfig({
 
 Some libraries simplify using [Google Fonts](https://fonts.google.com/) like [Fontsource](https://fontsource.org/) which provides various other benefits like self-hosting performance improvements, versioning, privacy, and more.
 The Starlight documentation contains a [guide](https://starlight.astro.build/guides/customization/#set-up-a-fontsource-font) on how to use Fontsource with Starlight, but if you want to use Google Fonts directly, you can use the following configuration to load the font:
+
+:::note[Heads up]
+Astro v6 includes a [built-in Fonts API](https://docs.astro.build/en/guides/fonts/) that provides an easy way to load fonts while taking care of downloading and caching for self-hosting, generating optimized fallbacks, and adding preload links — keeping your documentation fast and your users’ data private.
+:::
 
 ```js {5-26}
 export default defineConfig({
