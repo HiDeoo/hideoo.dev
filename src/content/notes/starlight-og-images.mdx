@@ -2,7 +2,7 @@
 title: Add Open Graph images to Starlight
 description: Learn how to use astro-og-canvas to generate Open Graph images for your Starlight documentation website.
 publishDate: 2023-12-18
-updateDate: 2026-01-04
+updateDate: 2026-06-30
 ---
 
 [Open Graph Data](https://ogp.me/) can be used by social media platforms like Facebook, X (formerly called Twitter), or Discord to add an image to your [Starlight](https://starlight.astro.build) page links when sharing them.
@@ -41,7 +41,6 @@ To do so, we need to do the following:
 1. Get a list of all documentation entries from the `docs` content collection used by Starlight.
 1. Map the entry array to an object with the [page ID](https://docs.astro.build/en/reference/modules/astro-content/#id) as key and the [frontmatter data](https://starlight.astro.build/reference/frontmatter/) as value.
 1. Pass down the object to the `OGImageRoute` helper.
-1. Define a `param` option to match the name of the parameter used in the endpoint path.
 1. Define a `getImageOptions` function called for each page to customize the generated image.
 
 The following example will create the endpoint in a `src/pages/og/[...slug].ts` file:
@@ -61,9 +60,6 @@ const pages = Object.fromEntries(entries.map(({ data, id }) => [id, { data }]))
 export const { getStaticPaths, GET } = await OGImageRoute({
   // Pass down the documentation pages.
   pages,
-  // Define the name of the parameter used in the endpoint path, here `slug`
-  // as the file is named `[...slug].ts`.
-  param: 'slug',
   // Define a function called for each page to customize the generated image.
   getImageOptions: (_id, page: (typeof pages)[number]) => {
     return {
