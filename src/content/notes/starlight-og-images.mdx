@@ -41,7 +41,6 @@ To do so, we need to do the following:
 1. Get a list of all documentation entries from the `docs` content collection used by Starlight.
 1. Map the entry array to an object with the [page ID](https://docs.astro.build/en/reference/modules/astro-content/#id) as key and the [frontmatter data](https://starlight.astro.build/reference/frontmatter/) as value.
 1. Pass down the object to the `OGImageRoute` helper.
-1. Define a `param` option to match the name of the parameter used in the endpoint path.
 1. Define a `getImageOptions` function called for each page to customize the generated image.
 
 The following example will create the endpoint in a `src/pages/og/[...slug].ts` file:
@@ -61,9 +60,6 @@ const pages = Object.fromEntries(entries.map(({ data, id }) => [id, { data }]))
 export const { getStaticPaths, GET } = await OGImageRoute({
   // Pass down the documentation pages.
   pages,
-  // Define the name of the parameter used in the endpoint path, here `slug`
-  // as the file is named `[...slug].ts`.
-  param: 'slug',
   // Define a function called for each page to customize the generated image.
   getImageOptions: (_id, page: (typeof pages)[number]) => {
     return {
