@@ -31,6 +31,7 @@
     - starlight-ui-strings-cli
     - starlight-versions
     - starlight-videos
+    - starlight-visual-diff
 - id: Editor Extensions
   position: 1
   repos:
