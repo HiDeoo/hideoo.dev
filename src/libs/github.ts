@@ -55,11 +55,25 @@ export async function fetchGitHubRecentRepos(count = 6) {
 }
 
 export async function fetchGitHubRecentContributions(count = 8) {
+  // GitHub suddenly failed with RESOURCE_LIMITS_EXCEEDED, so we now fetch the one-year period in two halves.
+  // Related: https://github.com/orgs/community/discussions/202200
+  const now = new Date()
+  const oneYearAgo = new Date(now)
+  oneYearAgo.setUTCFullYear(oneYearAgo.getUTCFullYear() - 1)
+  const sixMonthsAgo = new Date((oneYearAgo.getTime() + now.getTime()) / 2)
+
+  const recentContributions = await fetchGitHubContributionsBetween(sixMonthsAgo, now)
+  const previousContributions = await fetchGitHubContributionsBetween(oneYearAgo, sixMonthsAgo)
+
+  return normalizeContributions([...recentContributions, ...previousContributions], count)
+}
+
+async function fetchGitHubContributionsBetween(from: Date, to: Date) {
   const json = await fetchGitHubApi<{ viewer: Pick<User, 'contributionsCollection'> }>({
     query: `
-    query {
+    query Contributions($from: DateTime!, $to: DateTime!) {
       viewer {
-        contributionsCollection {
+        contributionsCollection(from: $from, to: $to) {
           pullRequestContributionsByRepository(maxRepositories: 100) {
             repository {
               id
@@ -82,9 +96,13 @@ export async function fetchGitHubRecentContributions(count = 8) {
         }
       }
     }`,
+    variables: {
+      from: from.toISOString(),
+      to: to.toISOString(),
+    },
   })
 
-  return normalizeContributions(json.viewer.contributionsCollection.pullRequestContributionsByRepository, count)
+  return json.viewer.contributionsCollection.pullRequestContributionsByRepository
 }
 
 export async function fetchGitHubRepos() {
@@ -152,7 +170,15 @@ async function fetchGitHubApi<TData>(body: GitHubApiRequestBody) {
     throw new Error(`${response.status}: ${response.statusText} while fetching GitHub API.`)
   }
 
-  const json = (await response.json()) as { data: TData }
+  const json = (await response.json()) as GitHubApiResponse<TData>
+
+  if (json.errors && json.errors.length > 0) {
+    throw new Error(`GitHub GraphQL API: ${json.errors.map((error) => error.message).join('\n')}`)
+  }
+
+  if (json.data === undefined || json.data === null) {
+    throw new Error('GitHub GraphQL API returned no data.')
+  }
 
   return json.data
 }
@@ -193,6 +219,7 @@ function normalizeContributions(
   count: number,
 ): GitHubContribution[] {
   const sanitizedRawContributions: PullRequestContributionsByRepository[] = []
+  const repositoryIds = new Set<string>()
 
   for (const rawContribution of rawContributions) {
     if (
@@ -201,11 +228,13 @@ function normalizeContributions(
       rawContribution.contributions.nodes?.length === 0 ||
       rawContribution.contributions.nodes?.at(0) === null ||
       contributionOwnerBanList.has(rawContribution.repository.owner.login) ||
-      repoBanList.some((regex) => regex.test(rawContribution.repository.name))
+      repoBanList.some((regex) => regex.test(rawContribution.repository.name)) ||
+      repositoryIds.has(rawContribution.repository.id)
     ) {
       continue
     }
 
+    repositoryIds.add(rawContribution.repository.id)
     sanitizedRawContributions.push(rawContribution)
   }
 
@@ -232,6 +261,11 @@ function normalizeContributions(
 interface GitHubApiRequestBody {
   query: string
   variables?: Record<string, string | number | undefined>
+}
+
+interface GitHubApiResponse<TData> {
+  data?: TData | null
+  errors?: { message: string }[]
 }
 
 interface GitHubRepo {
