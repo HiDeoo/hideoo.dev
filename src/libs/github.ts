@@ -152,7 +152,15 @@ async function fetchGitHubApi<TData>(body: GitHubApiRequestBody) {
     throw new Error(`${response.status}: ${response.statusText} while fetching GitHub API.`)
   }
 
-  const json = (await response.json()) as { data: TData }
+  const json = (await response.json()) as GitHubApiResponse<TData>
+
+  if (json.errors && json.errors.length > 0) {
+    throw new Error(`GitHub GraphQL API: ${json.errors.map((error) => error.message).join('\n')}`)
+  }
+
+  if (json.data === undefined || json.data === null) {
+    throw new Error('GitHub GraphQL API returned no data.')
+  }
 
   return json.data
 }
@@ -232,6 +240,11 @@ function normalizeContributions(
 interface GitHubApiRequestBody {
   query: string
   variables?: Record<string, string | number | undefined>
+}
+
+interface GitHubApiResponse<TData> {
+  data?: TData | null
+  errors?: { message: string }[]
 }
 
 interface GitHubRepo {
