@@ -155,6 +155,7 @@ The [`<SkipLink/>`](https://starlight.astro.build/reference/overrides/#skiplink)
 
 Create a custom Astro component to replace the existing `<SkipLink/>` built-in component:
 
+<!-- prettier-ignore -->
 ```astro
 ---
 // src/components/SkipLink.astro

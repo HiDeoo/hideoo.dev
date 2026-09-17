@@ -8,15 +8,13 @@ const recentNotes = await getNotes(5)
 
 <Section title="Recent Notes">
   <ul>
-    {
-      recentNotes.map((note) => (
-        <li>
-          <article>
-            <LinkCard href={note.href} text={note.data.title} title={`Read ${note.data.title}`} />
-          </article>
-        </li>
-      ))
-    }
+    {recentNotes.map((note) => (
+      <li>
+        <article>
+          <LinkCard href={note.href} text={note.data.title} title={`Read ${note.data.title}`} />
+        </article>
+      </li>
+    ))}
   </ul>
 </Section>
 

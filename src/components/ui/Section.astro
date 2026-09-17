@@ -12,13 +12,11 @@ const { title, titleProps } = Astro.props
 ---
 
 <section>
-  {
-    title && (
-      <h2 {...titleProps} id={slug(title)}>
-        {title}
-      </h2>
-    )
-  }
+  {title && (
+    <h2 {...titleProps} id={slug(title)}>
+      {title}
+    </h2>
+  )}
   <slot />
 </section>
 

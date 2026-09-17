@@ -22,11 +22,9 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
   <head>
     {/* https://github.com/withastro/prettier-plugin-astro/issues/316#issuecomment-1400808708 */}
     {
-      (
-        <Head {...headProps} metaDescription={metaDescription ?? title}>
-          <slot name="head" />
-        </Head>
-      )
+      <Head {...headProps} metaDescription={metaDescription ?? title}>
+        <slot name="head" />
+      </Head>
     }
   </head>
   <body>
@@ -35,15 +33,13 @@ const { metaDescription, title, titleVisibility, ...headProps } = Astro.props
     <Header />
     <div class="frame">
       <main id="content">
-        {
-          titleVisibility === 'visible' ? (
-            <h1 class="title">{title}</h1>
-          ) : (
-            <VisuallyHidden>
-              <h1>{title}</h1>
-            </VisuallyHidden>
-          )
-        }
+        {titleVisibility === 'visible' ? (
+          <h1 class="title">{title}</h1>
+        ) : (
+          <VisuallyHidden>
+            <h1>{title}</h1>
+          </VisuallyHidden>
+        )}
         <slot name="content-header" />
         <slot />
       </main>

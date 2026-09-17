@@ -30,17 +30,13 @@ for (const repo of repos) {
 }
 ---
 
-{
-  [...reposByCategories].map(([categoryName, categoryRepos]) => (
-    <Section title={categoryName}>
-      <Repos repos={categoryRepos} />
-    </Section>
-  ))
-}
-{
-  uncategorizedRepos.length > 0 && (
-    <Section title="Other Projects">
-      <Repos repos={uncategorizedRepos} />
-    </Section>
-  )
-}
+{[...reposByCategories].map(([categoryName, categoryRepos]) => (
+  <Section title={categoryName}>
+    <Repos repos={categoryRepos} />
+  </Section>
+))}
+{uncategorizedRepos.length > 0 && (
+  <Section title="Other Projects">
+    <Repos repos={uncategorizedRepos} />
+  </Section>
+)}

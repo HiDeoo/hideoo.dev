@@ -12,24 +12,20 @@ const {
 
 <div class="pagination">
   <div>
-    {
-      prev && (
-        <a href={prev.href}>
-          <div>Newer</div>
-          <span>{prev.title}</span>
-        </a>
-      )
-    }
+    {prev && (
+      <a href={prev.href}>
+        <div>Newer</div>
+        <span>{prev.title}</span>
+      </a>
+    )}
   </div>
   <div>
-    {
-      next && (
-        <a href={next.href} class="link">
-          <div>Older</div>
-          <span>{next.title}</span>
-        </a>
-      )
-    }
+    {next && (
+      <a href={next.href} class="link">
+        <div>Older</div>
+        <span>{next.title}</span>
+      </a>
+    )}
   </div>
 </div>
 

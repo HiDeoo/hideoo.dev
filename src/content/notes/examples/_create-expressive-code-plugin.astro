@@ -35,20 +35,16 @@ Additional context:
 <Example class="code-plugin-demo" description="Example of an Expressive Code plugin to report incorrect code blocks.">
   <Code {code} {lang} />
   {step === 1 && <div>Custom content</div>}
-  {
-    step === 2 && (
-      <div>
-        <a href={url}>Report incorrect code</a>
-      </div>
-    )
-  }
-  {
-    step === 3 && (
-      <div class="actions">
-        <a href={url}>Report incorrect code</a>
-      </div>
-    )
-  }
+  {step === 2 && (
+    <div>
+      <a href={url}>Report incorrect code</a>
+    </div>
+  )}
+  {step === 3 && (
+    <div class="actions">
+      <a href={url}>Report incorrect code</a>
+    </div>
+  )}
 </Example>
 
 <style>

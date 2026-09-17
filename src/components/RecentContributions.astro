@@ -12,7 +12,9 @@ if (recentContributions.length < 8) {
 
 <Section title="Recent Contributions">
   <div>
-    {recentContributions.map((contribution) => <RepoLink href={contribution.data.url} name={contribution.data.name} />)}
+    {recentContributions.map((contribution) => (
+      <RepoLink href={contribution.data.url} name={contribution.data.name} />
+    ))}
   </div>
 </Section>
 

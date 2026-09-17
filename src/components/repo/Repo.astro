@@ -21,21 +21,19 @@ const srDescription = `${repo.name} - ${
 ---
 
 <RepoLink href={repo.url} name={repo.name}>
-  <VisuallyHidden>
-    {srDescription}
-  </VisuallyHidden>
+  <VisuallyHidden>{srDescription}</VisuallyHidden>
   <div aria-hidden="true" class="header">
     <div class="name">{repo.name}</div>
-    {
-      shouldShowStars && (
-        <div class="stars">
-          {repo.stars}
-          <Icon name="star" />
-        </div>
-      )
-    }
+    {shouldShowStars && (
+      <div class="stars">
+        {repo.stars}
+        <Icon name="star" />
+      </div>
+    )}
   </div>
-  <div aria-hidden="true" class="description">{description}</div>
+  <div aria-hidden="true" class="description">
+    {description}
+  </div>
 </RepoLink>
 
 <style>
