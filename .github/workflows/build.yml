@@ -5,6 +5,8 @@ on:
   schedule:
     - cron: '45 0 * * *'
 
+permissions: {}
+
 jobs:
   build:
     name: Build
