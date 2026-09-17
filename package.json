@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@astrojs/markdown-remark": "^7.3.1",
+    "@astrojs/markdown-satteri": "^0.4.1",
     "@astrojs/mdx": "^8.0.1",
     "@astrojs/rss": "^4.0.19",
     "@astrojs/sitemap": "^3.7.4",
@@ -27,8 +27,6 @@
     "@hideoo/tsconfig": "^2.0.4",
     "@octokit/graphql-schema": "^15.26.1",
     "@playwright/test": "^1.63.0",
-    "@types/mdast": "^4.0.4",
-    "@types/unist": "^3.0.3",
     "@unocss/reset": "^66.10.5",
     "astro": "^7.3.3",
     "astro-expressive-code": "^0.44.2",
@@ -38,21 +36,16 @@
     "canvaskit-wasm": "^0.42.0",
     "eslint": "^10.10.0",
     "github-slugger": "^2.0.0",
-    "hastscript": "^9.0.1",
-    "mdast-util-to-hast": "^13.2.1",
     "postcss-preset-env": "^11.5.3",
     "prettier": "^3.9.7",
     "prettier-plugin-astro": "^1.0.1",
     "reading-time": "^1.5.0",
-    "rehype-autolink-headings": "^7.1.0",
-    "remark-directive": "^4.0.0",
+    "satteri": "^0.10.5",
     "schema-dts": "^2.0.0",
     "sharp": "^0.35.4",
     "tinyduration": "^3.4.1",
     "typescript": "^6.0.3",
-    "ultrahtml": "^1.7.0",
-    "unist-util-remove": "^4.0.0",
-    "unist-util-visit": "^5.1.0"
+    "ultrahtml": "^1.7.0"
   },
   "devEngines": {
     "runtime": {
