@@ -24,7 +24,7 @@
     "@expressive-code/plugin-collapsible-sections": "^0.41.7",
     "@hideoo/eslint-config": "^5.2.1",
     "@hideoo/prettier-config": "^2.0.2",
-    "@hideoo/tsconfig": "^2.0.3",
+    "@hideoo/tsconfig": "^2.0.4",
     "@octokit/graphql-schema": "^15.26.1",
     "@playwright/test": "^1.58.2",
     "@types/mdast": "^4.0.4",
@@ -48,7 +48,7 @@
     "schema-dts": "^1.1.5",
     "sharp": "^0.34.5",
     "tinyduration": "^3.4.1",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.3",
     "ultrahtml": "^1.6.0",
     "unist-util-remove": "^4.0.0",
     "unist-util-visit": "^5.1.0"
