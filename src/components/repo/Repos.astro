@@ -11,7 +11,9 @@ const repos = Astro.props.repos.toSorted((a, b) => a.data.index - b.data.index)
 ---
 
 <div>
-  {repos.map((repo) => <Repo {repo} />)}
+  {repos.map((repo) => (
+    <Repo {repo} />
+  ))}
 </div>
 
 <style>

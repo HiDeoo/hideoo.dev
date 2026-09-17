@@ -5,13 +5,11 @@ export type Props = ExampleProps
 ---
 
 <Example {...Astro.props}>
-  {
-    Astro.slots.has('title') && (
-      <div class="sl-page-title">
-        <slot name="title" />
-      </div>
-    )
-  }
+  {Astro.slots.has('title') && (
+    <div class="sl-page-title">
+      <slot name="title" />
+    </div>
+  )}
   <div class="sl-markdown-content">
     <slot />
   </div>

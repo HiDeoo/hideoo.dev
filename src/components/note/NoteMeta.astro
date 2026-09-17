@@ -14,17 +14,15 @@ const hasUpdates = showUpdates && meta.updateDate !== undefined
 ---
 
 <NoteHeader {tag}>
-  <VisuallyHidden>Published on</VisuallyHidden>
+  <VisuallyHidden>Published on </VisuallyHidden>
   <time datetime={meta.publishDatetime}>{meta.publishDate}</time>
-  {
-    hasUpdates && (
-      <>
-        {' - '}
-        Updated on <time datetime={meta.updateDatetime}>{meta.updateDate}</time>
-      </>
-    )
-  }
+  {hasUpdates && (
+    <>
+      {' - '}
+      Updated on <time datetime={meta.updateDatetime}>{meta.updateDate}</time>
+    </>
+  )}
   {' - '}
-  <VisuallyHidden>Reading time</VisuallyHidden>
+  <VisuallyHidden>Reading time </VisuallyHidden>
   <time datetime={meta.readingDatetime}>{meta.readingTime}</time>
 </NoteHeader>

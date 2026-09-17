@@ -15,18 +15,16 @@ const { notes } = Astro.props
 ---
 
 <ul>
-  {
-    notes.map((note) => (
-      <li>
-        <article>
-          <p>
-            <a href={note.href}>{note.data.title}</a>
-          </p>
-          <NoteMeta meta={note} />
-        </article>
-      </li>
-    ))
-  }
+  {notes.map((note) => (
+    <li>
+      <article>
+        <p>
+          <a href={note.href}>{note.data.title}</a>
+        </p>
+        <NoteMeta meta={note} />
+      </article>
+    </li>
+  ))}
 </ul>
 
 <style>

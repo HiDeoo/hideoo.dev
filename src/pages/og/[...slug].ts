@@ -61,7 +61,6 @@ export const { getStaticPaths, GET } = await OGImageRoute({
     return options
   },
   pages,
-  param: 'slug',
 })
 
 interface OgPage {

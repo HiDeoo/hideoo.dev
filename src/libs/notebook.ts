@@ -29,10 +29,10 @@ export async function getNotebooks(): Promise<Notebook[]> {
 
       if (!publishDate) throw new Error(`Notebook ${aNotebook.id} has no publish date.`)
 
-      const pDate = formatDateMeta(publishDate)
-
       if (readingTimeMinutes > 60)
         throw new Error('Notebook reading time exceeds 60 minutes, which is not implemented yet.')
+
+      const pDate = formatDateMeta(publishDate)
 
       const notebook: Notebook = {
         ...aNotebook,

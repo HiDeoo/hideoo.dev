@@ -65,12 +65,10 @@ const releases = await getCollection('releases')
 ---
 
 <StarlightPage frontmatter={{ title: 'Recent Releases' }}>
-  {
-    releases.map((release) => {
-      // Loop over the releases to display their titles.
-      return <h2>{release.data.title}</h2>
-    })
-  }
+  {releases.map((release) => {
+    // Loop over the releases to display their titles.
+    return <h2>{release.data.title}</h2>
+  })}
 </StarlightPage>
 ```
 
@@ -168,7 +166,9 @@ const headings = releases.map((release) => ({
 ---
 
 <StarlightPage frontmatter={{ title: 'Recent Releases' }} {headings}>
-  {releases.map((release) => <Release {release} />)}
+  {releases.map((release) => (
+    <Release {release} />
+  ))}
 </StarlightPage>
 ```
 

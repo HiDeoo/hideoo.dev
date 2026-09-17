@@ -15,7 +15,9 @@ const links = [
     <svg aria-hidden="true" height="20" viewBox="20 20 60 60" width="20">
       <path class="top" d="m 70,33 h -40 c 0,0 -8.5,-0.149796 -8.5,8.5 0,8.649796 8.5,8.5 8.5,8.5 h 20 v -20"></path>
       <path d="m 70,50 h -40"></path>
-      <path class="bottom" d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"
+      <path
+        class="bottom"
+        d="m 30,67 h 40 c 0,0 8.5,0.149796 8.5,-8.5 0,-8.649796 -8.5,-8.5 -8.5,-8.5 h -20 v 20"
       ></path>
     </svg>
   </HeaderButton>
@@ -23,15 +25,13 @@ const links = [
 
 <nav id="navigation-menu">
   <ul>
-    {
-      links.map((link) => (
-        <li>
-          <a aria-current={Astro.url.pathname === link.href} href={link.href}>
-            {link.label}
-          </a>
-        </li>
-      ))
-    }
+    {links.map((link) => (
+      <li>
+        <a aria-current={Astro.url.pathname === link.href} href={link.href}>
+          {link.label}
+        </a>
+      </li>
+    ))}
   </ul>
 </nav>
 
@@ -57,7 +57,7 @@ const links = [
           this.#toggle?.focus()
         })
 
-        globalThis.matchMedia('(width >= 640px)').addEventListener('change', (event) => {
+        matchMedia('(width >= 640px)').addEventListener('change', (event) => {
           if (this.isNavigationMenuExpanded && event.matches) {
             this.#setNavigationMenuExpanded(false)
           }

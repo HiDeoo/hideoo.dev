@@ -11,16 +11,14 @@ const { href, text, title } = Astro.props
 ---
 
 <a class:list={{ 'link-card-text': typeof text === 'string' }} href={href} title={title}>
-  {
-    text ? (
-      <>
-        <div>{text}</div>
-        <Icon name="chevron-right" />
-      </>
-    ) : (
-      <slot />
-    )
-  }
+  {text ? (
+    <>
+      <div>{text}</div>
+      <Icon name="chevron-right" />
+    </>
+  ) : (
+    <slot />
+  )}
 </a>
 
 <style>

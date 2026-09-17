@@ -17,23 +17,19 @@ const commands = getCommands(type, pkg, options)
 
 <pkg-tabs class="not-prose">
   <ul role="tablist">
-    {
-      commands.map(({ label, panelID, tabID }, index) => (
-        <li role="presentation">
-          <a role="tab" href={`#${panelID}`} id={tabID} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1}>
-            {label}
-          </a>
-        </li>
-      ))
-    }
+    {commands.map(({ label, panelID, tabID }, index) => (
+      <li role="presentation">
+        <a role="tab" href={`#${panelID}`} id={tabID} aria-selected={index === 0} tabindex={index === 0 ? 0 : -1}>
+          {label}
+        </a>
+      </li>
+    ))}
   </ul>
-  {
-    commands.map(({ content, panelID, tabID }, index) => (
-      <section role="tabpanel" id={panelID} aria-labelledby={tabID} hidden={index > 0}>
-        <Code code={content} frame="none" lang="shell" />
-      </section>
-    ))
-  }
+  {commands.map(({ content, panelID, tabID }, index) => (
+    <section role="tabpanel" id={panelID} aria-labelledby={tabID} hidden={index > 0}>
+      <Code code={content} frame="none" lang="shell" />
+    </section>
+  ))}
 </pkg-tabs>
 
 <style>

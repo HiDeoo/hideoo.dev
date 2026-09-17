@@ -19,7 +19,7 @@ export async function getNotes(count?: number): Promise<Note[]> {
       throw new Error(`Note ${aNote.id} has no body.`)
     }
 
-    // Not using remark so we can use the reading time in the note list.
+    // Not using Sätteri so we can use the reading time in the note list.
     let readingTimeMinutes = Math.floor(readingTime(aNote.body).minutes)
 
     if (readingTimeMinutes < 1) {
@@ -93,7 +93,7 @@ export function getNoteSchema(note: Note, site: URL | undefined, includeRef = tr
   if (includeRef) {
     schema.mainEntityOfPage = {
       '@type': 'WebPage',
-      '@id': new URL('/notes', site).toString(),
+      '@id': new URL('/notes', site).href,
     }
   }
 
