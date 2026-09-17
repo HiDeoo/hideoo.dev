@@ -57,7 +57,7 @@ const links = [
           this.#toggle?.focus()
         })
 
-        globalThis.matchMedia('(width >= 640px)').addEventListener('change', (event) => {
+        matchMedia('(width >= 640px)').addEventListener('change', (event) => {
           if (this.isNavigationMenuExpanded && event.matches) {
             this.#setNavigationMenuExpanded(false)
           }

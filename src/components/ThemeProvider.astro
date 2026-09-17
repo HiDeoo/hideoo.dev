@@ -10,7 +10,7 @@
 
 <script is:inline>
   globalThis.ThemeProvider = (() => {
-    const preferDarkTheme = globalThis.matchMedia('(prefers-color-scheme: dark)')
+    const preferDarkTheme = matchMedia('(prefers-color-scheme: dark)')
     const themes = { dark: 'dark', light: 'light' }
     const localStorageThemeKey = 'theme'
     let theme = getTheme()

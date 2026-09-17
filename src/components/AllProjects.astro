@@ -24,14 +24,14 @@ for (const projectsCategory of projectsCategories) {
 }
 
 for (const repo of repos) {
-  if (![...reposByCategories.values()].flat().includes(repo)) {
+  if (!reposByCategories.values().toArray().flat().includes(repo)) {
     uncategorizedRepos.push(repo)
   }
 }
 ---
 
 {
-  [...reposByCategories.entries()].map(([categoryName, categoryRepos]) => (
+  [...reposByCategories].map(([categoryName, categoryRepos]) => (
     <Section title={categoryName}>
       <Repos repos={categoryRepos} />
     </Section>

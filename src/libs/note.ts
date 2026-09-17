@@ -93,7 +93,7 @@ export function getNoteSchema(note: Note, site: URL | undefined, includeRef = tr
   if (includeRef) {
     schema.mainEntityOfPage = {
       '@type': 'WebPage',
-      '@id': new URL('/notes', site).toString(),
+      '@id': new URL('/notes', site).href,
     }
   }
 

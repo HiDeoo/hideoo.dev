@@ -45,7 +45,7 @@ function isContainerDirective(node: Node): node is ContainerDirective {
 }
 
 function isDirectiveLabel(node: Node): node is DirectiveLabel {
-  return node.data !== undefined && (node as DirectiveLabel).data.directiveLabel === true
+  return node.data !== undefined && (node as DirectiveLabel).data.directiveLabel
 }
 
 function isParagraph(node: Node | undefined): node is Paragraph {
