@@ -6,3 +6,4 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - prettier@3.9.7
   - prettier-plugin-astro@1.0.1
+  - astro@7.3.3
