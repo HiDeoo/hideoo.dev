@@ -9,7 +9,10 @@ const pages: Record<string, OgPage> = Object.fromEntries(
   [...notes, ...notebooks].map(({ data, href }) => [href.replace(/^\//, ''), data]),
 )
 
-pages['index'] = { title: "HiDeoo's projects and notes", description: 'Mostly TypeScript, Astro, React and some Go.' }
+pages['index'] = {
+  title: "HiDeoo's projects and notes",
+  description: 'Mostly TypeScript, Astro, and things like React or Rust.',
+}
 pages['notes'] = {
   title: "HiDeoo's Personal Notes",
   description: 'Guides, code, and thoughts from my personal journey.',
