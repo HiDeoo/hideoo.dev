@@ -4,26 +4,31 @@ const commands = {
   npm: {
     add: 'npm install',
     devOption: '-D',
+    dlx: 'npx',
     exec: 'npx',
   },
   pnpm: {
     add: 'pnpm add',
     devOption: '-D',
+    dlx: 'pnpx',
     exec: 'pnpm',
   },
   yarn: {
     add: 'yarn add',
     devOption: '-D',
+    dlx: 'yarn dlx',
     exec: 'yarn',
   },
   bun: {
     add: 'bun add',
     devOption: '-d',
+    dlx: 'bunx',
     exec: 'bun run --bun',
   },
   ni: {
     add: 'ni',
     devOption: '-D',
+    dlx: 'nlx',
     exec: 'nr',
   },
 } satisfies Record<PackageManager, Record<CommandType | 'devOption', string>>
@@ -71,7 +76,7 @@ function getCommandContent(
   }
 
   if (options.args && options.args.length > 0) {
-    if (pkgManager === 'npm' && type !== 'exec') {
+    if (pkgManager === 'npm' && type === 'add') {
       command += ' --'
     }
 
@@ -83,7 +88,7 @@ function getCommandContent(
 
 export type PackageManager = (typeof pkgManagers)[number]
 
-export type CommandType = 'add' | 'exec'
+export type CommandType = 'add' | 'dlx' | 'exec'
 
 export interface CommandOptions {
   args?: string
