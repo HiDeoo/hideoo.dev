@@ -1,0 +1,48 @@
+---
+import svg from '../../../assets/starlight-add-mermaid-diagrams-using-pele/diagram.svg?raw'
+
+import StarlightMdExample from '@components/example/StarlightMdExample.astro'
+---
+
+<StarlightMdExample description="Example of a Starlight content with a Mermaid diagram rendered using Pele.">
+  <h2>My heading</h2>
+  <p>The content of my Starlight page.</p>
+  <div class="diagram" set:html={svg} />
+</StarlightMdExample>
+
+<style>
+  .diagram {
+    --pele-bg: hsl(0, 0%, 100%);
+    --pele-fg: hsl(224, 10%, 23%);
+    --pele-muted: hsl(224, 7%, 36%);
+    --pele-line: hsl(224, 10%, 23%);
+    --pele-surface: hsl(224, 20%, 94%);
+    --pele-surface-alt: hsl(224, 6%, 77%);
+    --pele-border: hsl(224, 6%, 56%);
+    --pele-accent: hsl(234, 90%, 60%);
+    --pele-critical: hsl(339, 90%, 60%);
+    --pele-font:
+      -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', Arial, sans-serif,
+      'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+    --pele-font-mono:
+      ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+    :global(:root[data-theme='dark']) & {
+      --pele-bg: hsl(224, 10%, 10%);
+      --pele-fg: hsl(224, 6%, 77%);
+      --pele-muted: hsl(224, 6%, 56%);
+      --pele-line: hsl(224, 6%, 77%);
+      --pele-surface: hsl(224, 14%, 16%);
+      --pele-surface-alt: hsl(224, 10%, 23%);
+      --pele-border: hsl(224, 7%, 36%);
+      --pele-accent: hsl(224, 100%, 60%);
+      --pele-critical: hsl(339, 82%, 63%);
+    }
+
+    margin-top: 1rem;
+
+    & :global(.pele) {
+      display: block;
+    }
+  }
+</style>
